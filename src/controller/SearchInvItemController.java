@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
@@ -27,13 +26,12 @@ import model.MasterDatabase;
 
 public class SearchInvItemController implements Initializable {
 
-	// @FXML Parent parent;
+	/*
+	 * Fields for SearchInventoryTab.fxml
+	 */
 
 	@FXML
 	private ListView<InvItem> list;
-
-	@FXML
-	private Hyperlink link;
 
 	@FXML
 	private TextField searchBar;
@@ -53,7 +51,34 @@ public class SearchInvItemController implements Initializable {
 	@FXML
 	private VBox vbox;
 
-	private ObservableList<InvItem> selectedItems, allItems;
+	/*
+	 * Fields for NewInvItem.fxml
+	 */
+
+	@FXML
+	private Label descriptionLabel;
+
+	@FXML
+	private Label itemIdLabel;
+
+	@FXML
+	private Label categoryLabel;
+
+	@FXML
+	private Label priceLabel;
+
+	@FXML
+	private Label conditionLabel;
+
+	@FXML
+	private Label specsLabel;
+
+	@FXML
+	private Button closeBtn;
+
+	private ObservableList<InvItem> allItems, selectedItems;
+	
+	private InvItem item;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -72,10 +97,37 @@ public class SearchInvItemController implements Initializable {
 			}
 		}
 	}
-	
-	public void viewItem(ActionEvent event){
+
+	public void viewItem(ActionEvent event) {
+		item = list.getSelectionModel().getSelectedItem();
 		selectedItems = list.getSelectionModel().getSelectedItems();
-		
+		if (selectedItems != null) {
+			createStage();
+			setLabels();
+		}
+
+	}
+
+	public void setLabels() {
+		descriptionLabel.setText(item.getDescription());
+		itemIdLabel.setText(item.getItemId());
+		categoryLabel.setText(item.getCategory());
+		priceLabel.setText(String.valueOf(item.getPrice()));
+		conditionLabel.setText(item.getCondition());
+		specsLabel.setText(item.getSpecs());
+	}
+
+	public void createStage() {
+		Stage stage = new Stage();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/ViewInvItem.fxml"));
+		} catch (IOException e) {
+
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	public void switchBackToHomeTab(ActionEvent event) {
