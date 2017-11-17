@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="borderRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+   <center>
+      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="tab" text="Home">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutX="25.0" layoutY="95.0" prefHeight="88.0" prefWidth="147.0">
+                           <children>
+                              <Label text="Order" translateX="5.0" />
+                              <Hyperlink fx:id="createOrderLink" text="Create Order" />
+                              <Hyperlink text="Order Search" />
+                              <Hyperlink text="Create Return" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="27.0" layoutY="201.0" prefHeight="103.0" prefWidth="148.0">
+                           <children>
+                              <Label text="Shipping" translateX="5.0" />
+                              <Hyperlink text="Pick" />
+                              <Hyperlink text="Pack" />
+                              <Hyperlink text="Track Shipment" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="200.0" layoutY="13.0" prefHeight="94.0" prefWidth="175.0">
+                           <children>
+                              <Label text="Inventory Management" translateX="5.0" />
+                              <Hyperlink fx:id="newInvItemLink" onAction="#openAddItemPane" text="Create new Item" />
+                              <Hyperlink text="Remove Item" />
+                              <Hyperlink fx:id="searchInventoryLink" onAction="#openSearchInventoryPane" text="Search Inventory" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="200.0" layoutY="116.0" prefHeight="109.0" prefWidth="176.0">
+                           <children>
+                              <Label text="Administration" translateX="5.0" />
+                              <Hyperlink fx:id="newUserLink" onAction="#openAddUserPane" text="New User" />
+                              <Hyperlink text="User Search" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="24.0" layoutY="15.0" prefHeight="72.0" prefWidth="124.0">
+                           <children>
+                              <Label text="Customer" translateX="5.0" />
+                              <Hyperlink text="New Customer" />
+                              <Hyperlink text="Customer Search" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <top>
+      <HBox prefHeight="50.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Label" translateY="5.0" />
+            <TextField prefWidth="280.0" />
+         </children>
+         <padding>
+            <Insets left="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </top>
+</BorderPane>
