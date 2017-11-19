@@ -99,6 +99,7 @@ public class NewEmployeeController implements Initializable {
 		user.setLastName(lNameField.getText());
 		user.setEmail(emailField.getText());
 		user.setPhone(phoneField.getText());
+		user.setStatus("Currently Employed");
 		user.setHireDate(date);
 	}
 

@@ -46,7 +46,7 @@
                            <children>
                               <Label text="Administration" translateX="5.0" />
                               <Hyperlink fx:id="newUserLink" onAction="#openAddUserPane" text="New User" />
-                              <Hyperlink text="User Search" />
+                              <Hyperlink fx:id="userSearchLink" onAction="#openSearchUserPane" text="User Search" />
                            </children>
                         </VBox>
                         <VBox layoutX="24.0" layoutY="15.0" prefHeight="72.0" prefWidth="124.0">

@@ -33,13 +33,15 @@
                               <Label fx:id="conditionLabel" alignment="TOP_LEFT" layoutX="100.0" layoutY="93.0" prefHeight="37.0" prefWidth="95.0" text="conditionLabel" visible="false" />
                            </children>
                         </AnchorPane>
-                        <ImageView fx:id="imageView" fitHeight="181.0" fitWidth="263.0" layoutX="455.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imageView" fitHeight="181.0" fitWidth="218.0" layoutX="518.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="price" layoutX="288.0" layoutY="199.0" text="Price:" visible="false" />
-                        <Label fx:id="priceLabel" layoutX="339.0" layoutY="199.0" text="priceLabel" visible="false" />
-                        <Label fx:id="specifications" layoutX="288.0" layoutY="253.0" text="Specifications" visible="false" />
+                        <Label fx:id="priceLabel" layoutX="345.0" layoutY="199.0" text="priceLabel" visible="false" />
+                        <Label fx:id="specifications" layoutX="288.0" layoutY="263.0" text="Specifications" visible="false" />
                         <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="21.0" prefHeight="40.0" prefWidth="368.0" text="descriptionLabel" visible="false" wrapText="true" />
-                        <Label fx:id="specsLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="282.0" prefHeight="98.0" prefWidth="395.0" text="specsLabel" visible="false" wrapText="true" />
+                        <Label fx:id="specsLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="290.0" prefHeight="98.0" prefWidth="395.0" text="specsLabel" visible="false" wrapText="true" />
                         <Button fx:id="removeBtn" layoutX="100.0" layoutY="298.0" mnemonicParsing="false" onAction="#removeItem" text="Remove Item" />
+                        <Label fx:id="status" layoutX="288.0" layoutY="228.0" text="Status:" visible="false" />
+                        <Label fx:id="statusLabel" layoutX="346.0" layoutY="228.0" prefHeight="17.0" prefWidth="117.0" text="statusLabel" visible="false" />
                      </children>
                   </AnchorPane>
                </content>

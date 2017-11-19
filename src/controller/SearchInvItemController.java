@@ -87,6 +87,12 @@ public class SearchInvItemController implements Initializable {
 
 	@FXML
 	private Label specsLabel;
+	
+	@FXML
+	private Label status;
+	
+	@FXML
+	private Label statusLabel;
 
 	@FXML
 	private Button closeBtn;
@@ -132,7 +138,7 @@ public class SearchInvItemController implements Initializable {
 		allItems = list.getItems();
 		for (InvItem item : selectedItems) {
 			if (MasterDatabase.getInventory().containsValue(item)) {
-				MasterDatabase.getInventory().remove(item);
+				MasterDatabase.getInventory().get(item.getItemId()).setStatus("Out of Stock");
 				allItems.remove(item);
 				setLabelsInvisible();
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -154,6 +160,7 @@ public class SearchInvItemController implements Initializable {
 			conditionLabel.setText(item.getCondition());
 			specsLabel.setText(item.getSpecs());
 			imageView.setImage(item.getImage());
+			statusLabel.setText(item.getStatus());
 		}
 
 	}
@@ -171,6 +178,8 @@ public class SearchInvItemController implements Initializable {
 		specifications.setVisible(true);
 		specsLabel.setVisible(true);
 		imageView.setVisible(true);
+		status.setVisible(true);
+		statusLabel.setVisible(true);
 
 	}
 
@@ -187,6 +196,8 @@ public class SearchInvItemController implements Initializable {
 		specifications.setVisible(false);
 		specsLabel.setVisible(false);
 		imageView.setVisible(false);
+		status.setVisible(false);
+		statusLabel.setVisible(false);
 
 	}
 

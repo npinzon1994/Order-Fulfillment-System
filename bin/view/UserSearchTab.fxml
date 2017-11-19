@@ -10,17 +10,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="765.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchInvItemController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="765.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserSearchController">
    <children>
       <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="766.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
-            <Tab text="Inventory Lookup">
+            <Tab text="Search Users">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="405.0" prefWidth="766.0">
                      <children>
                         <Label layoutX="27.0" layoutY="24.0" text="Enter Search Criteria" />
                         <TextField fx:id="searchBar" layoutX="27.0" layoutY="45.0" prefHeight="27.0" prefWidth="161.0" />
-                        <Button fx:id="searchBtn" layoutX="197.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchItem" text="Search" />
+                        <Button fx:id="searchBtn" layoutX="197.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchUser" text="Search" />
                         <Button fx:id="cancelBtn" layoutX="28.0" layoutY="298.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" text="Cancel" />
                         <ListView fx:id="list" layoutX="28.0" layoutY="90.0" prefHeight="200.0" prefWidth="230.0" />
                         <AnchorPane layoutX="273.0" layoutY="59.0" prefHeight="138.0" prefWidth="200.0">
@@ -33,15 +33,13 @@
                               <Label fx:id="conditionLabel" alignment="TOP_LEFT" layoutX="100.0" layoutY="93.0" prefHeight="37.0" prefWidth="95.0" text="conditionLabel" visible="false" />
                            </children>
                         </AnchorPane>
-                        <ImageView fx:id="imageView" fitHeight="181.0" fitWidth="218.0" layoutX="518.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imageView" fitHeight="181.0" fitWidth="263.0" layoutX="455.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="price" layoutX="288.0" layoutY="199.0" text="Price:" visible="false" />
-                        <Label fx:id="priceLabel" layoutX="345.0" layoutY="199.0" text="priceLabel" visible="false" />
-                        <Label fx:id="specifications" layoutX="288.0" layoutY="263.0" text="Specifications" visible="false" />
+                        <Label fx:id="priceLabel" layoutX="339.0" layoutY="199.0" text="priceLabel" visible="false" />
+                        <Label fx:id="specifications" layoutX="288.0" layoutY="253.0" text="Specifications" visible="false" />
                         <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="21.0" prefHeight="40.0" prefWidth="368.0" text="descriptionLabel" visible="false" wrapText="true" />
-                        <Label fx:id="specsLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="290.0" prefHeight="98.0" prefWidth="395.0" text="specsLabel" visible="false" wrapText="true" />
-                        <Button fx:id="removeBtn" layoutX="100.0" layoutY="298.0" mnemonicParsing="false" onAction="#removeItem" text="Remove Item" />
-                        <Label fx:id="status" layoutX="288.0" layoutY="228.0" text="Status:" visible="false" />
-                        <Label fx:id="statusLabel" layoutX="346.0" layoutY="228.0" prefHeight="17.0" prefWidth="117.0" text="statusLabel" visible="false" />
+                        <Label fx:id="specsLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="282.0" prefHeight="98.0" prefWidth="395.0" text="specsLabel" visible="false" wrapText="true" />
+                        <Button fx:id="removeBtn" layoutX="100.0" layoutY="298.0" mnemonicParsing="false" onAction="#removeUser" text="Remove Item" />
                      </children>
                   </AnchorPane>
                </content>

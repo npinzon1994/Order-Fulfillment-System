@@ -8,20 +8,20 @@ public class InvItem {
 	private String category;
 	private double price;
 	private String specs;
-	private int quantity;
+	private String status;
 	private static int itemId = 1000;
 	private String id;
 	private String condition;
 	private Image image;
 
-	public InvItem(String description, String category, double price, String specs, int quantity, String condition,
+	public InvItem(String description, String category, double price, String specs, String status, String condition,
 			Image image) {
 		super();
 		this.description = description;
 		this.category = category;
 		this.price = price;
 		this.specs = specs;
-		this.quantity = quantity;
+		this.status = status;
 		this.id = String.valueOf(itemId++);
 		this.condition = condition;
 		this.image = image;
@@ -63,12 +63,12 @@ public class InvItem {
 		this.specs = specs;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getItemId() {

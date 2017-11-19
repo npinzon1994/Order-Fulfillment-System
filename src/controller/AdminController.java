@@ -73,6 +73,10 @@ public class AdminController implements Initializable {
 		}
 
 	}
+	
+	public void openSearchUserPane(ActionEvent event){
+		
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

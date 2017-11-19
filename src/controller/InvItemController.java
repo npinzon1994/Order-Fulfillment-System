@@ -86,8 +86,7 @@ public class InvItemController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -110,6 +109,8 @@ public class InvItemController implements Initializable {
 		item.setCondition(condition.getSelectionModel().getSelectedItem());
 		item.setSpecs(specs.getText());
 		item.setImage(tempImage);
+		item.setStatus("In Stock");
+		
 	}
 
 	public void chooseImage() {
