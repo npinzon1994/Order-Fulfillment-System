@@ -1,11 +1,15 @@
 package controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,11 +22,15 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import model.Administrator;
 import model.CustomerServiceRep;
+import model.MasterDatabase;
 import model.OperationsAssociate;
-import model.User;
 
 public class NewEmployeeController implements Initializable {
 
@@ -46,11 +54,15 @@ public class NewEmployeeController implements Initializable {
 
 	@FXML
 	private ComboBox<String> levelBox;
-
-	private HashMap<String, User> userDatabase = new HashMap<String, User>();
+	
+	@FXML
+	private ImageView imageView;
+	
 	private CustomerServiceRep user;
 
 	private LocalDate date = LocalDate.now();
+	
+	private Image tempImage;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -77,7 +89,7 @@ public class NewEmployeeController implements Initializable {
 	public void addUserToDatabase(ActionEvent event) {
 		createEmployee();
 		initializeEmployee();
-		userDatabase.put(user.getId(), user);
+		MasterDatabase.getUserDatabase().put(user.getId(), user);
 		clearFields();
 		createdNewEmployeeAlert();
 	}
@@ -101,6 +113,7 @@ public class NewEmployeeController implements Initializable {
 		user.setPhone(phoneField.getText());
 		user.setStatus("Currently Employed");
 		user.setHireDate(date);
+		user.setPicture(tempImage);
 	}
 
 	public void clearFields() {
@@ -109,6 +122,28 @@ public class NewEmployeeController implements Initializable {
 		emailField.clear();
 		phoneField.clear();
 		levelBox.getSelectionModel().selectFirst();
+	}
+	
+	public void chooseImage() {
+		FileChooser chooser = new FileChooser();
+		ExtensionFilter png = new ExtensionFilter("PNG Files", "*.png");
+		ExtensionFilter jpeg = new ExtensionFilter("JPEG Files", "*.jpeg");
+		ExtensionFilter bitmap = new ExtensionFilter("Bitmap Files", "*.bmp");
+		ExtensionFilter tif = new ExtensionFilter("TIF Files", "*.tif");
+
+		chooser.getExtensionFilters().addAll(png, jpeg, bitmap, tif);
+		File file = chooser.showOpenDialog(emailField.getScene().getWindow());
+		if (file != null) {
+			BufferedImage bufferedImage = null;
+			try {
+				bufferedImage = ImageIO.read(file);
+			} catch (IOException e) {
+
+			}
+			Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+			imageView.setImage(image);
+			tempImage = image;
+		}
 	}
 
 	public void createdNewEmployeeAlert() {

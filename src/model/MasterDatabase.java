@@ -9,7 +9,7 @@ public class MasterDatabase {
 	private static MasterDatabase _master;
 
 	private static HashMap<String, InvItem> inventory;
-	private static HashMap<String, User> userDatabase;
+	private static HashMap<String, CustomerServiceRep> userDatabase;
 	private static HashMap<String, Invoice> invoiceDatabase;
 
 	private static ObservableList<InvItem> allInvItems;
@@ -34,7 +34,7 @@ public class MasterDatabase {
 		return inventory;
 	}
 
-	public static HashMap<String, User> getUserDatabase() {
+	public static HashMap<String, CustomerServiceRep> getUserDatabase() {
 		return userDatabase;
 	}
 

@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -16,9 +18,9 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <VBox layoutX="26.0" layoutY="26.0" prefHeight="322.0" prefWidth="365.0" spacing="10.0">
+                  <VBox layoutX="21.0" layoutY="26.0" prefHeight="322.0" prefWidth="270.0" spacing="10.0">
                      <children>
-                        <HBox prefHeight="45.0" prefWidth="365.0" spacing="10.0">
+                        <HBox prefHeight="45.0" prefWidth="269.0" spacing="10.0">
                            <children>
                               <Label text="First Name" />
                               <TextField fx:id="fNameField" translateX="3.0" />
@@ -30,7 +32,7 @@
                               <TextField fx:id="lNameField" translateX="4.0" />
                            </children>
                         </HBox>
-                        <HBox prefHeight="44.0" prefWidth="365.0" spacing="10.0">
+                        <HBox prefHeight="44.0" prefWidth="288.0" spacing="10.0">
                            <children>
                               <Label text="Store Level" />
                               <ComboBox fx:id="levelBox" prefWidth="150.0" translateX="1.0" />
@@ -56,6 +58,12 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <ImageView fx:id="imageView" fitHeight="180.0" fitWidth="219.0" layoutX="322.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/emptyImage.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="browseBtn" layoutX="324.0" layoutY="218.0" mnemonicParsing="false" onAction="#chooseImage" text="Browse" />
                </children></AnchorPane>
       </content>
     </Tab>

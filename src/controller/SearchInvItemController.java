@@ -121,7 +121,7 @@ public class SearchInvItemController implements Initializable {
 		ObservableList<InvItem> items = FXCollections.observableArrayList();
 		for (InvItem item : MasterDatabase.getInventory().values()) {
 			item.getDescription().replace(" ", "");
-			if ((!item.equals(null)) && item.getDescription().equals(searchBar.getText())) {
+			if ((!item.equals(null)) && item.getDescription().contains(searchBar.getText())) {
 				items.add(item);
 			} else if(searchBar.getText().isEmpty() || !(MasterDatabase.getInventory().containsValue(item))){
 				Alert alert = new Alert(AlertType.ERROR);

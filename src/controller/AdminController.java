@@ -75,7 +75,17 @@ public class AdminController implements Initializable {
 	}
 	
 	public void openSearchUserPane(ActionEvent event){
-		
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/UserSearchTab.fxml"));
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

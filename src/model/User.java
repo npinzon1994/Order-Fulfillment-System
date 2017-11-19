@@ -90,4 +90,11 @@ public abstract class User {
 		this.address = address;
 	}
 
+	@Override
+	public String toString() {
+		return lastName + ", " + firstName;
+	}
+	
+	
+
 }
