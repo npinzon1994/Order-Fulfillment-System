@@ -64,6 +64,7 @@ public class InvItemController implements Initializable {
 	private ImageView imageView;
 
 	private InvItem item;
+	private Image tempImage;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -108,28 +109,28 @@ public class InvItemController implements Initializable {
 		item.setDescription(description.getText());
 		item.setCondition(condition.getSelectionModel().getSelectedItem());
 		item.setSpecs(specs.getText());
+		item.setImage(tempImage);
 	}
 
 	public void chooseImage() {
 		FileChooser chooser = new FileChooser();
-		ExtensionFilter jpeg = new ExtensionFilter("JPEG Files", "*.jpeg");
 		ExtensionFilter png = new ExtensionFilter("PNG Files", "*.png");
+		ExtensionFilter jpeg = new ExtensionFilter("JPEG Files", "*.jpeg");
 		ExtensionFilter bitmap = new ExtensionFilter("Bitmap Files", "*.bmp");
 		ExtensionFilter tif = new ExtensionFilter("TIF Files", "*.tif");
 
-		chooser.getExtensionFilters().addAll(jpeg, png, bitmap, tif);
+		chooser.getExtensionFilters().addAll(png, jpeg, bitmap, tif);
 		File file = chooser.showOpenDialog(specs.getScene().getWindow());
-
 		if (file != null) {
 			BufferedImage bufferedImage = null;
 			try {
 				bufferedImage = ImageIO.read(file);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
 			}
 			Image image = SwingFXUtils.toFXImage(bufferedImage, null);
 			imageView.setImage(image);
+			tempImage = image;
 		}
 	}
 

@@ -39,11 +39,10 @@
                            <children>
                               <Label text="Inventory Management" translateX="5.0" />
                               <Hyperlink fx:id="newInvItemLink" onAction="#openAddItemPane" text="Create new Item" />
-                              <Hyperlink text="Remove Item" />
                               <Hyperlink fx:id="searchInventoryLink" onAction="#openSearchInventoryPane" text="Search Inventory" />
                            </children>
                         </VBox>
-                        <VBox layoutX="200.0" layoutY="116.0" prefHeight="109.0" prefWidth="176.0">
+                        <VBox layoutX="200.0" layoutY="93.0" prefHeight="109.0" prefWidth="176.0">
                            <children>
                               <Label text="Administration" translateX="5.0" />
                               <Hyperlink fx:id="newUserLink" onAction="#openAddUserPane" text="New User" />

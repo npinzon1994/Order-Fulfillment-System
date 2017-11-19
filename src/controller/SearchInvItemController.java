@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,10 +19,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.InvItem;
@@ -43,7 +47,7 @@ public class SearchInvItemController implements Initializable {
 	private Button searchBtn;
 
 	@FXML
-	private Button viewItemBtn;
+	private Button removeBtn;
 
 	@FXML
 	private Label searchResults;
@@ -51,24 +55,35 @@ public class SearchInvItemController implements Initializable {
 	@FXML
 	private VBox vbox;
 
-	/*
-	 * Fields for NewInvItem.fxml
-	 */
-
 	@FXML
 	private Label descriptionLabel;
+
+	@FXML
+	private Label itemId;
 
 	@FXML
 	private Label itemIdLabel;
 
 	@FXML
+	private Label category;
+
+	@FXML
 	private Label categoryLabel;
+
+	@FXML
+	private Label price;
 
 	@FXML
 	private Label priceLabel;
 
 	@FXML
+	private Label condition;
+
+	@FXML
 	private Label conditionLabel;
+
+	@FXML
+	private Label specifications;
 
 	@FXML
 	private Label specsLabel;
@@ -76,58 +91,103 @@ public class SearchInvItemController implements Initializable {
 	@FXML
 	private Button closeBtn;
 
+	@FXML
+	private ImageView imageView;
+
 	private ObservableList<InvItem> allItems, selectedItems;
-	
-	private InvItem item;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+	}
+	
+	public void onClicked(){
+		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<InvItem>() {
 
+			public void changed(ObservableValue<? extends InvItem> observable, InvItem oldValue, InvItem newValue) {
+				setFields();
+				setLabelsVisible();
+			}
+		});
 	}
 
 	public void searchItem() {
-		allItems = list.getItems();
+		ObservableList<InvItem> items = FXCollections.observableArrayList();
 		for (InvItem item : MasterDatabase.getInventory().values()) {
-			if (item.getDescription().contains(searchBar.getText())) {
-				allItems.add(item);
-			} else {
+			item.getDescription().replace(" ", "");
+			if ((!item.equals(null)) && item.getDescription().equals(searchBar.getText())) {
+				items.add(item);
+			} else if(searchBar.getText().isEmpty() || !(MasterDatabase.getInventory().containsValue(item))){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("Item not found!");
 				alert.showAndWait();
 			}
 		}
+		list.setItems(items);
+		onClicked();
 	}
 
-	public void viewItem(ActionEvent event) {
-		item = list.getSelectionModel().getSelectedItem();
+	public void removeItem() {
 		selectedItems = list.getSelectionModel().getSelectedItems();
-		if (selectedItems != null) {
-			createStage();
-			setLabels();
+		allItems = list.getItems();
+		for (InvItem item : selectedItems) {
+			if (MasterDatabase.getInventory().containsValue(item)) {
+				MasterDatabase.getInventory().remove(item);
+				allItems.remove(item);
+				setLabelsInvisible();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setHeaderText("Item successfully removed from inventory!");
+				alert.showAndWait();
+
+			}
+		}
+		
+	}
+
+	public void setFields() {
+		selectedItems = list.getSelectionModel().getSelectedItems();
+		for (InvItem item : selectedItems) {
+			descriptionLabel.setText(item.getDescription());
+			itemIdLabel.setText(item.getItemId());
+			categoryLabel.setText(item.getCategory());
+			priceLabel.setText(String.valueOf(item.getPrice()));
+			conditionLabel.setText(item.getCondition());
+			specsLabel.setText(item.getSpecs());
+			imageView.setImage(item.getImage());
 		}
 
 	}
 
-	public void setLabels() {
-		descriptionLabel.setText(item.getDescription());
-		itemIdLabel.setText(item.getItemId());
-		categoryLabel.setText(item.getCategory());
-		priceLabel.setText(String.valueOf(item.getPrice()));
-		conditionLabel.setText(item.getCondition());
-		specsLabel.setText(item.getSpecs());
+	public void setLabelsVisible() {
+		descriptionLabel.setVisible(true);
+		itemId.setVisible(true);
+		itemIdLabel.setVisible(true);
+		category.setVisible(true);
+		categoryLabel.setVisible(true);
+		price.setVisible(true);
+		priceLabel.setVisible(true);
+		condition.setVisible(true);
+		conditionLabel.setVisible(true);
+		specifications.setVisible(true);
+		specsLabel.setVisible(true);
+		imageView.setVisible(true);
+
 	}
 
-	public void createStage() {
-		Stage stage = new Stage();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/ViewInvItem.fxml"));
-		} catch (IOException e) {
+	public void setLabelsInvisible() {
+		descriptionLabel.setVisible(false);
+		itemId.setVisible(false);
+		itemIdLabel.setVisible(false);
+		category.setVisible(false);
+		categoryLabel.setVisible(false);
+		price.setVisible(false);
+		priceLabel.setVisible(false);
+		condition.setVisible(false);
+		conditionLabel.setVisible(false);
+		specifications.setVisible(false);
+		specsLabel.setVisible(false);
+		imageView.setVisible(false);
 
-		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
 	}
 
 	public void switchBackToHomeTab(ActionEvent event) {
