@@ -31,7 +31,10 @@ import model.MasterDatabase;
 public class UserSearchController implements Initializable {
 
 	@FXML
-	private Button searchBtn;
+	private Button searchByIdBtn;
+
+	@FXML
+	private Button searchByNameBtn;
 
 	@FXML
 	private Button cancelBtn;
@@ -43,7 +46,10 @@ public class UserSearchController implements Initializable {
 	private ListView<CustomerServiceRep> list;
 
 	@FXML
-	private TextField searchBar;
+	private TextField searchByIdField;
+
+	@FXML
+	private TextField searchByNameField;
 
 	@FXML
 	private Label nameLabel;
@@ -88,7 +94,7 @@ public class UserSearchController implements Initializable {
 	private ImageView imageView;
 
 	private ObservableList<CustomerServiceRep> allUsers, usersSelected;
-	
+
 	private LocalDate date = LocalDate.now();
 
 	@Override
@@ -124,12 +130,28 @@ public class UserSearchController implements Initializable {
 		});
 	}
 
-	public void searchUser() {
+	public void searchUserById() {
 		ObservableList<CustomerServiceRep> users = FXCollections.observableArrayList();
 		for (CustomerServiceRep user : MasterDatabase.getUserDatabase().values()) {
-			if ((!user.equals(null)) && user.getId().contains(searchBar.getText())) {
+			if ((!user.equals(null)) && user.getId().contains(searchByIdField.getText())) {
 				users.add(user);
-			} else if (searchBar.getText().isEmpty() || !(MasterDatabase.getUserDatabase().containsValue(user))) {
+			} else if (searchByIdField.getText().isEmpty() || !(MasterDatabase.getUserDatabase().containsValue(user))) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("User not found!");
+				alert.showAndWait();
+			}
+		}
+		list.setItems(users);
+		//onClicked();
+	}
+
+	public void searchUserByName() {
+		ObservableList<CustomerServiceRep> users = FXCollections.observableArrayList();
+		for (CustomerServiceRep user : MasterDatabase.getUserDatabase().values()) {
+			if ((!user.equals(null)) && (user.getFirstName().contains(searchByIdField.getText())
+					|| user.getLastName().contains(searchByIdField.getText()))) {
+				users.add(user);
+			} else if (searchByIdField.getText().isEmpty() || !(MasterDatabase.getUserDatabase().containsValue(user))) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("User not found!");
 				alert.showAndWait();
@@ -139,6 +161,8 @@ public class UserSearchController implements Initializable {
 		onClicked();
 	}
 
+	
+
 	public void setFields() {
 		usersSelected = list.getSelectionModel().getSelectedItems();
 		for (CustomerServiceRep user : usersSelected) {
@@ -146,15 +170,16 @@ public class UserSearchController implements Initializable {
 			empIdLabel.setText(user.getId());
 			positionLabel.setText(user.getPosition());
 			levelLabel.setText(String.valueOf(user.getStoreLevel()));
-			startDateLabel.setText(user.getHireDate().toString());
 			imageView.setImage(user.getPicture());
 			statusLabel.setText(user.getStatus());
-			if(!isEmployed()){
+			startDateLabel.setText(user.getHireDate());
+			if (user.getStatus().equals("Terminated")) {
 				DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-YYYY");
 				String dateString = date.format(dateFormat);
 				termDateLabel.setText(dateString);
 			}
 			
+
 		}
 
 	}
@@ -185,11 +210,10 @@ public class UserSearchController implements Initializable {
 		startDateLabel.setVisible(true);
 		imageView.setVisible(true);
 		termDate.setVisible(true);
-		if(!isEmployed()){
+		if (!isEmployed()) {
 			termDateLabel.setVisible(true);
 		}
-		
-		
+
 	}
 
 	public void setLabelsInvisible() {
@@ -215,16 +239,22 @@ public class UserSearchController implements Initializable {
 		usersSelected = list.getSelectionModel().getSelectedItems();
 		allUsers = list.getItems();
 		for (CustomerServiceRep user : usersSelected) {
-			if (MasterDatabase.getUserDatabase().containsValue(user)) {
-				MasterDatabase.getUserDatabase().get(user.getId()).setStatus("Terminated");
-				MasterDatabase.getUserDatabase().get(user.getId()).setTermDate(date);
-
-				allUsers.remove(user);
-				setLabelsInvisible();
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setHeaderText("User successfully removed from system!");
+			if(user.getStatus().equals("Terminated")){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("User has already been removed!");
 				alert.showAndWait();
+			} else {
+				if (MasterDatabase.getUserDatabase().containsValue(user)) {
+					MasterDatabase.getUserDatabase().get(user.getId()).setStatus("Terminated");
+					MasterDatabase.getUserDatabase().get(user.getId()).setTermDate(date.toString());
 
+					allUsers.remove(user);
+					setLabelsInvisible();
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setHeaderText("User successfully removed from system!");
+					alert.showAndWait();
+
+				}
 			}
 		}
 	}

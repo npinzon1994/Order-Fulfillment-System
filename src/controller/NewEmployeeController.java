@@ -112,7 +112,7 @@ public class NewEmployeeController implements Initializable {
 		user.setEmail(emailField.getText());
 		user.setPhone(phoneField.getText());
 		user.setStatus("Currently Employed");
-		user.setHireDate(date);
+		user.setHireDate(user.getHireDate());
 		user.setPicture(tempImage);
 	}
 
@@ -149,7 +149,7 @@ public class NewEmployeeController implements Initializable {
 	public void createdNewEmployeeAlert() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setHeaderText(
-				user.getFirstName() + " " + user.getLastName() + " successfully added!\n\t\tID: " + user.getId());
+				user.getFirstName() + " " + user.getLastName() + " successfully added!\n\t\t  ID: " + user.getId());
 		alert.showAndWait();
 	}
 
