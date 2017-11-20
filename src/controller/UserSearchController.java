@@ -142,7 +142,7 @@ public class UserSearchController implements Initializable {
 			}
 		}
 		list.setItems(users);
-		//onClicked();
+		onClicked();
 	}
 
 	public void searchUserByName() {

@@ -10,7 +10,7 @@ public class Invoice {
 
 	private String invoiceNumber;
 	private LocalDate date;
-	private User customer;
+	private Customer customer;
 	private Address billingAddress;
 	private Address shippingAddress;
 	private String orderStatus;
@@ -19,7 +19,7 @@ public class Invoice {
 	private double tax;
 	private double total;
 
-	public Invoice(User customer, Address billingAddress, Address shippingAddress, String orderStatus,
+	public Invoice(Customer customer, Address billingAddress, Address shippingAddress, String orderStatus,
 			InvItem[] items, double subtotal, double tax, double total) {
 		this.invoiceNumber = "#HFH" + String.valueOf(idCounter++);
 		this.date = LocalDate.now();
@@ -41,11 +41,11 @@ public class Invoice {
 		this.invoiceNumber = invoiceNumber;
 	}
 
-	public User getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(User customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 

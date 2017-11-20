@@ -5,10 +5,13 @@ import java.time.format.DateTimeFormatter;
 
 import javafx.scene.image.Image;
 
-public class CustomerServiceRep extends User {
+public class CustomerServiceRep {
 
 	private static int idInt = 1;
+
 	private String id;
+	private String firstName;
+	private String lastName;
 	private LocalDate date = LocalDate.now();
 	private String hireDate;
 	private String termDate;
@@ -17,12 +20,13 @@ public class CustomerServiceRep extends User {
 	private Image picture;
 	private DateTimeFormatter dateFormat;
 	private String dateString;
+	private int storeLevel;
 
-	public CustomerServiceRep(String firstName, String lastName, DateOfBirth dob, String email, String phone,
-			String password, Address address, String hireDate, String termDate, String status, String position,
-			Image picture) {
-		super(firstName, lastName, dob, email, phone, password, address);
+	public CustomerServiceRep(String firstName, String lastName, String password, String hireDate, String termDate,
+			String status, String position, Image picture) {
 		this.id = "E" + String.valueOf(idInt++);
+		this.firstName = firstName;
+		this.lastName = lastName;
 		dateFormat = DateTimeFormatter.ofPattern("MM-dd-YYYY");
 		dateString = date.format(dateFormat);
 		this.hireDate = hireDate;
@@ -41,6 +45,22 @@ public class CustomerServiceRep extends User {
 
 	public String getId() {
 		return id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public void setHireDate(String date) {
@@ -83,11 +103,17 @@ public class CustomerServiceRep extends User {
 		this.picture = picture;
 	}
 
+	public int getStoreLevel() {
+		return storeLevel;
+	}
+
+	public void setStoreLevel(int storeLevel) {
+		this.storeLevel = storeLevel;
+	}
+
 	@Override
 	public String toString() {
-		return id + " - " + getLastName() + ", " + getFirstName();
+		return id + " - " + lastName + ", " + firstName;
 	}
-	
-	
 
 }
