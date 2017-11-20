@@ -87,10 +87,10 @@ public class SearchInvItemController implements Initializable {
 
 	@FXML
 	private Label specsLabel;
-	
+
 	@FXML
 	private Label status;
-	
+
 	@FXML
 	private Label statusLabel;
 
@@ -104,10 +104,10 @@ public class SearchInvItemController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 	}
-	
-	public void onClicked(){
+
+	public void onClicked() {
 		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<InvItem>() {
 
 			public void changed(ObservableValue<? extends InvItem> observable, InvItem oldValue, InvItem newValue) {
@@ -123,7 +123,7 @@ public class SearchInvItemController implements Initializable {
 			item.getDescription().replace(" ", "");
 			if ((!item.equals(null)) && item.getDescription().contains(searchBar.getText())) {
 				items.add(item);
-			} else if(searchBar.getText().isEmpty() || !(MasterDatabase.getInventory().containsValue(item))){
+			} else if (searchBar.getText().isEmpty() || !(MasterDatabase.getInventory().containsValue(item))) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("Item not found!");
 				alert.showAndWait();
@@ -137,17 +137,21 @@ public class SearchInvItemController implements Initializable {
 		selectedItems = list.getSelectionModel().getSelectedItems();
 		allItems = list.getItems();
 		for (InvItem item : selectedItems) {
-			if (MasterDatabase.getInventory().containsValue(item)) {
+			if (item.getStatus().equals("Out of Stock")) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("Item has already been removed!");
+				alert.showAndWait();
+			} else if (MasterDatabase.getInventory().containsValue(item)) {
 				MasterDatabase.getInventory().get(item.getItemId()).setStatus("Out of Stock");
 				allItems.remove(item);
 				setLabelsInvisible();
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setHeaderText("Item successfully removed from inventory!");
 				alert.showAndWait();
-
+				MasterDatabase.saveInventory();
 			}
 		}
-		
+
 	}
 
 	public void setFields() {

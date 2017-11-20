@@ -3,8 +3,8 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -31,8 +31,10 @@ import javafx.stage.Stage;
 import model.InvItem;
 import model.MasterDatabase;
 
-public class InvItemController implements Initializable {
+public class InvItemController implements Initializable, Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@FXML
 	private TextArea description;
 
@@ -96,6 +98,8 @@ public class InvItemController implements Initializable {
 		item = new InvItem();
 		initializeItem();
 		MasterDatabase.getInventory().put(item.getItemId(), item);
+		MasterDatabase.saveInventory();
+		clearFields();
 		newCreatedAlert();
 	}
 

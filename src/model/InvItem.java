@@ -1,9 +1,13 @@
 package model;
 
+import java.io.Serializable;
+
 import javafx.scene.image.Image;
 
-public class InvItem {
+public class InvItem implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private String description;
 	private String category;
 	private double price;
@@ -75,6 +79,14 @@ public class InvItem {
 		return id;
 	}
 
+	public static int getItemIdInt() {
+		return itemId;
+	}
+
+	public static void setItemId(int itemId) {
+		InvItem.itemId = itemId;
+	}
+
 	public String getCondition() {
 		return condition;
 	}
@@ -95,7 +107,5 @@ public class InvItem {
 	public String toString() {
 		return description;
 	}
-	
-	
 
 }

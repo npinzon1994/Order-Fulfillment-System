@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,8 +29,10 @@ import javafx.stage.Stage;
 import model.CustomerServiceRep;
 import model.MasterDatabase;
 
-public class UserSearchController implements Initializable {
+public class EmployeeSearchController implements Initializable, Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@FXML
 	private Button searchByIdBtn;
 
@@ -99,7 +102,6 @@ public class UserSearchController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -132,10 +134,10 @@ public class UserSearchController implements Initializable {
 
 	public void searchUserById() {
 		ObservableList<CustomerServiceRep> users = FXCollections.observableArrayList();
-		for (CustomerServiceRep user : MasterDatabase.getUserDatabase().values()) {
+		for (CustomerServiceRep user : MasterDatabase.getEmployeeDatabase().values()) {
 			if ((!user.equals(null)) && user.getId().contains(searchByIdField.getText())) {
 				users.add(user);
-			} else if (searchByIdField.getText().isEmpty() || !(MasterDatabase.getUserDatabase().containsValue(user))) {
+			} else if (searchByIdField.getText().isEmpty() || !(MasterDatabase.getEmployeeDatabase().containsValue(user))) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("User not found!");
 				alert.showAndWait();
@@ -147,11 +149,10 @@ public class UserSearchController implements Initializable {
 
 	public void searchUserByName() {
 		ObservableList<CustomerServiceRep> users = FXCollections.observableArrayList();
-		for (CustomerServiceRep user : MasterDatabase.getUserDatabase().values()) {
-			if ((!user.equals(null)) && (user.getFirstName().contains(searchByIdField.getText())
-					|| user.getLastName().contains(searchByIdField.getText()))) {
+		for (CustomerServiceRep user : MasterDatabase.getEmployeeDatabase().values()) {
+			if ((!user.equals(null)) && (user.getLastName().contains(searchByIdField.getText()))) {
 				users.add(user);
-			} else if (searchByIdField.getText().isEmpty() || !(MasterDatabase.getUserDatabase().containsValue(user))) {
+			} else if (searchByIdField.getText().isEmpty() || !(MasterDatabase.getEmployeeDatabase().containsValue(user))) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("User not found!");
 				alert.showAndWait();
@@ -241,17 +242,17 @@ public class UserSearchController implements Initializable {
 		for (CustomerServiceRep user : usersSelected) {
 			if(user.getStatus().equals("Terminated")){
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText("User has already been removed!");
+				alert.setHeaderText("Employee has already been removed!");
 				alert.showAndWait();
 			} else {
-				if (MasterDatabase.getUserDatabase().containsValue(user)) {
-					MasterDatabase.getUserDatabase().get(user.getId()).setStatus("Terminated");
-					MasterDatabase.getUserDatabase().get(user.getId()).setTermDate(date.toString());
+				if (MasterDatabase.getEmployeeDatabase().containsValue(user)) {
+					MasterDatabase.getEmployeeDatabase().get(user.getId()).setStatus("Terminated");
+					MasterDatabase.getEmployeeDatabase().get(user.getId()).setTermDate(date.toString());
 
 					allUsers.remove(user);
 					setLabelsInvisible();
 					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setHeaderText("User successfully removed from system!");
+					alert.setHeaderText("Employee successfully removed from system!");
 					alert.showAndWait();
 
 				}

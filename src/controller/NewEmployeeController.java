@@ -3,6 +3,7 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -32,8 +33,10 @@ import model.CustomerServiceRep;
 import model.MasterDatabase;
 import model.OperationsAssociate;
 
-public class NewEmployeeController implements Initializable {
+public class NewEmployeeController implements Initializable, Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@FXML
 	private Button cancelBtn;
 
@@ -79,8 +82,7 @@ public class NewEmployeeController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -89,9 +91,13 @@ public class NewEmployeeController implements Initializable {
 	public void addUserToDatabase(ActionEvent event) {
 		createEmployee();
 		initializeEmployee();
-		MasterDatabase.getUserDatabase().put(user.getId(), user);
+		MasterDatabase.getEmployeeDatabase().put(user.getId(), user);
 		clearFields();
 		createdNewEmployeeAlert();
+		MasterDatabase.saveEmployees();
+		for(CustomerServiceRep rep : MasterDatabase.getEmployeeDatabase().values()){
+			System.out.println(rep.getFirstName() + " " + rep.getLastName());
+		}
 	}
 
 	public void createEmployee() {

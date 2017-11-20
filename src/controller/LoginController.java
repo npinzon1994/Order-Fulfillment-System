@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -13,15 +14,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import model.MasterDatabase;
 
-public class LoginController implements Initializable {
+public class LoginController implements Initializable, Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@FXML
 	private Button loginBtn;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -31,10 +34,7 @@ public class LoginController implements Initializable {
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (IOException e) {}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		

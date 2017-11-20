@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -12,12 +13,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import model.MasterDatabase;
 
-public class AdminController implements Initializable {
+public class AdminController implements Initializable, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@FXML
 	private Hyperlink newUserLink;
@@ -58,6 +59,21 @@ public class AdminController implements Initializable {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 	}
+	
+	public void openCreateOrderPane(ActionEvent event){
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/CreateOrderTab.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
 
 	public void openSearchInventoryPane(ActionEvent event) {
 		Node node = (Node) event.getSource();
@@ -68,8 +84,7 @@ public class AdminController implements Initializable {
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 
 	}
@@ -90,7 +105,7 @@ public class AdminController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		MasterDatabase.getMasterDatabase();
+		
 	}
 
 }

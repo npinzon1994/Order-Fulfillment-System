@@ -1,11 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javafx.scene.image.Image;
 
-public class CustomerServiceRep {
+public class CustomerServiceRep implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private static int idInt = 1;
 
@@ -45,6 +48,14 @@ public class CustomerServiceRep {
 
 	public String getId() {
 		return id;
+	}
+
+	public static int getIdInt() {
+		return idInt;
+	}
+
+	public static void setIdInt(int idInt) {
+		CustomerServiceRep.idInt = idInt;
 	}
 
 	public String getFirstName() {

@@ -1,6 +1,10 @@
 package model;
 
-public abstract class Customer {
+import java.io.Serializable;
+
+public abstract class Customer implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private static int idInt;
 
@@ -61,6 +65,14 @@ public abstract class Customer {
 
 	public String getId() {
 		return id;
+	}
+
+	public static int getIdInt() {
+		return idInt;
+	}
+
+	public static void setIdInt(int idInt) {
+		Customer.idInt = idInt;
 	}
 
 	public Address getBillingAddress() {

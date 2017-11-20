@@ -1,10 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Invoice {
+public class Invoice implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private final double SALES_TAX = 0.08625;
 	private static int idCounter = 1;
 
@@ -103,6 +106,14 @@ public class Invoice {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	public static int getIdCounter() {
+		return idCounter;
+	}
+
+	public static void setIdCounter(int idCounter) {
+		Invoice.idCounter = idCounter;
 	}
 
 }
