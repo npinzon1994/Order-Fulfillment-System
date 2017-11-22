@@ -20,19 +20,15 @@ public class CustomerServiceRep implements Serializable {
 	private String termDate;
 	private String status;
 	private String position;
-	private Image picture;
-	private DateTimeFormatter dateFormat;
-	private String dateString;
+	private transient Image image;
 	private int storeLevel;
 
 	public CustomerServiceRep(String firstName, String lastName, String password, String hireDate, String termDate,
-			String status, String position, Image picture) {
+			String status, String position) {
 		this.id = "E" + String.valueOf(idInt++);
 		this.firstName = firstName;
 		this.lastName = lastName;
-		dateFormat = DateTimeFormatter.ofPattern("MM-dd-YYYY");
-		dateString = date.format(dateFormat);
-		this.hireDate = hireDate;
+		this.hireDate = date.toString();
 		setStoreLevel(1);
 		setPosition("Customer Service Rep");
 	}
@@ -41,9 +37,7 @@ public class CustomerServiceRep implements Serializable {
 		this.id = "E" + String.valueOf(idInt++);
 		setStoreLevel(1);
 		setPosition("Customer Service Rep");
-		dateFormat = DateTimeFormatter.ofPattern("MM-dd-YYYY");
-		dateString = date.format(dateFormat);
-		setHireDate(dateString);
+		setHireDate(date.toString());
 	}
 
 	public String getId() {
@@ -52,6 +46,16 @@ public class CustomerServiceRep implements Serializable {
 
 	public static int getIdInt() {
 		return idInt;
+	}
+	
+	
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	public static void setIdInt(int idInt) {
@@ -104,14 +108,6 @@ public class CustomerServiceRep implements Serializable {
 
 	public void setPosition(String position) {
 		this.position = position;
-	}
-
-	public Image getPicture() {
-		return picture;
-	}
-
-	public void setPicture(Image picture) {
-		this.picture = picture;
 	}
 
 	public int getStoreLevel() {

@@ -9,9 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
-public class OperationsController implements Initializable, Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class OperationsController implements Initializable {
 	
 	@FXML //lets java know to link to our FXML file
 	private Label numberLbl;

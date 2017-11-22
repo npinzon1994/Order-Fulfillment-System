@@ -97,8 +97,11 @@ public class MasterDatabase implements Serializable {
 			InvItem.setItemId(objectInput.readInt());
 			objectInput.close();
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -126,6 +129,40 @@ public class MasterDatabase implements Serializable {
 			objectInput = new ObjectInputStream(fileInput);
 			setEmployeeDatabase((HashMap<String, CustomerServiceRep>) objectInput.readObject());
 			CustomerServiceRep.setIdInt(objectInput.readInt());
+			objectInput.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void saveCustomers() {
+		System.out.println("All content saved!");
+		FileOutputStream fileOutput = null;
+		ObjectOutputStream objectOutput = null;
+		try {
+			fileOutput = new FileOutputStream("customers.dat");
+			objectOutput = new ObjectOutputStream(fileOutput);
+			objectOutput.writeObject(getCustomerDatabase());
+			objectOutput.writeInt(Customer.getIdInt());
+			objectOutput.close();
+		} catch (FileNotFoundException e1) {
+		} catch (IOException e) {
+		}
+	}
+
+	public static void loadCustomers() {
+		System.out.println("All content loaded!");
+		FileInputStream fileInput = null;
+		ObjectInputStream objectInput = null;
+		try {
+			fileInput = new FileInputStream("customers.dat");
+			objectInput = new ObjectInputStream(fileInput);
+			setCustomerDatabase((HashMap<String, Customer>) objectInput.readObject());
+			Customer.setIdInt(objectInput.readInt());
 			objectInput.close();
 		} catch (FileNotFoundException e) {
 		} catch (IOException e) {

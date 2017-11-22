@@ -5,35 +5,36 @@ import java.io.Serializable;
 public class Address implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String streetNumber;
-	private String streetName;
+
+	private String streetAddress;
 	private String city;
 	private String state;
 	private String zip;
 
-	public Address(String streetNumber, String streetName, String city, String state, String zip) {
-		this.streetNumber = streetNumber;
-		this.streetName = streetName;
+	public Address(String streetAddress, String city, String state, String zip) {
+		this.streetAddress = streetAddress;
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
 	}
 
-	public String getStreetName() {
-		return streetName;
+	public Address() {
+
 	}
 
-	public void setStreetName(String streetName) {
-		this.streetName = streetName;
+	public Address(Address address) {
+		this.streetAddress = address.streetAddress;
+		this.city = address.city;
+		this.state = address.state;
+		this.zip = address.zip;
 	}
 
-	public String getStreetNumber() {
-		return streetNumber;
+	public String getStreetAddress() {
+		return streetAddress;
 	}
 
-	public void setStreetNumber(String streetNumber) {
-		this.streetNumber = streetNumber;
+	public void setStreetAddress(String streetAddress) {
+		this.streetAddress = streetAddress;
 	}
 
 	public String getCity() {
@@ -59,5 +60,12 @@ public class Address implements Serializable {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
+
+	@Override
+	public String toString() {
+		return streetAddress + "\n" + city + " " + state + ", " + zip;
+	}
+	
+	
 
 }

@@ -10,8 +10,8 @@ public class OperationsAssociate extends CustomerServiceRep implements Serializa
 	private static final long serialVersionUID = 1L;
 
 	public OperationsAssociate(String firstName, String lastName, String password, String hireDate, String termDate,
-			String status, String position, Image picture) {
-		super(firstName, lastName, password, hireDate, termDate, status, position, picture);
+			String status, String position) {
+		super(firstName, lastName, password, hireDate, termDate, status, position);
 		setStoreLevel(2);
 		setPosition("Operations Associate");
 

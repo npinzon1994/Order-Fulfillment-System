@@ -33,15 +33,16 @@ import model.CustomerServiceRep;
 import model.MasterDatabase;
 import model.OperationsAssociate;
 
-public class NewEmployeeController implements Initializable, Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class NewEmployeeController implements Initializable {
 	
 	@FXML
 	private Button cancelBtn;
 
 	@FXML
 	private Button submitBtn;
+	
+	@FXML
+	private Button browseBtn;
 
 	@FXML
 	private TextField fNameField;
@@ -66,6 +67,8 @@ public class NewEmployeeController implements Initializable, Serializable {
 	private LocalDate date = LocalDate.now();
 	
 	private Image tempImage;
+	private BufferedImage bufferedImage;
+	private Image image;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -92,9 +95,9 @@ public class NewEmployeeController implements Initializable, Serializable {
 		createEmployee();
 		initializeEmployee();
 		MasterDatabase.getEmployeeDatabase().put(user.getId(), user);
+		MasterDatabase.saveEmployees();
 		clearFields();
 		createdNewEmployeeAlert();
-		MasterDatabase.saveEmployees();
 		for(CustomerServiceRep rep : MasterDatabase.getEmployeeDatabase().values()){
 			System.out.println(rep.getFirstName() + " " + rep.getLastName());
 		}
@@ -117,7 +120,7 @@ public class NewEmployeeController implements Initializable, Serializable {
 		user.setLastName(lNameField.getText());
 		user.setStatus("Currently Employed");
 		user.setHireDate(user.getHireDate());
-		user.setPicture(tempImage);
+		user.setImage(tempImage);
 	}
 
 	public void clearFields() {
@@ -138,13 +141,13 @@ public class NewEmployeeController implements Initializable, Serializable {
 		chooser.getExtensionFilters().addAll(png, jpeg, bitmap, tif);
 		File file = chooser.showOpenDialog(emailField.getScene().getWindow());
 		if (file != null) {
-			BufferedImage bufferedImage = null;
+			bufferedImage = null;
 			try {
 				bufferedImage = ImageIO.read(file);
 			} catch (IOException e) {
 
 			}
-			Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+			image = SwingFXUtils.toFXImage(bufferedImage, null);
 			imageView.setImage(image);
 			tempImage = image;
 		}

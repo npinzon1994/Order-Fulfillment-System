@@ -31,9 +31,7 @@ import javafx.stage.Stage;
 import model.InvItem;
 import model.MasterDatabase;
 
-public class InvItemController implements Initializable, Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class InvItemController implements Initializable {
 	
 	@FXML
 	private TextArea description;
@@ -67,6 +65,9 @@ public class InvItemController implements Initializable, Serializable {
 
 	private InvItem item;
 	private Image tempImage;
+	private Image image;
+	
+	transient BufferedImage bufferedImage;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -112,7 +113,7 @@ public class InvItemController implements Initializable, Serializable {
 		item.setDescription(description.getText());
 		item.setCondition(condition.getSelectionModel().getSelectedItem());
 		item.setSpecs(specs.getText());
-		item.setImage(tempImage);
+		//item.setImage(tempImage);
 		item.setStatus("In Stock");
 		
 	}
@@ -127,13 +128,13 @@ public class InvItemController implements Initializable, Serializable {
 		chooser.getExtensionFilters().addAll(png, jpeg, bitmap, tif);
 		File file = chooser.showOpenDialog(specs.getScene().getWindow());
 		if (file != null) {
-			BufferedImage bufferedImage = null;
+			bufferedImage = null;
 			try {
 				bufferedImage = ImageIO.read(file);
 			} catch (IOException e) {
 
 			}
-			Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+			image = SwingFXUtils.toFXImage(bufferedImage, null);
 			imageView.setImage(image);
 			tempImage = image;
 		}

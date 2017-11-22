@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 public class InvItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String description;
 	private String category;
 	private double price;
@@ -16,10 +16,8 @@ public class InvItem implements Serializable {
 	private static int itemId = 1000;
 	private String id;
 	private String condition;
-	private Image image;
 
-	public InvItem(String description, String category, double price, String specs, String status, String condition,
-			Image image) {
+	public InvItem(String description, String category, double price, String specs, String status, String condition) {
 		super();
 		this.description = description;
 		this.category = category;
@@ -28,7 +26,6 @@ public class InvItem implements Serializable {
 		this.status = status;
 		this.id = String.valueOf(itemId++);
 		this.condition = condition;
-		this.image = image;
 	}
 
 	public InvItem() {
@@ -93,14 +90,6 @@ public class InvItem implements Serializable {
 
 	public void setCondition(String condition) {
 		this.condition = condition;
-	}
-
-	public Image getImage() {
-		return image;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
 	}
 
 	@Override

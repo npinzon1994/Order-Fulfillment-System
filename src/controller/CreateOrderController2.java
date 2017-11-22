@@ -8,7 +8,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,39 +16,19 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Customer;
 import model.InvItem;
 import model.MasterDatabase;
 
-public class SearchInvItemController implements Initializable {
-
-	@FXML
-	private ListView<InvItem> list;
-
-	@FXML
-	private TextField searchBar;
-
-	@FXML
-	private Button cancelBtn;
-
-	@FXML
-	private Button searchBtn;
-
-	@FXML
-	private Button removeBtn;
-
-	@FXML
-	private Label searchResults;
-
-	@FXML
-	private VBox vbox;
+public class CreateOrderController2 implements Initializable {
 
 	@FXML
 	private Label descriptionLabel;
@@ -96,6 +75,42 @@ public class SearchInvItemController implements Initializable {
 	@FXML
 	private ImageView imageView;
 
+	@FXML
+	private Label customerLabel;
+
+	@FXML
+	private Hyperlink myCart;
+
+	@FXML
+	private Hyperlink logoutLink;
+
+	@FXML
+	private Label numItems;
+
+	@FXML
+	private TextField searchField;
+
+	@FXML
+	private Button searchBtn;
+
+	@FXML
+	private Button previousBtn;
+
+	@FXML
+	private Button nextBtn;
+
+	@FXML
+	private Button cancelBtn;
+
+	@FXML
+	private Button addToCart;
+
+	@FXML
+	private Button itemOutOfStock;
+
+	@FXML
+	private ListView<InvItem> list;
+
 	private ObservableList<InvItem> allItems, selectedItems;
 
 	@Override
@@ -113,11 +128,28 @@ public class SearchInvItemController implements Initializable {
 		});
 	}
 
+	public void goToPreviousPage(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/CreateOrderTab.fxml"));
+		} catch (IOException e) {
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void goToNextPage() {
+
+	}
+
 	public void searchItem() {
 		ObservableList<InvItem> items = FXCollections.observableArrayList();
 		for (InvItem item : MasterDatabase.getInventory().values()) {
 			item.getDescription().replace(" ", "");
-			if ((!item.equals(null)) && item.getDescription().contains(searchBar.getText()) && !items.contains(item)) {
+			if ((!item.equals(null)) && item.getDescription().contains(searchField.getText())
+					&& !items.contains(item)) {
 				items.add(item);
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -129,27 +161,6 @@ public class SearchInvItemController implements Initializable {
 		onClicked();
 	}
 
-	public void removeItem() {
-		selectedItems = list.getSelectionModel().getSelectedItems();
-		allItems = list.getItems();
-		for (InvItem item : selectedItems) {
-			if (item.getStatus().equals("Out of Stock")) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText("Item has already been removed!");
-				alert.showAndWait();
-			} else if (MasterDatabase.getInventory().containsValue(item)) {
-				MasterDatabase.getInventory().get(item.getItemId()).setStatus("Out of Stock");
-				allItems.remove(item);
-				setLabelsInvisible();
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setHeaderText("Item successfully removed from inventory!");
-				alert.showAndWait();
-				MasterDatabase.saveInventory();
-			}
-		}
-
-	}
-
 	public void setFields() {
 		selectedItems = list.getSelectionModel().getSelectedItems();
 		for (InvItem item : selectedItems) {
@@ -159,7 +170,7 @@ public class SearchInvItemController implements Initializable {
 			priceLabel.setText(String.valueOf(item.getPrice()));
 			conditionLabel.setText(item.getCondition());
 			specsLabel.setText(item.getSpecs());
-			//imageView.setImage(item.getImage());
+			// imageView.setImage(item.getImage());
 			statusLabel.setText(item.getStatus());
 		}
 
@@ -201,18 +212,36 @@ public class SearchInvItemController implements Initializable {
 
 	}
 
-	public void switchBackToHomeTab(ActionEvent event) {
+	public void addItemToCart() {
+		
+	}
+
+	public void cancelOrder(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
+	}
+
+	public void logout(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+		} catch (IOException e) {
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void goToMyCart() {
+
 	}
 
 }

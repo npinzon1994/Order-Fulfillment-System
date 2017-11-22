@@ -16,9 +16,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import model.MasterDatabase;
 
-public class LoginController implements Initializable, Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class LoginController implements Initializable {
 	
 	@FXML
 	private Button loginBtn;

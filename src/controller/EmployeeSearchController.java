@@ -29,12 +29,7 @@ import javafx.stage.Stage;
 import model.CustomerServiceRep;
 import model.MasterDatabase;
 
-public class EmployeeSearchController implements Initializable, Serializable {
-
-	private static final long serialVersionUID = 1L;
-	
-	@FXML
-	private Button searchByIdBtn;
+public class EmployeeSearchController implements Initializable {
 
 	@FXML
 	private Button searchByNameBtn;
@@ -49,16 +44,10 @@ public class EmployeeSearchController implements Initializable, Serializable {
 	private ListView<CustomerServiceRep> list;
 
 	@FXML
-	private TextField searchByIdField;
-
-	@FXML
 	private TextField searchByNameField;
 
 	@FXML
 	private Label nameLabel;
-
-	@FXML
-	private Label empId;
 
 	@FXML
 	private Label empIdLabel;
@@ -132,27 +121,12 @@ public class EmployeeSearchController implements Initializable, Serializable {
 		});
 	}
 
-	public void searchUserById() {
-		ObservableList<CustomerServiceRep> users = FXCollections.observableArrayList();
-		for (CustomerServiceRep user : MasterDatabase.getEmployeeDatabase().values()) {
-			if ((!user.equals(null)) && user.getId().contains(searchByIdField.getText())) {
-				users.add(user);
-			} else if (searchByIdField.getText().isEmpty() || !(MasterDatabase.getEmployeeDatabase().containsValue(user))) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText("User not found!");
-				alert.showAndWait();
-			}
-		}
-		list.setItems(users);
-		onClicked();
-	}
-
 	public void searchUserByName() {
 		ObservableList<CustomerServiceRep> users = FXCollections.observableArrayList();
 		for (CustomerServiceRep user : MasterDatabase.getEmployeeDatabase().values()) {
-			if ((!user.equals(null)) && (user.getLastName().contains(searchByIdField.getText()))) {
+			if ((user.getLastName().contains(searchByNameField.getText()))) {
 				users.add(user);
-			} else if (searchByIdField.getText().isEmpty() || !(MasterDatabase.getEmployeeDatabase().containsValue(user))) {
+			} else {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("User not found!");
 				alert.showAndWait();
@@ -171,7 +145,7 @@ public class EmployeeSearchController implements Initializable, Serializable {
 			empIdLabel.setText(user.getId());
 			positionLabel.setText(user.getPosition());
 			levelLabel.setText(String.valueOf(user.getStoreLevel()));
-			imageView.setImage(user.getPicture());
+			imageView.setImage(user.getImage());
 			statusLabel.setText(user.getStatus());
 			startDateLabel.setText(user.getHireDate());
 			if (user.getStatus().equals("Terminated")) {
@@ -236,7 +210,6 @@ public class EmployeeSearchController implements Initializable, Serializable {
 	}
 
 	public void removeUser() {
-		System.out.println();
 		usersSelected = list.getSelectionModel().getSelectedItems();
 		allUsers = list.getItems();
 		for (CustomerServiceRep user : usersSelected) {

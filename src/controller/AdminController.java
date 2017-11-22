@@ -16,18 +16,28 @@ import javafx.scene.control.Hyperlink;
 import javafx.stage.Stage;
 import model.MasterDatabase;
 
-public class AdminController implements Initializable, Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class AdminController implements Initializable {
 
 	@FXML
 	private Hyperlink newUserLink;
+
+	@FXML
+	private Hyperlink userSearchLink;
 
 	@FXML
 	private Hyperlink newInvItemLink;
 
 	@FXML
 	private Hyperlink searchInventoryLink;
+
+	@FXML
+	private Hyperlink createOrderLink;
+
+	@FXML
+	private Hyperlink createCustomerLink;
+
+	@FXML
+	private Hyperlink logout;
 
 	// whenever button gets clicked, this method gets called
 	public void openAddUserPane(ActionEvent event) {
@@ -52,23 +62,21 @@ public class AdminController implements Initializable, Serializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/NewInvItemTab.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
 
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 	}
-	
-	public void openCreateOrderPane(ActionEvent event){
+
+	public void openCreateOrderPane(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/CreateOrderTab.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
 
 		Scene scene = new Scene(root);
@@ -84,12 +92,12 @@ public class AdminController implements Initializable, Serializable {
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 		} catch (IOException e) {
-			
+
 		}
 
 	}
-	
-	public void openSearchUserPane(ActionEvent event){
+
+	public void openSearchUserPane(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root;
@@ -103,9 +111,37 @@ public class AdminController implements Initializable, Serializable {
 		}
 	}
 
+	public void openCreateCustomerTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/NewCustomerTab.fxml"));
+		} catch (IOException e) {
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void openCustomerSearchTab(ActionEvent event) {
+		
+	}
+
+	public void logout(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+		} catch (IOException e) {
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 	}
 
 }
