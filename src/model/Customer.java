@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Customer implements Serializable {
 
@@ -15,6 +16,7 @@ public class Customer implements Serializable {
 	private String phone;
 	private Address billingAddress;
 	private Address shippingAddress;
+	private ArrayList<InvItem> cart;
 
 	public Customer(String firstName, String lastName, String email, String phone, Address shippingAddress,
 			Address billingAddress) {
@@ -29,6 +31,7 @@ public class Customer implements Serializable {
 
 	public Customer() {
 		this.id = "C" + String.valueOf(idInt++);
+		this.cart = new ArrayList<>();
 	}
 
 	public String getFirstName() {
@@ -89,6 +92,14 @@ public class Customer implements Serializable {
 
 	public void setShippingAddress(Address shippingAddress) {
 		this.shippingAddress = shippingAddress;
+	}
+
+	public ArrayList<InvItem> getCart() {
+		return cart;
+	}
+
+	public void setCart(ArrayList<InvItem> cart) {
+		this.cart = cart;
 	}
 
 	@Override

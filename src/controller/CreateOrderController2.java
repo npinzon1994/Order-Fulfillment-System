@@ -106,9 +106,6 @@ public class CreateOrderController2 implements Initializable {
 	private Button addToCart;
 
 	@FXML
-	private Button itemOutOfStock;
-
-	@FXML
 	private ListView<InvItem> list;
 
 	private ObservableList<InvItem> allItems, selectedItems;
@@ -148,13 +145,9 @@ public class CreateOrderController2 implements Initializable {
 		ObservableList<InvItem> items = FXCollections.observableArrayList();
 		for (InvItem item : MasterDatabase.getInventory().values()) {
 			item.getDescription().replace(" ", "");
-			if ((!item.equals(null)) && item.getDescription().contains(searchField.getText())
+			if ((!item.equals(null)) && item.getDescription().contains(searchField.getText()) && item.getStatus().equals("In Stock")
 					&& !items.contains(item)) {
 				items.add(item);
-			} else {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText("Item not found!");
-				alert.showAndWait();
 			}
 		}
 		list.setItems(items);
@@ -170,7 +163,6 @@ public class CreateOrderController2 implements Initializable {
 			priceLabel.setText(String.valueOf(item.getPrice()));
 			conditionLabel.setText(item.getCondition());
 			specsLabel.setText(item.getSpecs());
-			// imageView.setImage(item.getImage());
 			statusLabel.setText(item.getStatus());
 		}
 
@@ -191,6 +183,7 @@ public class CreateOrderController2 implements Initializable {
 		imageView.setVisible(true);
 		status.setVisible(true);
 		statusLabel.setVisible(true);
+		addToCart.setVisible(true);
 
 	}
 

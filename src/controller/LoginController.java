@@ -27,6 +27,7 @@ public class LoginController implements Initializable {
 	}
 
 	public void login(ActionEvent event) {
+		MasterDatabase.setLoggedEmployee(MasterDatabase.getEmployeeDatabase().get("E1"));
 		Node node=(Node) event.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();
 		Parent root = null;

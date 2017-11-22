@@ -23,6 +23,9 @@ public class MasterDatabase implements Serializable {
 	private static HashMap<String, Customer> customerDatabase;
 	private static HashMap<String, Invoice> invoiceDatabase;
 
+	private static Customer orderCustomer;
+	private static CustomerServiceRep loggedEmployee;
+
 	private MasterDatabase() {
 		inventory = new HashMap<>();
 		employeeDatabase = new HashMap<>();
@@ -71,6 +74,22 @@ public class MasterDatabase implements Serializable {
 		invoiceDatabase = database;
 	}
 
+	public static Customer getOrderCustomer() {
+		return orderCustomer;
+	}
+
+	public static void setOrderCustomer(Customer orderCustomer) {
+		MasterDatabase.orderCustomer = orderCustomer;
+	}
+
+	public static CustomerServiceRep getLoggedEmployee() {
+		return loggedEmployee;
+	}
+
+	public static void setLoggedEmployee(CustomerServiceRep loggedEmployee) {
+		MasterDatabase.loggedEmployee = loggedEmployee;
+	}
+
 	public static void saveInventory() {
 		System.out.println("All content saved!");
 		FileOutputStream fileOutput = null;
@@ -82,7 +101,9 @@ public class MasterDatabase implements Serializable {
 			objectOutput.writeInt(InvItem.getItemIdInt());
 			objectOutput.close();
 		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -116,7 +137,9 @@ public class MasterDatabase implements Serializable {
 			objectOutput.writeInt(CustomerServiceRep.getIdInt());
 			objectOutput.close();
 		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -150,7 +173,9 @@ public class MasterDatabase implements Serializable {
 			objectOutput.writeInt(Customer.getIdInt());
 			objectOutput.close();
 		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -165,8 +190,11 @@ public class MasterDatabase implements Serializable {
 			Customer.setIdInt(objectInput.readInt());
 			objectInput.close();
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 

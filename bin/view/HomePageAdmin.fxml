@@ -65,7 +65,8 @@
    <top>
       <HBox prefHeight="50.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Employee : empId" translateY="5.0" />
+            <Label fx:id="employee" text="Employee" translateY="5.0" />
+            <Label fx:id="empId" text="empId" translateY="5.0" />
             <Hyperlink fx:id="logout" onAction="#logout" text="Logout" translateX="390.0" />
          </children>
          <padding>

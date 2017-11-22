@@ -50,8 +50,8 @@
                               <Label fx:id="specsLabel" alignment="TOP_LEFT" layoutX="5.0" layoutY="221.0" prefHeight="80.0" prefWidth="279.0" text="specsLabel" visible="false" />
                               <Label fx:id="status" layoutX="5.0" layoutY="169.0" text="Status :" visible="false" />
                               <Label fx:id="statusLabel" layoutX="85.0" layoutY="169.0" text="statusLabel" visible="false" />
-                              <Button fx:id="addToCart" layoutX="9.0" layoutY="309.0" mnemonicParsing="false" onAction="#addItemToCart" text="Add To Cart" visible="false" />
-                              <Label fx:id="itemOutOfStock" layoutX="116.0" layoutY="314.0" prefHeight="17.0" prefWidth="102.0" text="itemOutOfStock" visible="false" />
+                              <Button fx:id="addToCart" layoutX="4.0" layoutY="309.0" mnemonicParsing="false" onAction="#addItemToCart" text="Add To Cart" visible="false" />
+                              <Label fx:id="outOfStockLabel" layoutX="113.0" layoutY="311.0" text="Item currently out of stock" visible="false" />
                            </children>
                         </AnchorPane>
                         <ImageView fx:id="imageView" fitHeight="256.0" fitWidth="261.0" layoutX="601.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" visible="false" />
@@ -65,7 +65,7 @@
    <top>
       <AnchorPane prefHeight="37.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="empId" layoutX="9.0" layoutY="10.0" text="Employee : empId" />
+            <Label layoutX="9.0" layoutY="10.0" text="Employee : empId" />
             <Hyperlink fx:id="logoutLink" layoutX="821.0" layoutY="6.0" onAction="#logout" text="Logout" />
          </children>
       </AnchorPane>
