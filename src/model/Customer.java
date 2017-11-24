@@ -19,7 +19,10 @@ public class Customer implements Serializable {
 	private Address shippingAddress;
 	private ArrayList<InvItem> cart;
 	private HashMap<String, Invoice> orders;
-	private boolean isStorePickup;
+	private String shippingMethod;
+	private double subtotal;
+	private double shippingCost;
+	private double total;
 
 	public Customer(String firstName, String lastName, String email, String phone, Address shippingAddress,
 			Address billingAddress) {
@@ -106,12 +109,12 @@ public class Customer implements Serializable {
 		this.cart = cart;
 	}
 
-	public boolean getIsStorePickup() {
-		return isStorePickup;
+	public String getShippingMethod() {
+		return shippingMethod;
 	}
 
-	public void setIsStorePickup(boolean isStorePickup) {
-		this.isStorePickup = isStorePickup;
+	public void setShippingMethod(String shippingMethod) {
+		this.shippingMethod = shippingMethod;
 	}
 
 	public HashMap<String, Invoice> getOrders() {
@@ -120,6 +123,30 @@ public class Customer implements Serializable {
 
 	public void setOrders(HashMap<String, Invoice> orders) {
 		this.orders = orders;
+	}
+
+	public double getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(double subtotal) {
+		this.subtotal = subtotal;
+	}
+
+	public double getShippingCost() {
+		return shippingCost;
+	}
+
+	public void setShippingCost(double shippingCost) {
+		this.shippingCost = shippingCost;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 	@Override

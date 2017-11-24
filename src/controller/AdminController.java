@@ -35,6 +35,9 @@ public class AdminController implements Initializable {
 
 	@FXML
 	private Hyperlink createCustomerLink;
+	
+	@FXML
+	private Hyperlink customerSearchLink;
 
 	@FXML
 	private Hyperlink logout;
@@ -60,7 +63,6 @@ public class AdminController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/NewEmployeeTab.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -75,7 +77,7 @@ public class AdminController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/NewInvItemTab.fxml"));
 		} catch (IOException e) {
-
+			e.printStackTrace();
 		}
 
 		Scene scene = new Scene(root);
@@ -89,7 +91,7 @@ public class AdminController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/CreateOrderTab.fxml"));
 		} catch (IOException e) {
-
+			e.printStackTrace();
 		}
 
 		Scene scene = new Scene(root);
@@ -105,7 +107,7 @@ public class AdminController implements Initializable {
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 		} catch (IOException e) {
-
+			e.printStackTrace();
 		}
 
 	}
@@ -119,7 +121,6 @@ public class AdminController implements Initializable {
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -131,13 +132,24 @@ public class AdminController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/NewCustomerTab.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 	}
 
 	public void openCustomerSearchTab(ActionEvent event) {
-
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/SearchCustomerTab.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	
 	}
 
 	public void logout(ActionEvent event) {
@@ -147,6 +159,7 @@ public class AdminController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);

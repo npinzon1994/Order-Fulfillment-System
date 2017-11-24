@@ -83,37 +83,29 @@ public class CreateOrderController4 implements Initializable {
 		monthBox.getItems().addAll("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
 		yearBox.getItems().addAll("2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024");
 		NumberFormat format = NumberFormat.getCurrencyInstance();
-		addCartItemsToInvoice();
+		
 		setTotals();
-		subtotalLabel.setText(format.format(MasterDatabase.getCurrentOrder().getSubtotal()));
-		shippingLabel.setText(format.format(MasterDatabase.getCurrentOrder().getshippingCost()));
-		totalLabel.setText(format.format(MasterDatabase.getCurrentOrder().getTotal()));
+		subtotalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getSubtotal()));
+		shippingLabel.setText(format.format(MasterDatabase.getOrderCustomer().getShippingCost()));
+		totalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getTotal()));
 
-	}
-	
-	public void addCartItemsToInvoice() {
-		for (InvItem item : MasterDatabase.getOrderCustomer().getCart()) {
-			if(!MasterDatabase.getCurrentOrder().getItems().contains(item)){
-				MasterDatabase.getCurrentOrder().getItems().add(item);
-			}	
-		}
 	}
 
 	public void setTotals() {
 		subtotal = 0;
 		total = 0;
-		for (InvItem item : MasterDatabase.getCurrentOrder().getItems()) {
+		for (InvItem item : MasterDatabase.getOrderCustomer().getCart()) {
 			subtotal += item.getPrice();
 		}
 		total = subtotal + determineShippingCost();
-		MasterDatabase.getCurrentOrder().setSubtotal(subtotal);
-		MasterDatabase.getCurrentOrder().setshippingCost(determineShippingCost());
-		MasterDatabase.getCurrentOrder().setTotal(total);
+		MasterDatabase.getOrderCustomer().setSubtotal(subtotal);
+		MasterDatabase.getOrderCustomer().setShippingCost(determineShippingCost());
+		MasterDatabase.getOrderCustomer().setTotal(total);
 	}
 
 	public double determineShippingCost() {
 		double shippingCost = 0;
-		if (MasterDatabase.getCurrentOrder().getShippingMethod().equals("Pickup In-Store")) {
+		if (MasterDatabase.getOrderCustomer().getShippingMethod().equals("Pickup In-Store")) {
 			shippingCost = 0;
 			return shippingCost;
 		} else {

@@ -117,7 +117,7 @@ public class CreateOrderTab3Controller implements Initializable {
 			shipZipField.setEditable(false);
 			shippingMethodBox.getSelectionModel().select("Shipping Method");
 			shippingMethodBox.setDisable(true);
-			MasterDatabase.getCurrentOrder().setShippingMethod("Pickup In-Store");
+			MasterDatabase.getOrderCustomer().setShippingMethod("Pickup In-Store");
 		} else {
 			shipStreetField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getStreetAddress());
 			shipCityField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getCity());
@@ -128,7 +128,7 @@ public class CreateOrderTab3Controller implements Initializable {
 			shipStateBox.setDisable(false);
 			shipZipField.setEditable(true);
 			shippingMethodBox.setDisable(false);
-			MasterDatabase.getCurrentOrder().setShippingMethod(shippingMethodBox.getSelectionModel().getSelectedItem());
+			MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getSelectionModel().getSelectedItem());
 		}
 	}
 

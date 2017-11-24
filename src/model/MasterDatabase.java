@@ -25,14 +25,11 @@ public class MasterDatabase implements Serializable {
 
 	private static Customer orderCustomer;
 	private static CustomerServiceRep loggedEmployee;
-	private static Invoice currentOrder;
 
 	private MasterDatabase() {
 		inventory = new HashMap<>();
 		employeeDatabase = new HashMap<>();
 		customerDatabase = new HashMap<>();
-		invoiceDatabase = new HashMap<>();
-		currentOrder = new Invoice();
 	}
 
 	public static MasterDatabase getMasterDatabase() {
@@ -90,14 +87,6 @@ public class MasterDatabase implements Serializable {
 
 	public static void setLoggedEmployee(CustomerServiceRep loggedEmployee) {
 		MasterDatabase.loggedEmployee = loggedEmployee;
-	}
-
-	public static Invoice getCurrentOrder() {
-		return currentOrder;
-	}
-
-	public static void setCurrentOrder(Invoice currentOrder) {
-		MasterDatabase.currentOrder = currentOrder;
 	}
 
 	public static void saveInventory() {
@@ -181,6 +170,7 @@ public class MasterDatabase implements Serializable {
 			objectOutput = new ObjectOutputStream(fileOutput);
 			objectOutput.writeObject(getCustomerDatabase());
 			objectOutput.writeInt(Customer.getIdInt());
+			objectOutput.writeInt(Invoice.getIdCounter());
 			objectOutput.close();
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
@@ -198,6 +188,7 @@ public class MasterDatabase implements Serializable {
 			objectInput = new ObjectInputStream(fileInput);
 			setCustomerDatabase((HashMap<String, Customer>) objectInput.readObject());
 			Customer.setIdInt(objectInput.readInt());
+			Invoice.setIdCounter(objectInput.readInt());
 			objectInput.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

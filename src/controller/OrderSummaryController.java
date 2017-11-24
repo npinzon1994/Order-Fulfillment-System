@@ -93,10 +93,10 @@ public class OrderSummaryController implements Initializable {
 		billCityStateZip.setText(MasterDatabase.getOrderCustomer().getBillingAddress().getCity() + " "
 				+ MasterDatabase.getOrderCustomer().getBillingAddress().getState() + ", "
 				+ MasterDatabase.getOrderCustomer().getBillingAddress().getZip());
-		shippingMethodLabel.setText(MasterDatabase.getCurrentOrder().getShippingMethod());
+		shippingMethodLabel.setText(MasterDatabase.getOrderCustomer().getShippingMethod());
 		populateTable();
 		NumberFormat format = NumberFormat.getCurrencyInstance();
-		totalLabel.setText(format.format(MasterDatabase.getCurrentOrder().getTotal()));
+		totalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getTotal()));
 		table.setSelectionModel(null);
 
 	}
@@ -153,15 +153,16 @@ public class OrderSummaryController implements Initializable {
 
 	public void createInvoice() {
 		Invoice invoice = new Invoice();
-		invoice.setCustomer(MasterDatabase.getOrderCustomer());
+		invoice.setShippingAddress(MasterDatabase.getOrderCustomer().getShippingAddress());
+		invoice.setBillingAddress(MasterDatabase.getOrderCustomer().getBillingAddress());
 		invoice.setOrderStatus("Processed");
-		for (InvItem item : MasterDatabase.getCurrentOrder().getItems()) {
+		for (InvItem item : MasterDatabase.getOrderCustomer().getCart()) {
 			invoice.getItems().add(item);
 		}
-		invoice.setSubtotal(MasterDatabase.getCurrentOrder().getSubtotal());
-		invoice.setshippingCost(MasterDatabase.getCurrentOrder().getshippingCost());
-		invoice.setTotal(MasterDatabase.getCurrentOrder().getTotal());
-		invoice.setShippingMethod(MasterDatabase.getCurrentOrder().getShippingMethod());
+		invoice.setSubtotal(MasterDatabase.getOrderCustomer().getSubtotal());
+		invoice.setshippingCost(MasterDatabase.getOrderCustomer().getShippingCost());
+		invoice.setTotal(MasterDatabase.getOrderCustomer().getTotal());
+		invoice.setShippingMethod(MasterDatabase.getOrderCustomer().getShippingMethod());
 		for(Customer customer : MasterDatabase.getCustomerDatabase().values()){
 			if(customer.getId().equals(MasterDatabase.getOrderCustomer().getId())){
 				customer.getOrders().put(invoice.getInvoiceNumber(), invoice);
@@ -188,9 +189,10 @@ public class OrderSummaryController implements Initializable {
 			}
 		}
 		MasterDatabase.getOrderCustomer().getCart().clear();
-		MasterDatabase.getCurrentOrder().setshippingCost(0);
-		MasterDatabase.getCurrentOrder().setSubtotal(0);
-		MasterDatabase.getCurrentOrder().setTotal(0);
+		MasterDatabase.getOrderCustomer().setShippingCost(0);
+		MasterDatabase.getOrderCustomer().setSubtotal(0);
+		MasterDatabase.getOrderCustomer().setTotal(0);
+		MasterDatabase.getOrderCustomer().getOrders().clear();
 		MasterDatabase.saveInventory();
 		MasterDatabase.saveCustomers();
 	}

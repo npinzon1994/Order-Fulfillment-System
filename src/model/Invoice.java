@@ -13,24 +13,14 @@ public class Invoice implements Serializable {
 	private String invoiceNumber;
 	private LocalDate date = LocalDate.now();
 	private String dateString;
-	private Customer customer;
+	private Address shippingAddress;
+	private Address billingAddress;
 	private String orderStatus;
 	private ArrayList<InvItem> items = new ArrayList<>();
 	private double subtotal;
 	private double shippingCost;
 	private double total;
 	private String shippingMethod;
-
-	public Invoice(Customer customer, String orderStatus, ArrayList<InvItem> items, double subtotal,
-			double shippingCost, double total) {
-		this.invoiceNumber = "#HFH" + String.valueOf(idCounter++);
-		this.customer = customer;
-		this.orderStatus = orderStatus;
-		this.items = items;
-		this.subtotal = subtotal;
-		this.shippingCost = shippingCost;
-		this.total = total;
-	}
 
 	public Invoice() {
 		this.invoiceNumber = "#HFH" + String.valueOf(idCounter++);
@@ -45,12 +35,20 @@ public class Invoice implements Serializable {
 		this.invoiceNumber = invoiceNumber;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public Address getShippingAddress() {
+		return shippingAddress;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setShippingAddress(Address shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	public Address getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
 	}
 
 	public ArrayList<InvItem> getItems() {
@@ -84,8 +82,8 @@ public class Invoice implements Serializable {
 	public String getOrderStatus() {
 		return orderStatus;
 	}
-	
-	public void setOrderStatus(String status){
+
+	public void setOrderStatus(String status) {
 		this.orderStatus = status;
 	}
 

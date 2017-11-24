@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.InvItem;
+import model.Invoice;
 import model.MasterDatabase;
 
 public class ViewOrderController implements Initializable {
@@ -69,14 +70,16 @@ public class ViewOrderController implements Initializable {
 		billCityStateZip.setText(MasterDatabase.getOrderCustomer().getBillingAddress().getCity() + " "
 				+ MasterDatabase.getOrderCustomer().getBillingAddress().getState() + ", "
 				+ MasterDatabase.getOrderCustomer().getBillingAddress().getZip());
-		shippingMethodLabel.setText(MasterDatabase.getCurrentOrder().getShippingMethod());
+		shippingMethodLabel.setText(MasterDatabase.getOrderCustomer().getShippingMethod());
 		populateTable();
 		NumberFormat format = NumberFormat.getCurrencyInstance();
-		subtotalLabel.setText(format.format(MasterDatabase.getCurrentOrder().getSubtotal()));
-		shippingLabel.setText(format.format(MasterDatabase.getCurrentOrder().getshippingCost()));
-		totalLabel.setText(format.format(MasterDatabase.getCurrentOrder().getTotal()));
+		subtotalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getSubtotal()));
+		shippingLabel.setText(format.format(MasterDatabase.getOrderCustomer().getShippingCost()));
+		totalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getTotal()));
 		table.setSelectionModel(null);
-		orderNumber.setText(MasterDatabase.getCurrentOrder().getInvoiceNumber());
+		for(Invoice invoice : MasterDatabase.getOrderCustomer().getOrders().values()){
+			orderNumber.setText(invoice.getInvoiceNumber());
+		}
 		
 	}
 	

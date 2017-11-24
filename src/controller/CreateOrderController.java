@@ -134,7 +134,6 @@ public class CreateOrderController implements Initializable {
 				setBillingFields();
 				setLabelsVisible();
 				MasterDatabase.setOrderCustomer(table.getSelectionModel().getSelectedItem());
-				MasterDatabase.getCurrentOrder().setCustomer(MasterDatabase.getOrderCustomer());
 			}
 		});
 	}
