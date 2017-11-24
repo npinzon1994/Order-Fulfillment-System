@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewOrderController">
+   <children>
+      <AnchorPane layoutX="11.0" layoutY="69.0" minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="624.0">
+         <children>
+            <Label fx:id="customerLabel" layoutX="14.0" layoutY="14.0" text="customerLabel" />
+            <AnchorPane layoutX="10.0" layoutY="69.0" prefHeight="83.0" prefWidth="273.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="5.0" text="Shipping Address" />
+                  <Label fx:id="shipStreetAddress" layoutX="5.0" layoutY="31.0" text="streetAddress" />
+                  <Label fx:id="shipCityStateZip" layoutX="5.0" layoutY="51.0" text="cityStateZip" />
+               </children>
+            </AnchorPane>
+            <Label layoutX="14.0" layoutY="41.0" text="Shipping Method:" />
+            <Label fx:id="shippingMethodLabel" layoutX="133.0" layoutY="41.0" text="shippingMethodLabel" />
+            <AnchorPane layoutX="291.0" layoutY="69.0" prefHeight="83.0" prefWidth="273.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="5.0" text="Billing Address" />
+                  <Label fx:id="billStreetAddress" layoutX="5.0" layoutY="31.0" text="streetAddress" />
+                  <Label fx:id="billCityStateZip" layoutX="5.0" layoutY="51.0" text="cityStateZip" />
+               </children>
+            </AnchorPane>
+            <TableView fx:id="table" layoutX="14.0" layoutY="150.0" prefHeight="202.0" prefWidth="492.0">
+               <columns>
+                  <TableColumn fx:id="itemColumn" prefWidth="352.0" text="Item" />
+                  <TableColumn fx:id="priceColumn" prefWidth="138.0" text="Price" />
+               </columns>
+            </TableView>
+            <Label layoutX="458.0" layoutY="4.0" text="Total:" />
+            <Label fx:id="totalLabel" layoutX="524.0" layoutY="4.0" text="total" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="24.0" layoutY="14.0" text="Your order has been placed!" />
+      <Label layoutX="24.0" layoutY="39.0" text="Order" />
+      <Label fx:id="orderNumber" layoutX="77.0" layoutY="39.0" text="orderNumber" />
+      <Label layoutX="468.0" layoutY="23.0" text="Subtotal:" />
+      <Label fx:id="subtotalLabel" layoutX="534.0" layoutY="23.0" text="subtotal" />
+      <Label layoutX="468.0" layoutY="47.0" text="Shipping:" />
+      <Label fx:id="shippingLabel" layoutX="534.0" layoutY="48.0" text="shipping" />
+   </children>
+</AnchorPane>

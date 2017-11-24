@@ -3,7 +3,6 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -22,6 +21,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,6 +34,12 @@ import model.MasterDatabase;
 import model.OperationsAssociate;
 
 public class NewEmployeeController implements Initializable {
+	
+	@FXML
+	private Label employee;
+	
+	@FXML
+	private Label empId;
 	
 	@FXML
 	private Button cancelBtn;
@@ -76,6 +82,9 @@ public class NewEmployeeController implements Initializable {
 		levelBox.getItems().addAll("1 - Customer Service Representative", "2 - Operations Associate",
 				"3 - Administrator");
 		levelBox.getSelectionModel().selectFirst();
+		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
+				+ MasterDatabase.getLoggedEmployee().getLastName());
+		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 	}
 
 	public void switchBackToHomeTab(ActionEvent event) {

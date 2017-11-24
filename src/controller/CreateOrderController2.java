@@ -76,9 +76,6 @@ public class CreateOrderController2 implements Initializable {
 	private ImageView imageView;
 
 	@FXML
-	private Label customerLabel;
-
-	@FXML
 	private Hyperlink myCart;
 
 	@FXML
@@ -110,8 +107,25 @@ public class CreateOrderController2 implements Initializable {
 
 	private ObservableList<InvItem> allItems, selectedItems;
 
+	@FXML
+	private Label employee;
+
+	@FXML
+	private Label empId;
+
+	@FXML
+	private Label customer;
+	
+	private InvItem item;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
+				+ MasterDatabase.getLoggedEmployee().getLastName());
+		empId.setText(MasterDatabase.getLoggedEmployee().getId());
+		customer.setText(MasterDatabase.getOrderCustomer().getFirstName() + " "
+				+ MasterDatabase.getOrderCustomer().getLastName());
+		numItems.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
 
 	}
 
@@ -121,6 +135,7 @@ public class CreateOrderController2 implements Initializable {
 			public void changed(ObservableValue<? extends InvItem> observable, InvItem oldValue, InvItem newValue) {
 				setFields();
 				setLabelsVisible();
+				item = list.getSelectionModel().getSelectedItem();
 			}
 		});
 	}
@@ -137,16 +152,24 @@ public class CreateOrderController2 implements Initializable {
 		stage.setScene(scene);
 	}
 
-	public void goToNextPage() {
-
+	public void goToNextPage(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/CreateOrderTab3.fxml"));
+		} catch (IOException e) {
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
 	}
 
 	public void searchItem() {
 		ObservableList<InvItem> items = FXCollections.observableArrayList();
 		for (InvItem item : MasterDatabase.getInventory().values()) {
 			item.getDescription().replace(" ", "");
-			if ((!item.equals(null)) && item.getDescription().contains(searchField.getText()) && item.getStatus().equals("In Stock")
-					&& !items.contains(item)) {
+			if ((!item.equals(null)) && item.getDescription().contains(searchField.getText())
+					&& item.getStatus().equals("In Stock") && !items.contains(item)) {
 				items.add(item);
 			}
 		}
@@ -206,6 +229,13 @@ public class CreateOrderController2 implements Initializable {
 	}
 
 	public void addItemToCart() {
+		if(!MasterDatabase.getOrderCustomer().getCart().contains(item)){
+			MasterDatabase.getOrderCustomer().getCart().add(item);
+			numItems.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("Item added to cart!");
+			alert.showAndWait();
+		}
 		
 	}
 
@@ -233,8 +263,16 @@ public class CreateOrderController2 implements Initializable {
 		stage.setScene(scene);
 	}
 
-	public void goToMyCart() {
-
+	public void goToMyCart(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/MyCartTab.fxml"));
+		} catch (IOException e) {
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
 	}
 
 }

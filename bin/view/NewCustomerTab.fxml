@@ -64,7 +64,8 @@
       <AnchorPane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Hyperlink fx:id="logoutLink" layoutX="529.0" layoutY="10.0" onAction="#logout" text="Logout" />
-            <Label fx:id="empIdLbl" layoutX="9.0" layoutY="14.0" text="Employee ID : empId" />
+            <Label fx:id="employee" layoutX="9.0" layoutY="14.0" text="Employee ID" />
+            <Label fx:id="empId" layoutX="101.0" layoutY="14.0" text="Label" />
          </children>
       </AnchorPane>
    </top>

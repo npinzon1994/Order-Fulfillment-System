@@ -25,12 +25,14 @@ public class MasterDatabase implements Serializable {
 
 	private static Customer orderCustomer;
 	private static CustomerServiceRep loggedEmployee;
+	private static Invoice currentOrder;
 
 	private MasterDatabase() {
 		inventory = new HashMap<>();
 		employeeDatabase = new HashMap<>();
 		customerDatabase = new HashMap<>();
 		invoiceDatabase = new HashMap<>();
+		currentOrder = new Invoice();
 	}
 
 	public static MasterDatabase getMasterDatabase() {
@@ -88,6 +90,14 @@ public class MasterDatabase implements Serializable {
 
 	public static void setLoggedEmployee(CustomerServiceRep loggedEmployee) {
 		MasterDatabase.loggedEmployee = loggedEmployee;
+	}
+
+	public static Invoice getCurrentOrder() {
+		return currentOrder;
+	}
+
+	public static void setCurrentOrder(Invoice currentOrder) {
+		MasterDatabase.currentOrder = currentOrder;
 	}
 
 	public static void saveInventory() {

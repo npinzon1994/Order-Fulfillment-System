@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Customer implements Serializable {
 
@@ -17,6 +18,8 @@ public class Customer implements Serializable {
 	private Address billingAddress;
 	private Address shippingAddress;
 	private ArrayList<InvItem> cart;
+	private HashMap<String, Invoice> orders;
+	private boolean isStorePickup;
 
 	public Customer(String firstName, String lastName, String email, String phone, Address shippingAddress,
 			Address billingAddress) {
@@ -31,7 +34,8 @@ public class Customer implements Serializable {
 
 	public Customer() {
 		this.id = "C" + String.valueOf(idInt++);
-		this.cart = new ArrayList<>();
+		cart = new ArrayList<>();
+		orders = new HashMap<>();
 	}
 
 	public String getFirstName() {
@@ -100,6 +104,22 @@ public class Customer implements Serializable {
 
 	public void setCart(ArrayList<InvItem> cart) {
 		this.cart = cart;
+	}
+
+	public boolean getIsStorePickup() {
+		return isStorePickup;
+	}
+
+	public void setIsStorePickup(boolean isStorePickup) {
+		this.isStorePickup = isStorePickup;
+	}
+
+	public HashMap<String, Invoice> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(HashMap<String, Invoice> orders) {
+		this.orders = orders;
 	}
 
 	@Override

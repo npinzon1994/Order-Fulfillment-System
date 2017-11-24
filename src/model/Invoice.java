@@ -2,38 +2,39 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Invoice implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private final double SALES_TAX = 0.08625;
+
 	private static int idCounter = 1;
 
 	private String invoiceNumber;
-	private LocalDate date;
+	private LocalDate date = LocalDate.now();
+	private String dateString;
 	private Customer customer;
-	private Address billingAddress;
-	private Address shippingAddress;
 	private String orderStatus;
-	private InvItem[] items;
+	private ArrayList<InvItem> items = new ArrayList<>();
 	private double subtotal;
-	private double tax;
+	private double shippingCost;
 	private double total;
+	private String shippingMethod;
 
-	public Invoice(Customer customer, Address billingAddress, Address shippingAddress, String orderStatus,
-			InvItem[] items, double subtotal, double tax, double total) {
+	public Invoice(Customer customer, String orderStatus, ArrayList<InvItem> items, double subtotal,
+			double shippingCost, double total) {
 		this.invoiceNumber = "#HFH" + String.valueOf(idCounter++);
-		this.date = LocalDate.now();
 		this.customer = customer;
-		this.billingAddress = billingAddress;
-		this.shippingAddress = shippingAddress;
 		this.orderStatus = orderStatus;
 		this.items = items;
 		this.subtotal = subtotal;
-		this.tax = tax;
+		this.shippingCost = shippingCost;
 		this.total = total;
+	}
+
+	public Invoice() {
+		this.invoiceNumber = "#HFH" + String.valueOf(idCounter++);
+		this.dateString = date.toString();
 	}
 
 	public String getInvoiceNumber() {
@@ -52,27 +53,11 @@ public class Invoice implements Serializable {
 		this.customer = customer;
 	}
 
-	public Address getBillingAddress() {
-		return billingAddress;
-	}
-
-	public void setBillingAddress(Address billingAddress) {
-		this.billingAddress = billingAddress;
-	}
-
-	public Address getShippingAddress() {
-		return shippingAddress;
-	}
-
-	public void setShippingAddress(Address shippingAddress) {
-		this.shippingAddress = shippingAddress;
-	}
-
-	public InvItem[] getItems() {
+	public ArrayList<InvItem> getItems() {
 		return items;
 	}
 
-	public void setItems(InvItem[] items) {
+	public void setItems(ArrayList<InvItem> items) {
 		this.items = items;
 	}
 
@@ -84,12 +69,12 @@ public class Invoice implements Serializable {
 		this.subtotal = subtotal;
 	}
 
-	public double getTax() {
-		return tax;
+	public double getshippingCost() {
+		return shippingCost;
 	}
 
-	public void setTax(double tax) {
-		this.tax = tax;
+	public void setshippingCost(double shippingCost) {
+		this.shippingCost = shippingCost;
 	}
 
 	public LocalDate getDate() {
@@ -98,6 +83,10 @@ public class Invoice implements Serializable {
 
 	public String getOrderStatus() {
 		return orderStatus;
+	}
+	
+	public void setOrderStatus(String status){
+		this.orderStatus = status;
 	}
 
 	public double getTotal() {
@@ -108,8 +97,24 @@ public class Invoice implements Serializable {
 		this.total = total;
 	}
 
+	public String getShippingMethod() {
+		return shippingMethod;
+	}
+
+	public void setShippingMethod(String shippingMethod) {
+		this.shippingMethod = shippingMethod;
+	}
+
 	public static int getIdCounter() {
 		return idCounter;
+	}
+
+	public String getDateString() {
+		return dateString;
+	}
+
+	public void setDateString(String dateString) {
+		this.dateString = dateString;
 	}
 
 	public static void setIdCounter(int idCounter) {

@@ -88,10 +88,18 @@ public class EmployeeSearchController implements Initializable {
 	private ObservableList<CustomerServiceRep> allUsers, usersSelected;
 
 	private LocalDate date = LocalDate.now();
+	
+	@FXML
+	private Label employee;
+	
+	@FXML
+	private Label empId;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
+				+ MasterDatabase.getLoggedEmployee().getLastName());
+		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 	}
 
 	public void switchBackToHomeTab(ActionEvent event) {
@@ -101,7 +109,6 @@ public class EmployeeSearchController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);

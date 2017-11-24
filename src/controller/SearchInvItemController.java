@@ -31,6 +31,12 @@ import model.MasterDatabase;
 public class SearchInvItemController implements Initializable {
 
 	@FXML
+	private Label employee;
+	
+	@FXML
+	private Label empId;
+	
+	@FXML
 	private ListView<InvItem> list;
 
 	@FXML
@@ -100,7 +106,9 @@ public class SearchInvItemController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
+				+ MasterDatabase.getLoggedEmployee().getLastName());
+		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 	}
 
 	public void onClicked() {

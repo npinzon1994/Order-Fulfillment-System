@@ -78,8 +78,9 @@
    <top>
       <AnchorPane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="13.0" layoutY="13.0" text="Employee : empId" />
+            <Label fx:id="employee" layoutX="13.0" layoutY="13.0" text="Employee" />
             <Hyperlink layoutX="523.0" layoutY="9.0" text="Logout" />
+            <Label fx:id="empId" layoutX="93.0" layoutY="13.0" text="empId" />
          </children>
       </AnchorPane>
    </top>

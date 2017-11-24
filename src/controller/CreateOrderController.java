@@ -25,7 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Customer;
-import model.InvItem;
+import model.Invoice;
 import model.MasterDatabase;
 
 public class CreateOrderController implements Initializable {
@@ -83,10 +83,10 @@ public class CreateOrderController implements Initializable {
 
 	private Customer customer;
 	private ObservableList<Customer> allCustomers, selectedCustomers;
-	
+
 	@FXML
 	private Label employee;
-	
+
 	@FXML
 	private Label empId;
 
@@ -133,7 +133,8 @@ public class CreateOrderController implements Initializable {
 				setShippingFields();
 				setBillingFields();
 				setLabelsVisible();
-				
+				MasterDatabase.setOrderCustomer(table.getSelectionModel().getSelectedItem());
+				MasterDatabase.getCurrentOrder().setCustomer(MasterDatabase.getOrderCustomer());
 			}
 		});
 	}
@@ -157,8 +158,8 @@ public class CreateOrderController implements Initializable {
 		}
 
 	}
-	
-	public void setLabelsVisible(){
+
+	public void setLabelsVisible() {
 		shippingAddress.setVisible(true);
 		shippingStreetAddress.setVisible(true);
 		shippingCityStateZip.setVisible(true);
@@ -190,7 +191,6 @@ public class CreateOrderController implements Initializable {
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
-		MasterDatabase.setOrderCustomer(table.getSelectionModel().getSelectedItem());
 		stage.setScene(scene);
 	}
 

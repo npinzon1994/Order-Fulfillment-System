@@ -25,7 +25,10 @@ import model.MasterDatabase;
 public class NewCustomerOrderController implements Initializable {
 
 	@FXML
-	private Label empIdLbl;
+	private Label employee;
+	
+	@FXML
+	private Label empId;
 
 	@FXML
 	private TextField fNameField;
@@ -96,6 +99,9 @@ public class NewCustomerOrderController implements Initializable {
 				"IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
 				"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
 				"WV", "WI", "WY");
+		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
+				+ MasterDatabase.getLoggedEmployee().getLastName());
+		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 
 	}
 

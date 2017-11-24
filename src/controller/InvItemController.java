@@ -3,7 +3,6 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -68,6 +68,12 @@ public class InvItemController implements Initializable {
 	private Image image;
 	
 	transient BufferedImage bufferedImage;
+	
+	@FXML
+	private Label employee;
+	
+	@FXML
+	private Label empId;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -80,6 +86,9 @@ public class InvItemController implements Initializable {
 		condition.getItems().removeAll(condition.getItems());
 		condition.getItems().addAll("Excellent", "Great", "Good", "Fair", "Poor");
 		condition.getSelectionModel().selectFirst();
+		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
+				+ MasterDatabase.getLoggedEmployee().getLastName());
+		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 	}
 
 	public void switchBackToHomeTab(ActionEvent event) {
