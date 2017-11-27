@@ -34,8 +34,11 @@ public class AdminController implements Initializable {
 	private Hyperlink createOrderLink;
 
 	@FXML
+	private Hyperlink orderSearchLink;
+
+	@FXML
 	private Hyperlink createCustomerLink;
-	
+
 	@FXML
 	private Hyperlink customerSearchLink;
 
@@ -98,6 +101,20 @@ public class AdminController implements Initializable {
 		stage.setScene(scene);
 	}
 
+	public void openOrderSearchTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/OrderSearchTab.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
 	public void openSearchInventoryPane(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
@@ -149,7 +166,7 @@ public class AdminController implements Initializable {
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
-	
+
 	}
 
 	public void logout(ActionEvent event) {

@@ -95,6 +95,7 @@ public class MyCartController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -107,6 +108,7 @@ public class MyCartController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/CreateOrderTab2.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);

@@ -94,7 +94,7 @@ public class NewEmployeeController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
 		} catch (IOException e) {
-		
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -154,7 +154,7 @@ public class NewEmployeeController implements Initializable {
 			try {
 				bufferedImage = ImageIO.read(file);
 			} catch (IOException e) {
-
+				e.printStackTrace();
 			}
 			image = SwingFXUtils.toFXImage(bufferedImage, null);
 			imageView.setImage(image);

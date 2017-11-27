@@ -167,6 +167,7 @@ public class OrderSummaryController implements Initializable {
 			if(customer.getId().equals(MasterDatabase.getOrderCustomer().getId())){
 				customer.getOrders().put(invoice.getInvoiceNumber(), invoice);
 			}
+			
 		}
 	}
 
@@ -192,7 +193,6 @@ public class OrderSummaryController implements Initializable {
 		MasterDatabase.getOrderCustomer().setShippingCost(0);
 		MasterDatabase.getOrderCustomer().setSubtotal(0);
 		MasterDatabase.getOrderCustomer().setTotal(0);
-		MasterDatabase.getOrderCustomer().getOrders().clear();
 		MasterDatabase.saveInventory();
 		MasterDatabase.saveCustomers();
 	}

@@ -147,6 +147,7 @@ public class CreateOrderController2 implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/CreateOrderTab.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -159,6 +160,7 @@ public class CreateOrderController2 implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/CreateOrderTab3.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -246,6 +248,7 @@ public class CreateOrderController2 implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -258,6 +261,7 @@ public class CreateOrderController2 implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -270,6 +274,7 @@ public class CreateOrderController2 implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/MyCartTab.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);

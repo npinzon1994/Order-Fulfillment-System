@@ -24,7 +24,9 @@ public class MasterDatabase implements Serializable {
 	private static HashMap<String, Invoice> invoiceDatabase;
 
 	private static Customer orderCustomer;
+	private static Customer searchCustomer;
 	private static CustomerServiceRep loggedEmployee;
+	private static Invoice orderBeingViewed;
 
 	private MasterDatabase() {
 		inventory = new HashMap<>();
@@ -87,6 +89,22 @@ public class MasterDatabase implements Serializable {
 
 	public static void setLoggedEmployee(CustomerServiceRep loggedEmployee) {
 		MasterDatabase.loggedEmployee = loggedEmployee;
+	}
+
+	public static Customer getSearchCustomer() {
+		return searchCustomer;
+	}
+
+	public static void setSearchCustomer(Customer searchCustomer) {
+		MasterDatabase.searchCustomer = searchCustomer;
+	}
+
+	public static Invoice getOrderBeingViewed() {
+		return orderBeingViewed;
+	}
+
+	public static void setOrderBeingViewed(Invoice orderBeingViewed) {
+		MasterDatabase.orderBeingViewed = orderBeingViewed;
 	}
 
 	public static void saveInventory() {

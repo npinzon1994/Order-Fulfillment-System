@@ -131,6 +131,7 @@ public class NewCustomerOrderController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -155,6 +156,7 @@ public class NewCustomerOrderController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/CreateOrderTab2.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -212,6 +214,7 @@ public class NewCustomerOrderController implements Initializable {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/CreateOrderTab.fxml"));
 		} catch (IOException e) {
+			e.printStackTrace();
 
 		}
 		Scene scene = new Scene(root);

@@ -10,36 +10,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchCustomerController">
-   <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab text="Customer Search">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TextField fx:id="idField" layoutX="14.0" layoutY="31.0" />
-                        <TextField fx:id="fNameField" layoutX="14.0" layoutY="89.0" />
-                        <TextField fx:id="lNameField" layoutX="14.0" layoutY="148.0" />
-                        <TextField fx:id="zipField" layoutX="14.0" layoutY="207.0" />
-                        <Label layoutX="14.0" layoutY="14.0" text="Customer ID" />
-                        <Label layoutX="14.0" layoutY="72.0" text="First Name" />
-                        <Label layoutX="14.0" layoutY="131.0" text="Last Name" />
-                        <Label layoutX="14.0" layoutY="188.0" text="Zip Code" />
-                        <TableView fx:id="table" layoutX="200.0" layoutY="31.0" prefHeight="200.0" prefWidth="383.0">
-                          <columns>
-                            <TableColumn fx:id="nameColumn" prefWidth="205.0" text="Name" />
-                            <TableColumn fx:id="addressColumn" prefWidth="176.0" text="Billing Address" />
-                          </columns>
-                        </TableView>
-                        <Button fx:id="viewOrdersBtn" layoutX="201.0" layoutY="241.0" mnemonicParsing="false" onAction="#viewOrders" text="View Orders" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </center>
    <top>
       <AnchorPane prefHeight="44.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -57,4 +30,37 @@
          </children>
       </AnchorPane>
    </bottom>
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="Customer Search">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="idField" layoutX="14.0" layoutY="31.0" />
+                              <TextField fx:id="fNameField" layoutX="14.0" layoutY="89.0" />
+                              <TextField fx:id="lNameField" layoutX="14.0" layoutY="148.0" />
+                              <TextField fx:id="zipField" layoutX="14.0" layoutY="207.0" />
+                              <Label layoutX="14.0" layoutY="14.0" text="Customer ID" />
+                              <Label layoutX="14.0" layoutY="72.0" text="First Name" />
+                              <Label layoutX="14.0" layoutY="131.0" text="Last Name" />
+                              <Label layoutX="14.0" layoutY="188.0" text="Zip Code" />
+                              <TableView fx:id="table" layoutX="200.0" layoutY="31.0" prefHeight="200.0" prefWidth="383.0">
+                                 <columns>
+                                    <TableColumn fx:id="nameColumn" prefWidth="205.0" text="Name" />
+                                    <TableColumn fx:id="addressColumn" prefWidth="176.0" text="Billing Address" />
+                                 </columns>
+                              </TableView>
+                              <Button fx:id="viewOrdersBtn" layoutX="201.0" layoutY="241.0" mnemonicParsing="false" onAction="#viewOrders" text="View Orders" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </StackPane>
+   </center>
 </BorderPane>

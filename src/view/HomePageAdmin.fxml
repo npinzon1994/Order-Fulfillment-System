@@ -22,7 +22,7 @@
                            <children>
                               <Label text="Order" translateX="5.0" />
                               <Hyperlink fx:id="createOrderLink" onAction="#openCreateOrderPane" text="Create Order" />
-                              <Hyperlink text="Order Search" />
+                              <Hyperlink fx:id="orderSearchLink" onAction="#openOrderSearchTab" text="Order Search" />
                               <Hyperlink text="Create Return" />
                            </children>
                         </VBox>
