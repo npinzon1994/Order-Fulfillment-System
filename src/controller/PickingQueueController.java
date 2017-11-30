@@ -27,71 +27,56 @@ import model.Customer;
 import model.Invoice;
 import model.MasterDatabase;
 
-public class ViewCustomerOrdersController implements Initializable {
+public class PickingQueueController implements Initializable {
 
 	@FXML
 	private Label employee;
-
 	@FXML
 	private Label empId;
-
-	@FXML
-	private Label customer;
-
 	@FXML
 	private Hyperlink logoutLink;
-
 	@FXML
 	private TableView<Invoice> table;
-
 	@FXML
 	private TableColumn<Invoice, String> numberColumn;
-
 	@FXML
-	private TableColumn<Invoice, String> statusColumn;
-
+	private TableColumn<Invoice, String> itemColumn;
 	@FXML
-	private Button viewBtn;
-
+	private TableColumn<Invoice, String> customerColumn;
 	@FXML
 	private Button backBtn;
+	@FXML
+	private Button nextBtn;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ObservableList<Invoice> list = FXCollections.observableArrayList();
-		for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
-			if (customer.getId().equals(MasterDatabase.getSearchCustomer().getId())) {
-				for (Invoice invoice : customer.getOrders().values()) {
-					list.add(invoice);
-				}
-			}
-		}
-
+		ObservableList<Invoice> orders = FXCollections.observableArrayList();
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
-		customer.setText(MasterDatabase.getSearchCustomer().getFirstName() + " "
-				+ MasterDatabase.getSearchCustomer().getLastName());
+		for (Invoice order : MasterDatabase.getInvoiceDatabase().values()) {
+			if (order.getOrderStatus().equals("Processed")) {
+				orders.add(order);
+			}
+		}
 		numberColumn.setCellValueFactory(
 				cellData -> Bindings.createStringBinding(() -> cellData.getValue().getInvoiceNumber()));
-		statusColumn.setCellValueFactory(new PropertyValueFactory<Invoice, String>("orderStatus"));
-		table.setItems(list);
+		itemColumn.setCellValueFactory(
+				cellData -> Bindings.createStringBinding(() -> cellData.getValue().getItems().get(0).toString()));
+		customerColumn.setCellValueFactory(
+				cellData -> Bindings.createStringBinding(() -> cellData.getValue().getCustomer().getId()));
+		table.setItems(orders);
 
 	}
+	
+	public void onClicked() {
+		table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Invoice>() {
 
-	public void viewOrderDetails(ActionEvent event) {
-		MasterDatabase.setOrderBeingViewed(table.getSelectionModel().getSelectedItem());
-		System.out.println(MasterDatabase.getOrderBeingViewed().getInvoiceNumber());
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/ViewOrderDetailsTab.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
+			@Override
+			public void changed(ObservableValue<? extends Invoice> observable, Invoice oldValue, Invoice newValue) {
+				MasterDatabase.setOrderBeingViewed(table.getSelectionModel().getSelectedItem());
+			}
+		});
 	}
 
 	public void goBack(ActionEvent event) {
@@ -99,7 +84,7 @@ public class ViewCustomerOrdersController implements Initializable {
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/view/SearchCustomerTab.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -113,6 +98,20 @@ public class ViewCustomerOrdersController implements Initializable {
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void goToNextPage(ActionEvent event) {
+		MasterDatabase.setOrderBeingViewed(table.getSelectionModel().getSelectedItem());
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/PickOrderTab.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -18,20 +18,19 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox layoutX="25.0" layoutY="95.0" prefHeight="88.0" prefWidth="147.0">
+                        <VBox layoutX="25.0" layoutY="95.0" prefHeight="73.0" prefWidth="147.0">
                            <children>
                               <Label text="Order" translateX="5.0" />
                               <Hyperlink fx:id="createOrderLink" onAction="#openCreateOrderPane" text="Create Order" />
-                              <Hyperlink fx:id="orderSearchLink" onAction="#openOrderSearchTab" text="Order Search" />
-                              <Hyperlink text="Create Return" />
+                              <Hyperlink fx:id="orderSearchLink" onAction="#openOrderSearchTab" text="Search/Return Order" />
                            </children>
                         </VBox>
-                        <VBox layoutX="27.0" layoutY="201.0" prefHeight="103.0" prefWidth="148.0">
+                        <VBox layoutX="376.0" layoutY="14.0" prefHeight="94.0" prefWidth="148.0">
                            <children>
                               <Label text="Shipping" translateX="5.0" />
-                              <Hyperlink text="Pick" />
-                              <Hyperlink text="Pack" />
-                              <Hyperlink text="Track Shipment" />
+                              <Hyperlink fx:id="pickLink" onAction="#openPickingQueue" text="Picking" />
+                              <Hyperlink fx:id="shipLink" onAction="#openPackingQueue" text="Packing" />
+                              <Hyperlink fx:id="readyForPickupLink" onAction="#openReadyForPickupQueue" text="Ready For Pickup" />
                            </children>
                         </VBox>
                         <VBox layoutX="200.0" layoutY="13.0" prefHeight="94.0" prefWidth="175.0">

@@ -13,6 +13,7 @@ public class Invoice implements Serializable {
 	private String invoiceNumber;
 	private LocalDate date = LocalDate.now();
 	private String dateString;
+	private Customer customer;
 	private Address shippingAddress;
 	private Address billingAddress;
 	private String orderStatus;
@@ -21,6 +22,8 @@ public class Invoice implements Serializable {
 	private double shippingCost;
 	private double total;
 	private String shippingMethod;
+	private String remark1;
+	private String remark2;
 
 	public Invoice() {
 		this.invoiceNumber = "#HFH" + String.valueOf(idCounter++);
@@ -117,6 +120,30 @@ public class Invoice implements Serializable {
 
 	public static void setIdCounter(int idCounter) {
 		Invoice.idCounter = idCounter;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	
+	public String getRemark1() {
+		return remark1;
+	}
+
+	public void setRemark1(String remark1) {
+		this.remark1 = remark1;
+	}
+
+	public String getRemark2() {
+		return remark2;
+	}
+
+	public void setRemark2(String remark2) {
+		this.remark2 = remark2;
 	}
 
 }

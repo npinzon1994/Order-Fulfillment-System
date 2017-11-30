@@ -32,6 +32,7 @@ public class MasterDatabase implements Serializable {
 		inventory = new HashMap<>();
 		employeeDatabase = new HashMap<>();
 		customerDatabase = new HashMap<>();
+		invoiceDatabase = new HashMap<>();
 	}
 
 	public static MasterDatabase getMasterDatabase() {
@@ -207,6 +208,40 @@ public class MasterDatabase implements Serializable {
 			setCustomerDatabase((HashMap<String, Customer>) objectInput.readObject());
 			Customer.setIdInt(objectInput.readInt());
 			Invoice.setIdCounter(objectInput.readInt());
+			objectInput.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void saveInvoices() {
+		System.out.println("All invoices saved!");
+		FileOutputStream fileOutput = null;
+		ObjectOutputStream objectOutput = null;
+		try {
+			fileOutput = new FileOutputStream("invoices.dat");
+			objectOutput = new ObjectOutputStream(fileOutput);
+			objectOutput.writeObject(getInvoiceDatabase());
+			objectOutput.close();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void loadInvoices() {
+		System.out.println("All invoices loaded!");
+		FileInputStream fileInput = null;
+		ObjectInputStream objectInput = null;
+		try {
+			fileInput = new FileInputStream("invoices.dat");
+			objectInput = new ObjectInputStream(fileInput);
+			setInvoiceDatabase((HashMap<String, Invoice>) objectInput.readObject());
 			objectInput.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

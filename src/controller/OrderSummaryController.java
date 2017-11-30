@@ -163,12 +163,15 @@ public class OrderSummaryController implements Initializable {
 		invoice.setshippingCost(MasterDatabase.getOrderCustomer().getShippingCost());
 		invoice.setTotal(MasterDatabase.getOrderCustomer().getTotal());
 		invoice.setShippingMethod(MasterDatabase.getOrderCustomer().getShippingMethod());
+		MasterDatabase.getInvoiceDatabase().put(invoice.getInvoiceNumber(), invoice);
 		for(Customer customer : MasterDatabase.getCustomerDatabase().values()){
 			if(customer.getId().equals(MasterDatabase.getOrderCustomer().getId())){
 				customer.getOrders().put(invoice.getInvoiceNumber(), invoice);
+				invoice.setCustomer(customer);
 			}
 			
 		}
+		MasterDatabase.setOrderBeingViewed(invoice);
 	}
 
 	public void placeOrder(ActionEvent event) {
@@ -195,6 +198,7 @@ public class OrderSummaryController implements Initializable {
 		MasterDatabase.getOrderCustomer().setTotal(0);
 		MasterDatabase.saveInventory();
 		MasterDatabase.saveCustomers();
+		MasterDatabase.saveInvoices();
 	}
 
 	public void goToHomePage(ActionEvent event) {

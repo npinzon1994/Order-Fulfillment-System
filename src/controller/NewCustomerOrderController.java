@@ -145,6 +145,7 @@ public class NewCustomerOrderController implements Initializable {
 		MasterDatabase.saveCustomers();
 		clearFields();
 		System.out.println(customer.getFirstName() + " " + customer.getLastName() + " added to system!");
+		MasterDatabase.setOrderCustomer(customer);
 		goToNextPage(event);
 
 	}

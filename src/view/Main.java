@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.CustomerServiceRep;
+import model.Invoice;
 import model.MasterDatabase;
 
 public class Main extends Application {
@@ -17,6 +18,7 @@ public class Main extends Application {
 			MasterDatabase.loadInventory();
 			MasterDatabase.loadEmployees();
 			MasterDatabase.loadCustomers();
+			MasterDatabase.loadInvoices();
 			Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
 			Scene scene = new Scene(root, 558, 367);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

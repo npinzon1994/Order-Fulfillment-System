@@ -76,10 +76,8 @@ public class ViewOrderController implements Initializable {
 		subtotalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getSubtotal()));
 		shippingLabel.setText(format.format(MasterDatabase.getOrderCustomer().getShippingCost()));
 		totalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getTotal()));
-		table.setSelectionModel(null);
-		for(Invoice invoice : MasterDatabase.getOrderCustomer().getOrders().values()){
-			orderNumber.setText(invoice.getInvoiceNumber());
-		}
+		table.setSelectionModel(null);	
+		orderNumber.setText(MasterDatabase.getOrderBeingViewed().getInvoiceNumber());
 		
 	}
 	

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ShipOrderController">
+   <top>
+      <AnchorPane prefHeight="43.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="employee" layoutX="14.0" layoutY="13.0" text="Employee" />
+            <Label fx:id="empId" layoutX="94.0" layoutY="13.0" text="empId" />
+            <Hyperlink fx:id="logoutLink" layoutX="536.0" layoutY="9.0" onAction="#logout" text="Logout" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Ship Package">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="363.0" prefWidth="604.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Customer Information" />
+                        <TextField fx:id="fNameField" layoutX="14.0" layoutY="36.0" prefHeight="27.0" prefWidth="135.0" promptText="First Name" />
+                        <TextField fx:id="lNameField" layoutX="166.0" layoutY="36.0" prefHeight="27.0" prefWidth="153.0" promptText="Last Name" />
+                        <TextField fx:id="emailField" layoutX="14.0" layoutY="72.0" prefHeight="27.0" prefWidth="306.0" promptText="Email Address" />
+                        <TextField fx:id="phoneField1" layoutX="13.0" layoutY="122.0" prefHeight="27.0" prefWidth="59.0" />
+                        <Label layoutX="14.0" layoutY="102.0" text="Phone" />
+                        <TextField fx:id="phoneField2" layoutX="81.0" layoutY="122.0" prefHeight="27.0" prefWidth="59.0" />
+                        <TextField fx:id="phoneField3" layoutX="148.0" layoutY="122.0" prefHeight="27.0" prefWidth="59.0" />
+                        <Label layoutX="17.0" layoutY="180.0" text="Shipping Information" />
+                        <TextField fx:id="streetAddressField" layoutX="17.0" layoutY="203.0" prefHeight="27.0" prefWidth="255.0" promptText="Street Address" />
+                        <TextField fx:id="cityField" layoutX="17.0" layoutY="240.0" promptText="City" />
+                        <ComboBox fx:id="stateBox" layoutX="190.0" layoutY="240.0" prefHeight="27.0" prefWidth="81.0" promptText="State" />
+                        <TextField fx:id="zipField" layoutX="17.0" layoutY="274.0" prefHeight="27.0" prefWidth="127.0" promptText="Zip Code" />
+                        <Button fx:id="checkZipBtn" layoutX="150.0" layoutY="274.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="121.0" text="Check Zip" />
+                        <Label layoutX="381.0" layoutY="14.0" text="Shipping Method" />
+                        <ComboBox fx:id="shippingMethodBox" layoutX="381.0" layoutY="36.0" prefHeight="27.0" prefWidth="196.0" promptText="Shipping Method" />
+                        <Label layoutX="381.0" layoutY="75.0" text="Remarks" />
+                        <TextField fx:id="remarkField1" layoutX="381.0" layoutY="94.0" prefHeight="27.0" prefWidth="196.0" promptText="Remark 1" />
+                        <TextField fx:id="remarkField2" layoutX="381.0" layoutY="128.0" prefHeight="27.0" prefWidth="196.0" promptText="Remark 2" />
+                        <Label layoutX="381.0" layoutY="172.0" text="Package Weight" />
+                        <TextField fx:id="weightField" layoutX="381.0" layoutY="193.0" prefHeight="27.0" prefWidth="64.0" />
+                        <Label layoutX="452.0" layoutY="197.0" text="lbs" />
+                        <Label layoutX="382.0" layoutY="245.0" text="Calculated Cost" />
+                        <Button fx:id="calculateBtn" layoutX="486.0" layoutY="193.0" mnemonicParsing="false" onAction="#calculateShipping" prefHeight="27.0" prefWidth="90.0" text="Calculate" />
+                        <Label fx:id="costLbl" layoutX="514.0" layoutY="246.0" text="costLbl" />
+                        <Button fx:id="shipBtn" layoutX="379.0" layoutY="274.0" mnemonicParsing="false" onAction="#ship" prefHeight="27.0" prefWidth="94.0" text="Ship" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="42.0" prefWidth="604.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="backBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="80.0" text="Back" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

@@ -57,6 +57,8 @@ public class ViewOrderDetailsController implements Initializable {
 	@FXML
 	private Label orderStatus;
 	@FXML
+	private Label shippingMethodLbl;
+	@FXML
 	private TableView<InvItem> table;
 	@FXML
 	private TableColumn<InvItem, String> itemColumn;
@@ -83,6 +85,7 @@ public class ViewOrderDetailsController implements Initializable {
 				+ MasterDatabase.getSearchCustomer().getBillingAddress().getZip());
 		orderNumber.setText(MasterDatabase.getOrderBeingViewed().getInvoiceNumber());
 		orderStatus.setText(MasterDatabase.getOrderBeingViewed().getOrderStatus());
+		shippingMethodLbl.setText(MasterDatabase.getOrderBeingViewed().getShippingMethod());
 		itemColumn.setCellValueFactory(
 				cellData -> Bindings.createStringBinding(() -> cellData.getValue().getDescription()));
 		priceColumn.setCellValueFactory(new PropertyValueFactory<InvItem, String>("price"));
@@ -129,13 +132,18 @@ public class ViewOrderDetailsController implements Initializable {
 	}
 
 	public void createReturn(ActionEvent event) {
-		if (MasterDatabase.getOrderBeingViewed().getOrderStatus().equals("Returned")) {
+		if (MasterDatabase.getOrderBeingViewed().getOrderStatus().equals("Returned to Store")) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Order has already been returned!");
 			alert.showAndWait();
 		} else if (MasterDatabase.getOrderBeingViewed().getOrderStatus().equals("Processed")) {
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("Order has already been processed!");
+			alert.setHeaderText("Order has not yet shipped!");
+			alert.setContentText("If you want to cancel, please hit cancel order.");
+			alert.showAndWait();
+		} else if (MasterDatabase.getOrderBeingViewed().getOrderStatus().equals("Confirmed")) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Order has not yet shipped!");
 			alert.setContentText("If you want to cancel, please hit cancel order.");
 			alert.showAndWait();
 		} else if (MasterDatabase.getOrderBeingViewed().getOrderStatus().equals("Shipped")) {
@@ -144,11 +152,12 @@ public class ViewOrderDetailsController implements Initializable {
 			alert.setContentText("An order in transit needs to arrive at its destination before it can be returned. "
 					+ "Please cancel order instead.");
 			alert.showAndWait();
-		} else if(MasterDatabase.getOrderBeingViewed().getOrderStatus().equals("Cancelled")) {
+		} else if (MasterDatabase.getOrderBeingViewed().getOrderStatus().equals("Cancelled")) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Order has already been cancelled!");
 			alert.showAndWait();
 		} else {
+			
 			Node node = (Node) event.getSource();
 			Stage stage = (Stage) node.getScene().getWindow();
 			Parent root = null;
@@ -167,7 +176,7 @@ public class ViewOrderDetailsController implements Initializable {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Order has already been cancelled!");
 			alert.showAndWait();
-		} else if (MasterDatabase.getOrderBeingViewed().getOrderStatus().equals("Returned")) {
+		} else if (MasterDatabase.getOrderBeingViewed().getOrderStatus().equals("Returned to Store")) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Order has already been returned!");
 			alert.showAndWait();
@@ -188,22 +197,30 @@ public class ViewOrderDetailsController implements Initializable {
 				for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
 					if (customer.getId().equals(MasterDatabase.getSearchCustomer().getId())) {
 						for (Invoice invoice : customer.getOrders().values()) {
-							if (invoice.getInvoiceNumber()
-									.equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())) {
-								invoice.setOrderStatus("Cancelled");
-								for (InvItem item : invoice.getItems()) {
-									for (InvItem databaseItem : MasterDatabase.getInventory().values()) {
-										if (item.getItemId().equals(databaseItem.getItemId())) {
-											databaseItem.setStatus("In Stock");
+							for (Invoice dataInvoice : MasterDatabase.getInvoiceDatabase().values()) {
+								if (invoice.getInvoiceNumber()
+										.equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())) {
+									invoice.setOrderStatus("Cancelled");
+									if (dataInvoice.getInvoiceNumber()
+											.equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())) {
+										dataInvoice.setOrderStatus("Cancelled");
+									}
+									for (InvItem item : invoice.getItems()) {
+										for (InvItem databaseItem : MasterDatabase.getInventory().values()) {
+											if (item.getItemId().equals(databaseItem.getItemId())) {
+												databaseItem.setStatus("In Stock");
+											}
 										}
 									}
 								}
 							}
+
 						}
 					}
 				}
 				MasterDatabase.saveCustomers();
 				MasterDatabase.saveInventory();
+				MasterDatabase.saveInvoices();
 				Node node = (Node) event.getSource();
 				Stage stage = (Stage) node.getScene().getWindow();
 				Parent root = null;
@@ -219,7 +236,7 @@ public class ViewOrderDetailsController implements Initializable {
 			}
 
 		}
-		
+
 	}
 
 }

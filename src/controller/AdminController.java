@@ -43,6 +43,15 @@ public class AdminController implements Initializable {
 	private Hyperlink customerSearchLink;
 
 	@FXML
+	private Hyperlink pickLink;
+
+	@FXML
+	private Hyperlink shipLink;
+	
+	@FXML
+	private Hyperlink readyForPickupLink;
+
+	@FXML
 	private Hyperlink logout;
 
 	@FXML
@@ -167,6 +176,45 @@ public class AdminController implements Initializable {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 
+	}
+
+	public void openPickingQueue(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/PickingQueue.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void openPackingQueue(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/PackingQueue.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+	
+	public void openReadyForPickupQueue(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/ReadyForPickupQueue.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
 	}
 
 	public void logout(ActionEvent event) {

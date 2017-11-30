@@ -131,7 +131,7 @@ public class ReturnTabSubController implements Initializable {
 		alert.setHeaderText("Are you sure you want to return this item?");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
-			MasterDatabase.getOrderBeingViewed().setOrderStatus("Returned");
+			MasterDatabase.getOrderBeingViewed().setOrderStatus("Returned to Store");
 			for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
 				if (customer.getId().equals(MasterDatabase.getSearchCustomer().getId())) {
 					for (Invoice invoice : customer.getOrders().values()) {
@@ -151,6 +151,7 @@ public class ReturnTabSubController implements Initializable {
 			}
 			MasterDatabase.saveCustomers();
 			MasterDatabase.saveInventory();
+			MasterDatabase.saveInvoices();
 		} else {
 			alert.close();
 		}

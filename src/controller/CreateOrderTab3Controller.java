@@ -81,7 +81,7 @@ public class CreateOrderTab3Controller implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		shippingMethodBox.getItems().addAll("Standard Ground", "Second Day Air", "Next Day Air");
+		shippingMethodBox.getItems().addAll("Standard Ground", "Second Day Express", "Next Day Air");
 		shipStateBox.getItems().addAll("AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL",
 				"IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
 				"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
@@ -115,9 +115,8 @@ public class CreateOrderTab3Controller implements Initializable {
 			shipCityField.setEditable(false);
 			shipStateBox.setDisable(true);
 			shipZipField.setEditable(false);
-			shippingMethodBox.getSelectionModel().select("Shipping Method");
+			shippingMethodBox.getSelectionModel().select("Pickup In-Store");
 			shippingMethodBox.setDisable(true);
-			MasterDatabase.getOrderCustomer().setShippingMethod("Pickup In-Store");
 		} else {
 			shipStreetField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getStreetAddress());
 			shipCityField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getCity());
@@ -128,7 +127,6 @@ public class CreateOrderTab3Controller implements Initializable {
 			shipStateBox.setDisable(false);
 			shipZipField.setEditable(true);
 			shippingMethodBox.setDisable(false);
-			MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getSelectionModel().getSelectedItem());
 		}
 	}
 
@@ -159,6 +157,7 @@ public class CreateOrderTab3Controller implements Initializable {
 	}
 
 	public void goToNextPage(ActionEvent event) {
+		MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getValue());
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
