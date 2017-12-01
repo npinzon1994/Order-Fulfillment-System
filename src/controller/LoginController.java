@@ -12,9 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -36,6 +35,9 @@ public class LoginController implements Initializable {
 	
 	@FXML
 	private Label invalidPassword;
+	
+	@FXML
+	private Hyperlink forgotPasswordLink;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -67,6 +69,20 @@ public class LoginController implements Initializable {
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 		}
+	}
+	
+	public void goToForgotPasswordPane(){
+		Stage stage = new Stage();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/ForgotPasswordPane.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 	}
 
 }
