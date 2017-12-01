@@ -130,6 +130,7 @@ public class NewEmployeeController implements Initializable {
 		user.setStatus("Currently Employed");
 		user.setHireDate(user.getHireDate());
 		user.setImage(tempImage);
+		user.setPassword("habitat12");
 	}
 
 	public void clearFields() {

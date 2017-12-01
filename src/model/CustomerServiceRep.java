@@ -22,6 +22,7 @@ public class CustomerServiceRep implements Serializable {
 	private String position;
 	private transient Image image;
 	private int storeLevel;
+	private String password;
 
 	public CustomerServiceRep(String firstName, String lastName, String password, String hireDate, String termDate,
 			String status, String position) {
@@ -47,8 +48,6 @@ public class CustomerServiceRep implements Serializable {
 	public static int getIdInt() {
 		return idInt;
 	}
-	
-	
 
 	public Image getImage() {
 		return image;
@@ -116,6 +115,14 @@ public class CustomerServiceRep implements Serializable {
 
 	public void setStoreLevel(int storeLevel) {
 		this.storeLevel = storeLevel;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
