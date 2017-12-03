@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -133,7 +132,12 @@ public class ShipOrderController implements Initializable {
 	public void ship(ActionEvent event) {
 		invoice.getCustomer().setFirstName(fNameField.getText());
 		invoice.getCustomer().setLastName(lNameField.getText());
-		invoice.getCustomer().setEmail(emailField.getText());
+		try {
+			invoice.getCustomer().setEmail(emailField.getText());
+		} catch (Exception e1) {
+
+			e1.printStackTrace();
+		}
 		invoice.getCustomer().setPhone(phoneField1.getText() + phoneField2.getText() + phoneField3.getText());
 		invoice.getCustomer().getShippingAddress().setStreetAddress(streetAddressField.getText());
 		invoice.getCustomer().getShippingAddress().setCity(cityField.getText());
@@ -149,11 +153,16 @@ public class ShipOrderController implements Initializable {
 		invoice.setshippingCost(Double.parseDouble(costLbl.getText()));
 		invoice.setOrderStatus("Shipped");
 		clearFields();
-		for(Invoice invoice : MasterDatabase.getInvoiceDatabase().values()){
-			if(invoice.getInvoiceNumber().equals(this.invoice.getInvoiceNumber())){
+		for (Invoice invoice : MasterDatabase.getInvoiceDatabase().values()) {
+			if (invoice.getInvoiceNumber().equals(this.invoice.getInvoiceNumber())) {
 				invoice.getCustomer().setFirstName(fNameField.getText());
 				invoice.getCustomer().setLastName(lNameField.getText());
-				invoice.getCustomer().setEmail(emailField.getText());
+				try {
+					invoice.getCustomer().setEmail(emailField.getText());
+				} catch (Exception e) {
+
+					e.printStackTrace();
+				}
 				invoice.getCustomer().setPhone(phoneField1.getText() + phoneField2.getText() + phoneField3.getText());
 				invoice.getCustomer().getShippingAddress().setStreetAddress(streetAddressField.getText());
 				invoice.getCustomer().getShippingAddress().setCity(cityField.getText());
@@ -183,7 +192,7 @@ public class ShipOrderController implements Initializable {
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
-		
+
 	}
 
 	public void clearFields() {

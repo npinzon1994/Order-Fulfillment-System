@@ -67,6 +67,7 @@ public class ViewCustomerOrdersController implements Initializable {
 			}
 		}
 
+		viewBtn.disableProperty().bind(Bindings.isEmpty(table.getSelectionModel().getSelectedItems()));
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());

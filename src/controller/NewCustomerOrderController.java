@@ -139,6 +139,7 @@ public class NewCustomerOrderController implements Initializable {
 
 	// when nextBtn is clicked
 	public void addCustomerToDatabase(ActionEvent event) {
+		
 		customer = new Customer();
 		initializeCustomer();
 		MasterDatabase.getCustomerDatabase().put(customer.getId(), customer);

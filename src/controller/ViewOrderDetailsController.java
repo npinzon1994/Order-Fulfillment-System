@@ -70,6 +70,14 @@ public class ViewOrderDetailsController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		table.setSelectionModel(null);
+		ObservableList<InvItem> items = FXCollections.observableArrayList();
+		for (Invoice order : MasterDatabase.getSearchCustomer().getOrders().values()) {
+			if (order.getInvoiceNumber().equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())) {
+				for (InvItem item : order.getItems()) {
+					items.add(item);
+				}
+			}
+		}
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
@@ -89,20 +97,8 @@ public class ViewOrderDetailsController implements Initializable {
 		itemColumn.setCellValueFactory(
 				cellData -> Bindings.createStringBinding(() -> cellData.getValue().getDescription()));
 		priceColumn.setCellValueFactory(new PropertyValueFactory<InvItem, String>("price"));
-		populateTable();
-
-	}
-
-	public void populateTable() {
-		ObservableList<InvItem> items = FXCollections.observableArrayList();
-		for (Invoice order : MasterDatabase.getSearchCustomer().getOrders().values()) {
-			if (order.getInvoiceNumber().equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())) {
-				for (InvItem item : order.getItems()) {
-					items.add(item);
-				}
-			}
-		}
 		table.setItems(items);
+
 	}
 
 	public void logout(ActionEvent event) {

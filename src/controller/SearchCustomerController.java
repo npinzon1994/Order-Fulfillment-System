@@ -75,6 +75,7 @@ public class SearchCustomerController implements Initializable {
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
+		searchBtn.disableProperty().bind(Bindings.isNotEmpty(table.getSelectionModel().getSelectedItems()));
 	}
 
 	public void onClicked() {
@@ -82,7 +83,6 @@ public class SearchCustomerController implements Initializable {
 
 			@Override
 			public void changed(ObservableValue<? extends Customer> observable, Customer oldValue, Customer newValue) {
-				
 				viewOrdersBtn.setVisible(true);
 				MasterDatabase.setSearchCustomer(table.getSelectionModel().getSelectedItem());
 				for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
