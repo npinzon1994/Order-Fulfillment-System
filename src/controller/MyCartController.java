@@ -58,6 +58,9 @@ public class MyCartController implements Initializable {
 
 	@FXML
 	private Label subtotalLabel;
+	
+	@FXML
+	private Label totalItemsLbl;
 
 	private double subTotal;
 	
@@ -86,9 +89,11 @@ public class MyCartController implements Initializable {
 			subtotalLabel.setText("$" + String.valueOf(subTotal));
 			table.setItems(items);
 		}
+		totalItemsLbl.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
 	}
 
 	public void logout(ActionEvent event) {
+		MasterDatabase.getOrderCustomer().getCart().clear();
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
@@ -124,6 +129,7 @@ public class MyCartController implements Initializable {
 				iter.remove();
 				subTotal -= item.getPrice();
 				subtotalLabel.setText(format.format(subTotal));
+				totalItemsLbl.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
 			}
 		}
 				

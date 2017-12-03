@@ -69,7 +69,6 @@ public class ViewOrderDetailsController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		table.setSelectionModel(null);
 		ObservableList<InvItem> items = FXCollections.observableArrayList();
 		for (Invoice order : MasterDatabase.getSearchCustomer().getOrders().values()) {
 			if (order.getInvoiceNumber().equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())) {

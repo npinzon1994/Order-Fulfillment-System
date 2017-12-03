@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -126,6 +127,9 @@ public class CreateOrderController2 implements Initializable {
 		customer.setText(MasterDatabase.getOrderCustomer().getFirstName() + " "
 				+ MasterDatabase.getOrderCustomer().getLastName());
 		numItems.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
+		if(numItems.getText().equals("0")){
+			nextBtn.setDisable(true);
+		}
 
 	}
 
@@ -141,6 +145,7 @@ public class CreateOrderController2 implements Initializable {
 	}
 
 	public void goToPreviousPage(ActionEvent event) {
+		MasterDatabase.getOrderCustomer().getCart().clear();
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
@@ -154,6 +159,7 @@ public class CreateOrderController2 implements Initializable {
 	}
 
 	public void goToNextPage(ActionEvent event) {
+		
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
@@ -171,7 +177,7 @@ public class CreateOrderController2 implements Initializable {
 		for (InvItem item : MasterDatabase.getInventory().values()) {
 			item.getDescription().replace(" ", "");
 			if ((!item.equals(null)) && item.getDescription().contains(searchField.getText())
-					&& item.getStatus().equals("In Stock") && !items.contains(item)) {
+					&& item.getStatus().equals("In Stock") && !items.contains(item) && !MasterDatabase.getOrderCustomer().getCart().contains(item)) {
 				items.add(item);
 			}
 		}
@@ -231,12 +237,14 @@ public class CreateOrderController2 implements Initializable {
 	}
 
 	public void addItemToCart() {
-		if(!MasterDatabase.getOrderCustomer().getCart().contains(item)){
+		if(!MasterDatabase.getOrderCustomer().getCart().contains(item) && !list.getSelectionModel().isEmpty()){
 			MasterDatabase.getOrderCustomer().getCart().add(item);
+			list.getItems().remove(item);
 			numItems.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("Item added to cart!");
 			alert.showAndWait();
+			nextBtn.setDisable(false);
 		}
 		
 	}
@@ -255,6 +263,7 @@ public class CreateOrderController2 implements Initializable {
 	}
 
 	public void logout(ActionEvent event) {
+		MasterDatabase.getOrderCustomer().getCart().clear();
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;

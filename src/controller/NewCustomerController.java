@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import exceptionClasses.Validation;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +25,7 @@ import javafx.stage.Stage;
 import model.Address;
 import model.Customer;
 import model.MasterDatabase;
+import model.Validation;
 
 public class NewCustomerController implements Initializable {
 

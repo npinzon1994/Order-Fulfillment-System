@@ -10,10 +10,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="558.0">
+      <AnchorPane maxHeight="367.0" maxWidth="558.0" minHeight="367.0" minWidth="558.0" prefHeight="367.0" prefWidth="558.0">
          <children>
             <VBox layoutX="88.0" layoutY="70.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="227.0" prefWidth="382.0" spacing="20.0">
                <children>

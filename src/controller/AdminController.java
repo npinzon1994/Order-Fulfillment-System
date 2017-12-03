@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import model.MasterDatabase;
 
@@ -65,6 +66,7 @@ public class AdminController implements Initializable {
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
+		
 	}
 
 	// whenever button gets clicked, this method gets called

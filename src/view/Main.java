@@ -18,7 +18,7 @@ public class Main extends Application {
 			MasterDatabase.loadInventory();
 			MasterDatabase.loadEmployees();
 			MasterDatabase.loadCustomers();
-			MasterDatabase.loadInvoices();
+			//MasterDatabase.loadInvoices();
 			Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
 			Scene scene = new Scene(root, 558, 367);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

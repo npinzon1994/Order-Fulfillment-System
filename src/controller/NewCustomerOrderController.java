@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,16 +12,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Address;
 import model.Customer;
 import model.MasterDatabase;
+import model.Validation;
 
 public class NewCustomerOrderController implements Initializable {
 
@@ -84,6 +89,24 @@ public class NewCustomerOrderController implements Initializable {
 	@FXML
 	private Hyperlink logoutLink;
 
+	@FXML
+	private ImageView emailX;
+
+	@FXML
+	private ImageView shipStateX;
+
+	@FXML
+	private ImageView billStateX;
+
+	@FXML
+	private ImageView shipZipX;
+
+	@FXML
+	private ImageView billZipX;
+
+	@FXML
+	private ImageView phoneX;
+	
 	private Customer customer;
 
 	private Address shippingAddress;
@@ -91,35 +114,60 @@ public class NewCustomerOrderController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		billingState.getItems().addAll("AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL",
-				"IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-				"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
-				"WV", "WI", "WY");
-		shippingState.getItems().addAll("AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL",
-				"IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-				"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
-				"WV", "WI", "WY");
+		bindFieldsToButton();
+		initializeComboBoxes();
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
-
+		Validation.limitInputToPhoneField(phoneField1);
+		Validation.limitInputToPhoneField(phoneField2);
+		Validation.limitInputToPhoneField3(phoneField3);
+		Validation.limitInputToZipField(shippingZip);
+		Validation.limitInputToZipField(billingZip);
+		shippingState.getSelectionModel().selectFirst();
+		billingState.getSelectionModel().selectFirst();
+	}
+	
+	public void initializeComboBoxes() {
+		billingState.getItems().addAll("State" , "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL",
+				"IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+				"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
+				"WV", "WI", "WY");
+		shippingState.getItems().addAll("State", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL",
+				"IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+				"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
+				"WV", "WI", "WY");
+	}
+	
+	public void bindFieldsToButton() {
+		createBtn.disableProperty().bind(Bindings.isEmpty(fNameField.textProperty())
+				.or(Bindings.isEmpty(lNameField.textProperty()).or(Bindings.isEmpty(emailField.textProperty())
+						.or(Bindings.isEmpty(phoneField1.textProperty()).or(Bindings.isEmpty(phoneField2.textProperty())
+								.or(Bindings.isEmpty(phoneField3.textProperty())
+										.or(Bindings.isEmpty(shippingStreetAddress.textProperty())
+												.or(Bindings.isEmpty(shippingCity.textProperty())
+														.or(Bindings.isEmpty(shippingZip.textProperty()))))))))));
 	}
 
 	public void checkboxClicked() {
 		if (checkbox.isSelected()) {
+			billingStreetAddress.setText(shippingStreetAddress.getText());
+			billingCity.setText(shippingCity.getText());
+			billingState.setValue(shippingState.getValue());
+			billingZip.setText(shippingZip.getText());
 			billingStreetAddress.setEditable(false);
 			billingCity.setEditable(false);
 			billingState.setDisable(true);
 			billingZip.setEditable(false);
-			billingStreetAddress.clear();
-			billingCity.clear();
-			billingZip.clear();
-			billingState.getSelectionModel().select("State");
 		} else {
 			billingStreetAddress.setEditable(true);
 			billingCity.setEditable(true);
 			billingState.setDisable(false);
 			billingZip.setEditable(true);
+			billingStreetAddress.clear();
+			billingCity.clear();
+			billingState.getSelectionModel().selectFirst();
+			billingZip.clear();
 		}
 
 	}
@@ -137,18 +185,37 @@ public class NewCustomerOrderController implements Initializable {
 		stage.setScene(scene);
 	}
 
-	// when nextBtn is clicked
 	public void addCustomerToDatabase(ActionEvent event) {
-		
-		customer = new Customer();
-		initializeCustomer();
-		MasterDatabase.getCustomerDatabase().put(customer.getId(), customer);
-		MasterDatabase.saveCustomers();
-		clearFields();
-		System.out.println(customer.getFirstName() + " " + customer.getLastName() + " added to system!");
-		MasterDatabase.setOrderCustomer(customer);
-		goToNextPage(event);
+		if ((Validation.isValidEmail(emailX, emailField.getText()))
+				&& (Validation.isValidPhone(phoneX, phoneField1.getText(), phoneField2.getText(), phoneField3.getText())
+						&& (Validation.isValidZipCode(shipZipX, shippingZip.getText())
+								&& Validation.isValidState(shipStateX, shippingState.getValue()) && (Validation.isValidZipCode(billZipX, billingZip.getText())
+										&& Validation.isValidState(billStateX, billingState.getValue()))))) {
+			if (!emailExistsInDatabase()) {
+				customer = new Customer();
+				initializeAddresses();
+				initializeCustomer();
+				MasterDatabase.saveCustomers();
+				System.out.println("Customer added!");
+				clearFields();
+				System.out.println(customer.getFirstName() + " " + customer.getLastName() + " added to system!");
+				MasterDatabase.setOrderCustomer(customer);
+				createAlert();
+				goToNextPage(event);
+			}
 
+		}
+
+	}
+	
+	public boolean emailExistsInDatabase() {
+		for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
+			if (customer.getEmail().equals(emailField.getText())) {
+				emailX.setVisible(true);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void goToNextPage(ActionEvent event) {
@@ -179,16 +246,13 @@ public class NewCustomerOrderController implements Initializable {
 		shippingAddress.setStreetAddress(shippingStreetAddress.getText());
 		shippingAddress.setState(shippingState.getValue());
 		shippingAddress.setCity(shippingCity.getText());
-		shippingAddress.setZip(shippingZip.getText());
-		if (checkbox.isSelected()) {
-			billingAddress = new Address(shippingAddress);
-		} else {
-			billingAddress = new Address();
-			billingAddress.setStreetAddress(billingStreetAddress.getText());
-			billingAddress.setCity(billingCity.getText());
-			billingAddress.setState(billingState.getValue());
-			billingAddress.setZip(billingZip.getText());
-		}
+		shippingAddress.setZip(shippingZip.getText());	
+		billingAddress = new Address();
+		billingAddress.setStreetAddress(billingStreetAddress.getText());
+		billingAddress.setCity(billingCity.getText());
+		billingAddress.setState(billingState.getValue());
+		billingAddress.setZip(billingZip.getText());
+		
 	}
 
 	public void clearFields() {
@@ -207,6 +271,12 @@ public class NewCustomerOrderController implements Initializable {
 		billingCity.clear();
 		billingState.getSelectionModel().select("State");
 		billingZip.clear();
+	}
+	
+	public void createAlert() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setHeaderText(customer.getFirstName() + " " + customer.getLastName() + " has been added to the system!");
+		alert.showAndWait();
 	}
 
 	public void goToPreviousPage(ActionEvent event) {
