@@ -36,6 +36,7 @@ import model.Administrator;
 import model.CustomerServiceRep;
 import model.MasterDatabase;
 import model.OperationsAssociate;
+import model.Validation;
 
 public class NewEmployeeController implements Initializable {
 
@@ -81,6 +82,12 @@ public class NewEmployeeController implements Initializable {
 	private Image image;
 	
 	@FXML
+	private ImageView phoneX;
+	
+	@FXML
+	private ImageView emailX;
+	
+	@FXML
 	private Hyperlink logoutLink;
 
 	@Override
@@ -93,6 +100,9 @@ public class NewEmployeeController implements Initializable {
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 		bindFieldsToButton();
+		phoneX.setVisible(false);
+		emailX.setVisible(false);
+		Validation.limitInputToTenDigitPhoneField(phoneField);
 	}
 
 	public void bindFieldsToButton() {
@@ -168,15 +178,18 @@ public class NewEmployeeController implements Initializable {
 	}
 
 	public void addUserToDatabase(ActionEvent event) {
-		createEmployee();
-		initializeEmployee();
-		MasterDatabase.getEmployeeDatabase().put(user.getId(), user);
-		MasterDatabase.saveEmployees();
-		clearFields();
-		createdNewEmployeeAlert();
-		for (CustomerServiceRep rep : MasterDatabase.getEmployeeDatabase().values()) {
-			System.out.println(rep.getFirstName() + " " + rep.getLastName());
+		if(Validation.isValidPhone(phoneX, phoneField.getText()) && Validation.isValidEmail(emailX, emailField.getText())){
+			createEmployee();
+			initializeEmployee();
+			MasterDatabase.getEmployeeDatabase().put(user.getId(), user);
+			MasterDatabase.saveEmployees();
+			clearFields();
+			createdNewEmployeeAlert();
+			for (CustomerServiceRep rep : MasterDatabase.getEmployeeDatabase().values()) {
+				System.out.println(rep.getFirstName() + " " + rep.getLastName());
+			}
 		}
+		
 	}
 
 	public void createEmployee() {

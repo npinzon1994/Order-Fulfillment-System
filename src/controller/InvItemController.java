@@ -82,7 +82,7 @@ public class InvItemController implements Initializable {
 
 	@FXML
 	private TextField weightField;
-	
+
 	@FXML
 	private Hyperlink logoutLink;
 
@@ -107,11 +107,11 @@ public class InvItemController implements Initializable {
 	}
 
 	public void bindFieldsToButton() {
-		submitBtn.disableProperty()
-				.bind(Bindings.isEmpty(description.textProperty()).or(Bindings.isEmpty(priceDollars.textProperty())
-						.or(Bindings.isEmpty(priceCents.textProperty()).or(Bindings.isEmpty(specs.textProperty())))));
+		submitBtn.disableProperty().bind(Bindings.isEmpty(description.textProperty())
+				.or(Bindings.isEmpty(priceDollars.textProperty()).or(Bindings.isEmpty(priceCents.textProperty())
+						.or(Bindings.isEmpty(specs.textProperty()).or(Bindings.isEmpty(weightField.textProperty()))))));
 	}
-	
+
 	public void switchBackToHomeTab(ActionEvent event) {
 		if (description.getText().isEmpty() && priceDollars.getText().isEmpty() && priceCents.getText().isEmpty()
 				&& specs.getText().isEmpty()) {
@@ -128,7 +128,7 @@ public class InvItemController implements Initializable {
 			}
 		}
 	}
-	
+
 	public void switchBackToAppropriateHomePage(ActionEvent event) {
 		if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
 			goToNextPage(event);
@@ -151,8 +151,8 @@ public class InvItemController implements Initializable {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 	}
-	
-	public void switchToAdminTab(ActionEvent event){
+
+	public void switchToAdminTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
@@ -164,7 +164,7 @@ public class InvItemController implements Initializable {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 	}
-	
+
 	public void switchToOperationsTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
@@ -177,7 +177,7 @@ public class InvItemController implements Initializable {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 	}
-	
+
 	public void switchToCustomerServiceRepTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
@@ -252,13 +252,13 @@ public class InvItemController implements Initializable {
 		specs.clear();
 		weightField.clear();
 	}
-	
-	public void logout(ActionEvent event){
+
+	public void logout(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText("Are you sure you want to logout?");
 		alert.setContentText("All unsaved progress will be lost");
 		Optional<ButtonType> result = alert.showAndWait();
-		if(result.get() == ButtonType.OK){
+		if (result.get() == ButtonType.OK) {
 			Node node = (Node) event.getSource();
 			Stage stage = (Stage) node.getScene().getWindow();
 			Parent root = null;

@@ -108,13 +108,13 @@ public class CreateOrderController implements Initializable {
 		for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
 			if (customer.getFirstName().equals(fNameField.getText()) && !customers.contains(customer)) {
 				customers.add(customer);
-			} else if ((((customer.getShippingAddress().getZip().equals(zipField.getText()) || customer.getLastName().equals(lNameField.getText())) && !customers.contains(customer)))) {
+			} else if ((((customer.getBillingAddress().getZip().equals(zipField.getText()) || customer.getLastName().equals(lNameField.getText())) && !customers.contains(customer)))) {
 				customers.add(customer);
 			}
 		}
 		customerColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(
 				() -> cellData.getValue().getLastName() + ", " + cellData.getValue().getFirstName()));
-		addressColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("shippingAddress"));
+		addressColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("billingAddress"));
 		table.setItems(customers);
 		onClicked();
 	}

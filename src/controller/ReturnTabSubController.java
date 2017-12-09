@@ -118,7 +118,7 @@ public class ReturnTabSubController implements Initializable {
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/view/ViewOrderDetails.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/view/ViewOrderDetailsTab.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

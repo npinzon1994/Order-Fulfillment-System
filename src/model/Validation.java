@@ -40,6 +40,20 @@ public class Validation {
 		return true;
 	}
 
+	public static boolean isValidPhone(ImageView image, String phone) {
+		if ((phone.length() == 10)) {
+			image.setVisible(false);
+			System.out.println("Phone is valid!");
+			return true;
+		} else {
+			// image.setText("Incorrect email format!");
+			image.setVisible(true);
+			System.out.println("Phone invalid!");
+			return false;
+		}
+
+	}
+
 	public static boolean isValidPhone(ImageView image, String phone1, String phone2, String phone3) {
 		if ((phone1.length() == 3) && (phone2.length() == 3) && (phone3.length() == 4)) {
 			image.setVisible(false);
@@ -137,6 +151,29 @@ public class Validation {
 					final String newValue) {
 				if (field.getText().length() > 4) {
 					String s = field.getText().substring(0, 4);
+					field.setText(s);
+				}
+			}
+		});
+
+	}
+
+	public static void limitInputToTenDigitPhoneField(TextField field) {
+		field.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					field.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+
+		});
+		field.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(final ObservableValue<? extends String> ov, final String oldValue,
+					final String newValue) {
+				if (field.getText().length() > 10) {
+					String s = field.getText().substring(0, 10);
 					field.setText(s);
 				}
 			}

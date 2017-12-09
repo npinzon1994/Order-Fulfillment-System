@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,13 +15,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import model.InvItem;
 import model.Invoice;
 import model.MasterDatabase;
 import model.ShippingCost;
@@ -98,6 +100,25 @@ public class ShipOrderController implements Initializable {
 		shippingMethodBox.getSelectionModel().select(invoice.getCustomer().getShippingMethod());
 		emailField.setText(invoice.getCustomer().getEmail());
 		costLbl.setText(format.format(cost));
+		double weight = 0;
+		for(InvItem item : invoice.getItems()){
+			weight += item.getWeight();
+		}
+		weightField.setText(String.valueOf(weight));
+		calculateShipping();
+		bindFieldsToButton();
+	}
+
+	public void bindFieldsToButton() {
+		shipBtn.disableProperty().bind(Bindings.isEmpty(fNameField.textProperty()).or(Bindings
+				.isEmpty(lNameField.textProperty())
+				.or(Bindings.isEmpty(phoneField1.textProperty()).or(Bindings.isEmpty(phoneField2.textProperty())
+						.or(Bindings.isEmpty(phoneField3.textProperty()).or(Bindings
+								.isEmpty(streetAddressField.textProperty())
+								.or(Bindings.isEmpty(cityField.textProperty())
+										.or(Bindings.isEmpty(zipField.textProperty())
+												.or(Bindings.isEmpty(emailField.textProperty())
+														.or(Bindings.isEmpty(weightField.textProperty())))))))))));
 	}
 
 	public void logout(ActionEvent event) {
@@ -105,7 +126,7 @@ public class ShipOrderController implements Initializable {
 		alert.setHeaderText("Cancel order?");
 		alert.setContentText("All unsaved progress will be lost");
 		Optional<ButtonType> result = alert.showAndWait();
-		if(result.get() == ButtonType.OK){
+		if (result.get() == ButtonType.OK) {
 			Node node = (Node) event.getSource();
 			Stage stage = (Stage) node.getScene().getWindow();
 			Parent root = null;
@@ -183,8 +204,9 @@ public class ShipOrderController implements Initializable {
 				invoice.setshippingCost(Double.parseDouble(costLbl.getText()));
 				invoice.setOrderStatus("Shipped");
 			}
-			clearFields();
+
 		}
+		clearFields();
 		MasterDatabase.saveCustomers();
 		MasterDatabase.saveInventory();
 		MasterDatabase.saveInvoices();

@@ -123,7 +123,7 @@ public class OrderSearchController implements Initializable {
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/view/ViewOrderDetailsTab.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/view/ViewOrderDetailsTab2.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

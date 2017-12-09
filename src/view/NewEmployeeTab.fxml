@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewEmployeeController">
    <center>
@@ -22,52 +21,42 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox layoutX="21.0" layoutY="26.0" prefHeight="322.0" prefWidth="270.0" spacing="10.0">
-                           <children>
-                              <HBox prefHeight="45.0" prefWidth="269.0" spacing="10.0">
-                                 <children>
-                                    <Label text="First Name" />
-                                    <TextField fx:id="fNameField" translateX="3.0" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="39.0" prefWidth="365.0" spacing="10.0">
-                                 <children>
-                                    <Label text="Last Name" />
-                                    <TextField fx:id="lNameField" translateX="4.0" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="44.0" prefWidth="288.0" spacing="10.0">
-                                 <children>
-                                    <Label text="Store Level" />
-                                    <ComboBox fx:id="levelBox" prefWidth="150.0" translateX="1.0" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="40.0" prefWidth="365.0" spacing="10.0">
-                                 <children>
-                                    <Label text="Phone" />
-                                    <TextField fx:id="phoneField" translateX="31.0" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="35.0" prefWidth="365.0" spacing="10.0">
-                                 <children>
-                                    <Label text="Email" />
-                                    <TextField fx:id="emailField" translateX="37.0" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="40.0" prefWidth="365.0" spacing="10.0">
-                                 <children>
-                                    <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="88.0" text="Cancel" translateX="-5.0" />
-                                    <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#addUserToDatabase" prefHeight="27.0" prefWidth="90.0" text="Submit" translateX="-3.0" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
                         <ImageView fx:id="imageView" fitHeight="180.0" fitWidth="219.0" layoutX="322.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/emptyImage.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="browseBtn" layoutX="324.0" layoutY="218.0" mnemonicParsing="false" onAction="#chooseImage" text="Browse" />
+                        <AnchorPane layoutX="14.0" layoutY="16.0" prefHeight="296.0" prefWidth="300.0">
+                           <children>
+                              <Label layoutX="7.0" layoutY="16.0" text="First Name" />
+                              <TextField fx:id="fNameField" layoutX="88.0" layoutY="11.0" />
+                              <Label layoutX="8.0" layoutY="68.0" text="Last Name" />
+                              <TextField fx:id="lNameField" layoutX="88.0" layoutY="63.0" />
+                              <Label layoutX="8.0" layoutY="118.0" text="Store Level" />
+                              <ComboBox fx:id="levelBox" layoutX="89.0" layoutY="114.0" prefWidth="150.0" />
+                              <Label layoutX="9.0" layoutY="169.0" text="Phone" />
+                              <TextField fx:id="phoneField" layoutX="88.0" layoutY="164.0" />
+                              <Label layoutX="11.0" layoutY="218.0" text="Email" />
+                              <TextField fx:id="emailField" layoutX="88.0" layoutY="213.0" />
+                              <HBox layoutX="20.0" layoutY="260.0" prefHeight="36.0" prefWidth="234.0" spacing="10.0">
+                                 <children>
+                                    <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="88.0" text="Cancel" translateX="-5.0" />
+                                    <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#addUserToDatabase" prefHeight="27.0" prefWidth="90.0" text="Submit" translateX="-3.0" />
+                                 </children>
+                              </HBox>
+                              <ImageView fx:id="phoneX" fitHeight="23.0" fitWidth="23.0" layoutX="260.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Desktop/goodRedX.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="emailX" fitHeight="23.0" fitWidth="23.0" layoutX="260.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Desktop/goodRedX.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
                </content>

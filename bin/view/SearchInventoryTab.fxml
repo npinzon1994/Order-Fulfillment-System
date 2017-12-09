@@ -39,7 +39,7 @@
                         <Label fx:id="price" layoutX="288.0" layoutY="176.0" text="Price:" visible="false" />
                         <Label fx:id="priceLabel" layoutX="345.0" layoutY="176.0" text="priceLabel" visible="false" />
                         <Label fx:id="specifications" layoutX="288.0" layoutY="263.0" text="Specifications" visible="false" />
-                        <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="21.0" prefHeight="40.0" prefWidth="368.0" text="descriptionLabel" visible="false" wrapText="true" />
+                        <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="21.0" prefHeight="40.0" prefWidth="305.0" text="descriptionLabel" wrapText="true" />
                         <Label fx:id="specsLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="290.0" prefHeight="98.0" prefWidth="395.0" text="specsLabel" visible="false" wrapText="true" />
                         <Button fx:id="removeBtn" layoutX="104.0" layoutY="298.0" mnemonicParsing="false" onAction="#removeItem" prefHeight="27.0" prefWidth="154.0" text="Remove From INV" />
                         <Label fx:id="status" layoutX="288.0" layoutY="206.0" text="Status:" visible="false" />

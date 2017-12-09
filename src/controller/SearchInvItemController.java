@@ -169,7 +169,8 @@ public class SearchInvItemController implements Initializable {
 				confirmAlert.close();
 			} else if (result.get() == ButtonType.OK) {	
 				MasterDatabase.getInventory().get(item.getItemId()).setStatus("Out of Stock");
-					
+				list.getItems().remove(item);
+				
 				setLabelsInvisible();
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setHeaderText("Item successfully removed from inventory!");

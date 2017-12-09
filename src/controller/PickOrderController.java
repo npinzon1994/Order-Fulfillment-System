@@ -106,6 +106,7 @@ public class PickOrderController implements Initializable {
 		pickBtn.setDisable(true);
 		cancelItemBtn.setDisable(true);
 		enableButtonsWhenSelected();
+		confirmPickBtn.setDisable(true);
 
 	}
 
@@ -114,7 +115,6 @@ public class PickOrderController implements Initializable {
 
 			@Override
 			public void changed(ObservableValue<? extends InvItem> observable, InvItem oldValue, InvItem newValue) {
-				MasterDatabase.setOrderBeingViewed(invoice);
 				if (list.getSelectionModel().isSelected(0)) {
 					greenCheck.setVisible(false);
 					redX.setVisible(false);
@@ -164,6 +164,10 @@ public class PickOrderController implements Initializable {
 			list.getItems().remove(list.getSelectionModel().getSelectedItem());
 			list.getSelectionModel().clearSelection();
 			pickBtn.setDisable(true);
+			if(list.getItems().isEmpty()){
+				confirmPickBtn.setDisable(false);
+				cancelItemBtn.setDisable(true);
+			}
 		} else {
 			greenCheck.setVisible(false);
 			redX.setVisible(true);
@@ -203,20 +207,31 @@ public class PickOrderController implements Initializable {
 		}
 	}
 
-	public void cancelItem() {
+	public void cancelItem(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText("Cancel Item?");
 		alert.setContentText("Note that the order will be cancelled if this is the last item");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
+			MasterDatabase.getInventory().get(list.getSelectionModel().getSelectedItem().getItemId()).setStatus("In Stock");
 			list.getItems().remove(list.getSelectionModel().getSelectedItem());
 			MasterDatabase.getOrderBeingViewed().getItems().remove(list.getSelectionModel().getSelectedItem());
 			if(list.getItems().isEmpty()){
 				MasterDatabase.getOrderBeingViewed().setOrderStatus("Cancelled");
 				MasterDatabase.getInvoiceDatabase().get(MasterDatabase.getOrderBeingViewed().getInvoiceNumber()).setOrderStatus("Cancelled");
 				for(Invoice invoice : MasterDatabase.getOrderBeingViewed().getCustomer().getOrders().values()){
-					if(invoice.getInvoiceNumber().equals(MasterDatabase.getOrderBeingViewed())){
+					if(invoice.getInvoiceNumber().equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())){
 						invoice.setOrderStatus("Cancelled");
+						Node node = (Node) event.getSource();
+						Stage stage = (Stage) node.getScene().getWindow();
+						Parent root = null;
+						try {
+							root = FXMLLoader.load(getClass().getResource("/view/PickingQueue.fxml"));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						Scene scene = new Scene(root);
+						stage.setScene(scene);
 					}
 				}
 			}

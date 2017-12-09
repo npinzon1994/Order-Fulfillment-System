@@ -40,17 +40,15 @@
                         <TextField fx:id="cityField" layoutX="17.0" layoutY="240.0" promptText="City" />
                         <ComboBox fx:id="stateBox" layoutX="190.0" layoutY="240.0" prefHeight="27.0" prefWidth="81.0" promptText="State" />
                         <TextField fx:id="zipField" layoutX="17.0" layoutY="274.0" prefHeight="27.0" prefWidth="127.0" promptText="Zip Code" />
-                        <Button fx:id="checkZipBtn" layoutX="150.0" layoutY="274.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="121.0" text="Check Zip" />
                         <Label layoutX="381.0" layoutY="14.0" text="Shipping Method" />
                         <ComboBox fx:id="shippingMethodBox" layoutX="381.0" layoutY="36.0" prefHeight="27.0" prefWidth="196.0" promptText="Shipping Method" />
                         <Label layoutX="381.0" layoutY="75.0" text="Remarks" />
                         <TextField fx:id="remarkField1" layoutX="381.0" layoutY="94.0" prefHeight="27.0" prefWidth="196.0" promptText="Remark 1" />
                         <TextField fx:id="remarkField2" layoutX="381.0" layoutY="128.0" prefHeight="27.0" prefWidth="196.0" promptText="Remark 2" />
                         <Label layoutX="381.0" layoutY="172.0" text="Package Weight" />
-                        <TextField fx:id="weightField" layoutX="381.0" layoutY="193.0" prefHeight="27.0" prefWidth="64.0" />
+                        <TextField fx:id="weightField" disable="true" layoutX="381.0" layoutY="193.0" prefHeight="27.0" prefWidth="64.0" />
                         <Label layoutX="452.0" layoutY="197.0" text="lbs" />
                         <Label layoutX="382.0" layoutY="245.0" text="Calculated Cost" />
-                        <Button fx:id="calculateBtn" layoutX="486.0" layoutY="193.0" mnemonicParsing="false" onAction="#calculateShipping" prefHeight="27.0" prefWidth="90.0" text="Calculate" />
                         <Label fx:id="costLbl" layoutX="514.0" layoutY="246.0" text="costLbl" />
                         <Button fx:id="shipBtn" layoutX="379.0" layoutY="274.0" mnemonicParsing="false" onAction="#ship" prefHeight="27.0" prefWidth="94.0" text="Ship" />
                      </children>

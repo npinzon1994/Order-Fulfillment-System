@@ -134,6 +134,7 @@ public class OrderSummaryController implements Initializable {
 		} else {
 			alert.close();
 		}
+		MasterDatabase.getOrderCustomer().getCart().clear();
 		
 	}
 
@@ -153,6 +154,7 @@ public class OrderSummaryController implements Initializable {
 		} else {
 			alert.close();
 		}
+		MasterDatabase.getOrderCustomer().getCart().clear();
 		
 	}
 

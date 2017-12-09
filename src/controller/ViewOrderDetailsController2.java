@@ -30,7 +30,7 @@ import model.InvItem;
 import model.Invoice;
 import model.MasterDatabase;
 
-public class ViewOrderDetailsController implements Initializable {
+public class ViewOrderDetailsController2 implements Initializable {
 
 	@FXML
 	private Label employee;
@@ -115,7 +115,7 @@ public class ViewOrderDetailsController implements Initializable {
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/view/ViewCustomerOrders.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/view/OrderSearchTab.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -16,11 +16,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import model.MasterDatabase;
 import model.Validation;
@@ -79,7 +80,13 @@ public class CreateOrderTab3Controller implements Initializable {
 	private Button previousBtn;
 
 	@FXML
-	private CheckBox checkBox;
+	private RadioButton enterNewAddress;
+
+	@FXML
+	private RadioButton checkBox;
+
+	@FXML
+	private RadioButton billShipBox;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -89,6 +96,11 @@ public class CreateOrderTab3Controller implements Initializable {
 		setShippingFields();
 		Validation.limitInputToZipField(shipZipField);
 		Validation.limitInputToZipField(billZipField);
+		ToggleGroup group = new ToggleGroup();
+		checkBox.setToggleGroup(group);
+		billShipBox.setToggleGroup(group);
+		enterNewAddress.setToggleGroup(group);
+
 	}
 
 	public void initializeComboBoxes() {
@@ -140,7 +152,7 @@ public class CreateOrderTab3Controller implements Initializable {
 			shipZipField.setEditable(false);
 			shippingMethodBox.setDisable(true);
 			return true;
-		} else {
+		} else if (!checkBox.isSelected()) {
 			shipStreetField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getStreetAddress());
 			shipCityField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getCity());
 			shipStateBox.getSelectionModel().select(MasterDatabase.getOrderCustomer().getShippingAddress().getState());
@@ -152,6 +164,54 @@ public class CreateOrderTab3Controller implements Initializable {
 			shippingMethodBox.setDisable(false);
 			return false;
 		}
+		return true;
+	}
+
+	public boolean billShippedBoxChecked() {
+		if (billShipBox.isSelected()) {
+			shipStreetField.setText(billStreetField.getText());
+			shipCityField.setText(billCityField.getText());
+			shipStateBox.getSelectionModel().select(billStateBox.getValue());
+			shipZipField.setText(billZipField.getText());
+			shipStreetField.setEditable(false);
+			shipCityField.setEditable(false);
+			shipStateBox.setDisable(true);
+			shipZipField.setEditable(false);
+			shippingMethodBox.getSelectionModel().selectFirst();
+			shippingMethodBox.setDisable(false);
+			return true;
+		} else if (!billShipBox.isSelected()) {
+			shipStreetField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getStreetAddress());
+			shipCityField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getCity());
+			shipStateBox.getSelectionModel().select(MasterDatabase.getOrderCustomer().getShippingAddress().getState());
+			shipZipField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getZip());
+			shipStreetField.setEditable(true);
+			shipCityField.setEditable(true);
+			shipStateBox.setDisable(false);
+			shipZipField.setEditable(true);
+			shippingMethodBox.setDisable(false);
+
+			return false;
+		}
+		return true;
+	}
+
+	public boolean enterNewBillingAddressButtonSelected() {
+		if (enterNewAddress.isSelected()) {
+			shipStreetField.setEditable(true);
+			shipCityField.setEditable(true);
+			shipStateBox.setDisable(false);
+			shipZipField.setEditable(true);
+			billStreetField.setEditable(true);
+			billCityField.setEditable(true);
+			billStateBox.setDisable(false);
+			billZipField.setEditable(true);
+
+			return true;
+		} else if (!enterNewAddress.isSelected()) {
+			return false;
+		}
+		return true;
 	}
 
 	public void cancelOrder(ActionEvent event) {
@@ -227,25 +287,29 @@ public class CreateOrderTab3Controller implements Initializable {
 	}
 
 	public void goToNextPage(ActionEvent event) {
-		if (boxChecked() && (!billStreetField.getText()
-				.equals(MasterDatabase.getOrderCustomer().getBillingAddress().getStreetAddress())
+		if ((boxChecked() || billShippedBoxChecked() || enterNewBillingAddressButtonSelected()) && ((!billStreetField
+				.getText().equals(MasterDatabase.getOrderCustomer().getBillingAddress().getStreetAddress())
 				|| !billCityField.getText().equals(MasterDatabase.getOrderCustomer().getBillingAddress().getCity())
 				|| !billStateBox.getValue().equals(MasterDatabase.getOrderCustomer().getBillingAddress().getState())
-				|| !billZipField.getText().equals(MasterDatabase.getOrderCustomer().getBillingAddress().getZip()))) {
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setHeaderText("Change Address Information");
-			alert.setContentText("Overwrite billing address for " + MasterDatabase.getOrderCustomer().getFirstName()
-					+ " " + MasterDatabase.getOrderCustomer().getLastName() + "?");
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK) {
-				setOrderCustomerFields();
-				switchToOrderPane4(event);
-			} else {
-				alert.close();
-			}
+				|| !billZipField.getText().equals(MasterDatabase.getOrderCustomer().getBillingAddress().getZip())))) {
+			promptUserToChangeInfo(event);
 		} else {
 			setOrderCustomerFields();
 			switchToOrderPane4(event);
+		}
+	}
+
+	public void promptUserToChangeInfo(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Change Address Information");
+		alert.setContentText("Overwrite billing address for " + MasterDatabase.getOrderCustomer().getFirstName() + " "
+				+ MasterDatabase.getOrderCustomer().getLastName() + "?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			setOrderCustomerFields();
+			switchToOrderPane4(event);
+		} else {
+			alert.close();
 		}
 	}
 
