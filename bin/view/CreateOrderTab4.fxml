@@ -11,14 +11,19 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateOrderController4">
    <top>
       <AnchorPane prefHeight="43.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Hyperlink fx:id="logoutLink" layoutX="529.0" layoutY="10.0" onAction="#logout" text="Logout" />
-            <Label fx:id="employee" layoutX="14.0" layoutY="13.0" text="Employee" />
-            <Label fx:id="empId" layoutX="89.0" layoutY="13.0" text="empId" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label fx:id="employee" text="Employee" />
+                  <Label fx:id="empId" text="empId" />
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </top>
@@ -40,16 +45,13 @@
                      <children>
                         <Label layoutX="426.0" layoutY="14.0" text="Subtotal:" />
                         <Label fx:id="subtotalLabel" layoutX="500.0" layoutY="14.0" text="subtotal" />
-                        <ComboBox fx:id="creditBox" layoutX="16.0" layoutY="18.0" prefHeight="27.0" prefWidth="176.0" promptText="Credit Card Type" />
+                        <ComboBox fx:id="creditBox" layoutX="16.0" layoutY="18.0" onAction="#limitCvvInput" prefHeight="27.0" prefWidth="176.0" />
                         <Label layoutX="17.0" layoutY="55.0" text="Card Number" />
                         <TextField fx:id="numField1" layoutX="15.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
-                        <TextField fx:id="numField2" layoutX="78.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
-                        <TextField fx:id="numField3" layoutX="140.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
                         <Label layoutX="16.0" layoutY="110.0" text="Expiration Date" />
                         <ComboBox fx:id="monthBox" layoutX="16.0" layoutY="134.0" prefHeight="27.0" prefWidth="66.0" />
-                        <ComboBox fx:id="yearBox" layoutX="88.0" layoutY="134.0" prefHeight="27.0" prefWidth="90.0" />
-                        <Label layoutX="182.0" layoutY="115.0" text="CVV" />
-                        <TextField fx:id="cvvField" layoutX="182.0" layoutY="134.0" prefHeight="27.0" prefWidth="60.0" />
+                        <ComboBox fx:id="yearBox" layoutX="88.0" layoutY="134.0" prefHeight="27.0" prefWidth="86.0" />
+                        <Label fx:id="cvvLbl" layoutX="182.0" layoutY="115.0" text="CVV" />
                         <ImageView fitHeight="31.0" fitWidth="54.0" layoutX="16.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../../Desktop/creditcards/visa.png" />
@@ -74,6 +76,20 @@
                         <Label fx:id="shippingLabel" layoutX="500.0" layoutY="41.0" text="shipping" />
                         <Label layoutX="427.0" layoutY="67.0" text="Total:" />
                         <Label fx:id="totalLabel" layoutX="501.0" layoutY="68.0" text="total" />
+                        <TextField fx:id="numField2" layoutX="76.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
+                        <TextField fx:id="numField3" layoutX="137.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
+                        <TextField fx:id="numField4" layoutX="197.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
+                        <TextField fx:id="cvvField" layoutX="181.0" layoutY="134.0" prefHeight="27.0" prefWidth="72.0" />
+                        <ImageView fx:id="creditX" fitHeight="23.0" fitWidth="23.0" layoutX="255.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../../../../../Desktop/goodRedX.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="cvvX" fitHeight="23.0" fitWidth="23.0" layoutX="256.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../../../../../Desktop/goodRedX.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
             </content>

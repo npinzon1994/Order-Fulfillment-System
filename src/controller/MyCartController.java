@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,10 +19,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.InvItem;
 import model.MasterDatabase;
@@ -90,20 +96,39 @@ public class MyCartController implements Initializable {
 			table.setItems(items);
 		}
 		totalItemsLbl.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
+		removeBtn.setDisable(true);
+		onClicked();
 	}
 
 	public void logout(ActionEvent event) {
-		MasterDatabase.getOrderCustomer().getCart().clear();
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Are you sure you want to logout?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
 		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
+	}
+	
+	public void onClicked() {
+		table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<InvItem>() {
+
+			public void changed(ObservableValue<? extends InvItem> observable, InvItem oldValue, InvItem newValue) {
+				removeBtn.setDisable(false);
+
+			}
+		});
 	}
 
 	public void cancel(ActionEvent event) {
@@ -123,15 +148,24 @@ public class MyCartController implements Initializable {
 		NumberFormat format = NumberFormat.getCurrencyInstance();
 		InvItem item = null;
 		Iterator<InvItem> iter = MasterDatabase.getOrderCustomer().getCart().iterator();
-		while(iter.hasNext()){
-			item = iter.next();
-			if(item.equals(table.getSelectionModel().getSelectedItem())){
-				iter.remove();
-				subTotal -= item.getPrice();
-				subtotalLabel.setText(format.format(subTotal));
-				totalItemsLbl.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
+		
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Remove Item?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			while(iter.hasNext()){
+				item = iter.next();
+				if(item.equals(table.getSelectionModel().getSelectedItem())){
+					iter.remove();
+					subTotal -= item.getPrice();
+					subtotalLabel.setText(format.format(subTotal));
+					totalItemsLbl.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
+				}
 			}
+		} else {
+			alert.close();
 		}
+		
 				
 		
 			

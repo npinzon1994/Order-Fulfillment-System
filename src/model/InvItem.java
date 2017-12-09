@@ -16,6 +16,7 @@ public class InvItem implements Serializable {
 	private static int itemId = 1000;
 	private String id;
 	private String condition;
+	private double weight;
 
 	public InvItem(String description, String category, double price, String specs, String status, String condition) {
 		super();
@@ -90,6 +91,14 @@ public class InvItem implements Serializable {
 
 	public void setCondition(String condition) {
 		this.condition = condition;
+	}
+
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
 	}
 
 	@Override

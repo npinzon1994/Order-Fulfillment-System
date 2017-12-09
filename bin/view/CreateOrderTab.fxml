@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -24,25 +23,11 @@
                   <Label fx:id="empId" text="empId" />
                </children>
             </HBox>
-         </children>
-      </AnchorPane>
-   </top>
-   <bottom>
-      <AnchorPane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="nextBtn" layoutX="437.0" layoutY="8.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="73.0" text="Next" />
-            <Button fx:id="cancelBtn" layoutX="519.0" layoutY="8.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="72.0" text="Cancel" />
-         </children>
-      </AnchorPane>
-   </bottom>
-   <center>
-      <ScrollPane prefHeight="533.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <content>
-            <TabPane prefHeight="525.0" prefWidth="580.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane prefHeight="370.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
                   <Tab text="Create Order">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="472.0" prefWidth="583.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="389.0" prefWidth="600.0">
                            <children>
                               <AnchorPane layoutY="7.0" prefHeight="59.0" prefWidth="600.0">
                                  <children>
@@ -60,9 +45,9 @@
                                     <Button fx:id="searchBtn" layoutX="465.0" layoutY="27.0" mnemonicParsing="false" onAction="#searchForCustomer" prefHeight="27.0" prefWidth="76.0" text="Search" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutY="137.0" prefHeight="168.0" prefWidth="600.0">
+                              <AnchorPane layoutY="137.0" prefHeight="220.0" prefWidth="600.0">
                                  <children>
-                                    <TableView fx:id="table" layoutY="27.0" prefHeight="149.0" prefWidth="600.0">
+                                    <TableView fx:id="table" layoutY="27.0" prefHeight="192.0" prefWidth="600.0">
                                        <columns>
                                           <TableColumn fx:id="customerColumn" prefWidth="317.0" text="Customer" />
                                           <TableColumn fx:id="addressColumn" minWidth="0.0" prefWidth="281.0" text="Address" />
@@ -71,23 +56,21 @@
                                     <Label layoutX="9.0" layoutY="3.0" text="Search Results" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="-1.0" layoutY="313.0" prefHeight="180.0" prefWidth="582.0">
-                                 <children>
-                                    <Label fx:id="shippingAddress" layoutX="22.0" layoutY="22.0" text="Shipping Address" visible="false" />
-                                    <Label fx:id="shippingStreetAddress" layoutX="22.0" layoutY="46.0" prefHeight="42.0" prefWidth="166.0" text="streetAddress" visible="false" />
-                                    <Label fx:id="shippingCityStateZip" layoutX="22.0" layoutY="80.0" prefHeight="44.0" prefWidth="211.0" text="cityStateZip" visible="false" />
-                                    <Label fx:id="billingAddress" layoutX="291.0" layoutY="22.0" text="Billing Address" visible="false" />
-                                    <Label fx:id="billingStreetAddress" layoutX="291.0" layoutY="46.0" prefHeight="42.0" prefWidth="166.0" text="streetAddress" visible="false" />
-                                    <Label fx:id="billingCityStateZip" layoutX="291.0" layoutY="82.0" prefHeight="44.0" prefWidth="211.0" text="cityStateZip" visible="false" />
-                                 </children>
-                              </AnchorPane>
                            </children>
                         </AnchorPane>
                      </content>
                   </Tab>
                </tabs>
             </TabPane>
-         </content>
-      </ScrollPane>
-   </center>
+         </children>
+      </AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="nextBtn" layoutX="97.0" layoutY="8.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="73.0" text="Next" />
+            <Button fx:id="cancelBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="72.0" text="Back" />
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>

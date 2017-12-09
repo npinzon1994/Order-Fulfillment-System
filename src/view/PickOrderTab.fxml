@@ -52,17 +52,18 @@
                         <ListView fx:id="list" layoutX="28.0" layoutY="204.0" prefHeight="184.0" prefWidth="591.0" />
                         <Label layoutX="265.0" layoutY="187.0" text="Items to be Picked" />
                         <TextField fx:id="itemIdField" layoutX="28.0" layoutY="408.0" promptText="Enter Item ID" />
-                        <Button fx:id="pickBtn" layoutX="202.0" layoutY="408.0" mnemonicParsing="false" onAction="#pick" prefHeight="27.0" prefWidth="76.0" text="Pick" />
-                        <ImageView fx:id="greenCheck" fitHeight="51.0" fitWidth="57.0" layoutX="288.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                        <Button fx:id="pickBtn" layoutX="202.0" layoutY="408.0" mnemonicParsing="false" onAction="#pick" prefHeight="27.0" prefWidth="102.0" text="Pick" />
+                        <ImageView fx:id="greenCheck" fitHeight="51.0" fitWidth="57.0" layoutX="313.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@../images/green_check.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="redX" fitHeight="55.0" fitWidth="57.0" layoutX="286.0" layoutY="394.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                        <ImageView fx:id="redX" fitHeight="55.0" fitWidth="57.0" layoutX="311.0" layoutY="407.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
-                              <Image url="@../images/red_x.png" />
+                              <Image url="@../images/redXX.jpg" />
                            </image>
                         </ImageView>
+                        <Button fx:id="cancelItemBtn" layoutX="202.0" layoutY="441.0" mnemonicParsing="false" onAction="#cancelItem" prefHeight="27.0" prefWidth="102.0" text="Cancel Item" />
                      </children>
                   </AnchorPane>
             </content>

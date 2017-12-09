@@ -56,8 +56,8 @@
                               </HBox>
                               <HBox prefHeight="40.0" prefWidth="365.0" spacing="10.0">
                                  <children>
-                                    <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#switchBackToHomeTab" text="Cancel" translateX="-5.0" />
-                                    <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#addUserToDatabase" text="Submit" translateX="-3.0" />
+                                    <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="88.0" text="Cancel" translateX="-5.0" />
+                                    <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#addUserToDatabase" prefHeight="27.0" prefWidth="90.0" text="Submit" translateX="-3.0" />
                                  </children>
                               </HBox>
                            </children>
@@ -78,9 +78,13 @@
    <top>
       <AnchorPane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="employee" layoutX="13.0" layoutY="13.0" text="Employee" />
-            <Hyperlink layoutX="523.0" layoutY="9.0" text="Logout" />
-            <Label fx:id="empId" layoutX="93.0" layoutY="13.0" text="empId" />
+            <Hyperlink fx:id="logoutLink" layoutX="523.0" layoutY="9.0" onAction="#logout" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="6.0" prefHeight="31.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label fx:id="employee" text="Employee" />
+                  <Label fx:id="empId" text="empId" />
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </top>

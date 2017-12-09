@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
@@ -14,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
@@ -31,7 +33,7 @@ public class NewCustomerOrderController implements Initializable {
 
 	@FXML
 	private Label employee;
-	
+
 	@FXML
 	private Label empId;
 
@@ -106,7 +108,7 @@ public class NewCustomerOrderController implements Initializable {
 
 	@FXML
 	private ImageView phoneX;
-	
+
 	private Customer customer;
 
 	private Address shippingAddress;
@@ -118,6 +120,7 @@ public class NewCustomerOrderController implements Initializable {
 		initializeComboBoxes();
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
+
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 		Validation.limitInputToPhoneField(phoneField1);
 		Validation.limitInputToPhoneField(phoneField2);
@@ -127,18 +130,18 @@ public class NewCustomerOrderController implements Initializable {
 		shippingState.getSelectionModel().selectFirst();
 		billingState.getSelectionModel().selectFirst();
 	}
-	
+
 	public void initializeComboBoxes() {
-		billingState.getItems().addAll("State" , "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL",
-				"IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-				"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
-				"WV", "WI", "WY");
-		shippingState.getItems().addAll("State", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL",
-				"IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-				"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
-				"WV", "WI", "WY");
+		billingState.getItems().addAll("State", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID",
+				"IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH",
+				"NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA",
+				"WA", "WV", "WI", "WY");
+		shippingState.getItems().addAll("State", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID",
+				"IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH",
+				"NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA",
+				"WA", "WV", "WI", "WY");
 	}
-	
+
 	public void bindFieldsToButton() {
 		createBtn.disableProperty().bind(Bindings.isEmpty(fNameField.textProperty())
 				.or(Bindings.isEmpty(lNameField.textProperty()).or(Bindings.isEmpty(emailField.textProperty())
@@ -173,23 +176,37 @@ public class NewCustomerOrderController implements Initializable {
 	}
 
 	public void logout(ActionEvent event) {
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Cancel order?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
 		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
 	}
 
 	public void addCustomerToDatabase(ActionEvent event) {
-		if ((Validation.isValidEmail(emailX, emailField.getText()))
-				&& (Validation.isValidPhone(phoneX, phoneField1.getText(), phoneField2.getText(), phoneField3.getText())
+		if ((Validation
+				.isValidEmail(emailX,
+						emailField.getText()))
+				&& (Validation
+						.isValidPhone(phoneX, phoneField1.getText(), phoneField2.getText(),
+								phoneField3
+										.getText())
 						&& (Validation.isValidZipCode(shipZipX, shippingZip.getText())
-								&& Validation.isValidState(shipStateX, shippingState.getValue()) && (Validation.isValidZipCode(billZipX, billingZip.getText())
+								&& Validation.isValidState(shipStateX, shippingState.getValue())
+								&& (Validation.isValidZipCode(billZipX, billingZip.getText())
 										&& Validation.isValidState(billStateX, billingState.getValue()))))) {
 			if (!emailExistsInDatabase()) {
 				customer = new Customer();
@@ -202,12 +219,13 @@ public class NewCustomerOrderController implements Initializable {
 				MasterDatabase.setOrderCustomer(customer);
 				createAlert();
 				goToNextPage(event);
+
 			}
 
 		}
 
 	}
-	
+
 	public boolean emailExistsInDatabase() {
 		for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
 			if (customer.getEmail().equals(emailField.getText())) {
@@ -239,6 +257,7 @@ public class NewCustomerOrderController implements Initializable {
 		customer.setLastName(lNameField.getText());
 		customer.setEmail(emailField.getText());
 		customer.setPhone(phoneField1.getText() + phoneField2.getText() + phoneField3.getText());
+		MasterDatabase.getCustomerDatabase().put(customer.getId(), customer);
 	}
 
 	public void initializeAddresses() {
@@ -246,13 +265,17 @@ public class NewCustomerOrderController implements Initializable {
 		shippingAddress.setStreetAddress(shippingStreetAddress.getText());
 		shippingAddress.setState(shippingState.getValue());
 		shippingAddress.setCity(shippingCity.getText());
-		shippingAddress.setZip(shippingZip.getText());	
-		billingAddress = new Address();
-		billingAddress.setStreetAddress(billingStreetAddress.getText());
-		billingAddress.setCity(billingCity.getText());
-		billingAddress.setState(billingState.getValue());
-		billingAddress.setZip(billingZip.getText());
-		
+		shippingAddress.setZip(shippingZip.getText());
+		if (checkbox.isSelected()) {
+			billingAddress = new Address(shippingAddress);
+		} else {
+			billingAddress = new Address();
+			billingAddress.setStreetAddress(billingStreetAddress.getText());
+			billingAddress.setCity(billingCity.getText());
+			billingAddress.setState(billingState.getValue());
+			billingAddress.setZip(billingZip.getText());
+		}
+
 	}
 
 	public void clearFields() {
@@ -272,14 +295,14 @@ public class NewCustomerOrderController implements Initializable {
 		billingState.getSelectionModel().select("State");
 		billingZip.clear();
 	}
-	
+
 	public void createAlert() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setHeaderText(customer.getFirstName() + " " + customer.getLastName() + " has been added to the system!");
 		alert.showAndWait();
 	}
-
-	public void goToPreviousPage(ActionEvent event) {
+	
+	public void goToCreateOrderTab(ActionEvent event){
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
@@ -291,6 +314,27 @@ public class NewCustomerOrderController implements Initializable {
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
+	}
+
+	public void goToPreviousPage(ActionEvent event) {
+		if (fNameField.getText().isEmpty() && lNameField.getText().isEmpty() && emailField.getText().isEmpty()
+				&& phoneField1.getText().isEmpty() && phoneField2.getText().isEmpty() && phoneField3.getText().isEmpty()
+				&& shippingStreetAddress.getText().isEmpty() && shippingCity.getText().isEmpty()
+				&& shippingZip.getText().isEmpty() && billingStreetAddress.getText().isEmpty()
+				&& billingCity.getText().isEmpty() && billingZip.getText().isEmpty()) {
+			goToCreateOrderTab(event);
+		} else {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setHeaderText("Abandon changes?");
+			alert.setContentText("New customer information will be discarded");
+			Optional<ButtonType> result = alert.showAndWait();
+			if(result.get() == ButtonType.OK){
+				goToCreateOrderTab(event);
+			} else {
+				alert.close();
+			}
+		}
+		
 	}
 
 }

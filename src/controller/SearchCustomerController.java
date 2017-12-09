@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
@@ -16,12 +17,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Customer;
@@ -41,9 +45,6 @@ public class SearchCustomerController implements Initializable {
 
 	@FXML
 	private TextField idField;
-
-	@FXML
-	private TextField fNameField;
 
 	@FXML
 	private TextField lNameField;
@@ -76,6 +77,7 @@ public class SearchCustomerController implements Initializable {
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 		searchBtn.disableProperty().bind(Bindings.isNotEmpty(table.getSelectionModel().getSelectedItems()));
+		
 	}
 
 	public void onClicked() {
@@ -99,8 +101,11 @@ public class SearchCustomerController implements Initializable {
 	public void search() {
 		ObservableList<Customer> customers = FXCollections.observableArrayList();
 		for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
-			if ((!customer.equals(null)) && (customer.getShippingAddress().getZip().contains(zipField.getText())
-					&& !customers.contains(customer))) {
+			if (customer.getLastName().equals(lNameField.getText()) && !customers.contains(customer)) {
+				customers.add(customer);
+			} else if ((((customer.getShippingAddress().getZip().equals(zipField.getText()) || customer.getLastName().equals(lNameField.getText())) && !customers.contains(customer)))) {
+				customers.add(customer);
+			} else if ((((customer.getId().equals(idField.getText()) && !customers.contains(customer))))) {
 				customers.add(customer);
 			}
 		}
@@ -125,6 +130,16 @@ public class SearchCustomerController implements Initializable {
 	}
 
 	public void cancel(ActionEvent event) {
+		if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
+			switchToAdminTab(event);
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 2) {
+			switchToOperationsTab(event);
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 1) {
+			switchToCustomerServiceRepTab(event);
+		}
+	}
+
+	public void switchToAdminTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
@@ -137,17 +152,51 @@ public class SearchCustomerController implements Initializable {
 		stage.setScene(scene);
 	}
 
-	public void logout(ActionEvent event) {
+	public void switchToOperationsTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageOperations.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
+	}
+
+	public void switchToCustomerServiceRepTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageCustServiceRep.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void logout(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Are you sure you want to logout?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
+		}
 	}
 
 }

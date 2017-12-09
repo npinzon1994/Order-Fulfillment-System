@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -18,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -72,11 +74,14 @@ public class PickOrderController implements Initializable {
 	private ImageView greenCheck;
 	@FXML
 	private ImageView redX;
+	@FXML
+	private Button cancelItemBtn;
+	private Invoice invoice;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ObservableList<InvItem> items = FXCollections.observableArrayList();
-		Invoice invoice = MasterDatabase.getOrderBeingViewed();
+		invoice = MasterDatabase.getOrderBeingViewed();
 		Address shippingAddress = invoice.getCustomer().getShippingAddress();
 		Address billingAddress = invoice.getCustomer().getBillingAddress();
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
@@ -98,15 +103,19 @@ public class PickOrderController implements Initializable {
 			items.add(item);
 		}
 		list.setItems(items);
+		pickBtn.setDisable(true);
+		cancelItemBtn.setDisable(true);
+		enableButtonsWhenSelected();
 
 	}
-	
+
 	public void onClicked() {
 		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<InvItem>() {
 
 			@Override
 			public void changed(ObservableValue<? extends InvItem> observable, InvItem oldValue, InvItem newValue) {
-				if(list.getSelectionModel().isSelected(0)){
+				MasterDatabase.setOrderBeingViewed(invoice);
+				if (list.getSelectionModel().isSelected(0)) {
 					greenCheck.setVisible(false);
 					redX.setVisible(false);
 				}
@@ -116,17 +125,36 @@ public class PickOrderController implements Initializable {
 		});
 	}
 
+	public void enableButtonsWhenSelected() {
+		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<InvItem>() {
+
+			@Override
+			public void changed(ObservableValue<? extends InvItem> observable, InvItem oldValue, InvItem newValue) {
+				pickBtn.setDisable(false);
+				cancelItemBtn.setDisable(false);
+			}
+		});
+	}
+
 	public void logout(ActionEvent event) {
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Cancel order?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
 		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
 	}
 
 	public void pick() {
@@ -134,6 +162,8 @@ public class PickOrderController implements Initializable {
 			redX.setVisible(false);
 			greenCheck.setVisible(true);
 			list.getItems().remove(list.getSelectionModel().getSelectedItem());
+			list.getSelectionModel().clearSelection();
+			pickBtn.setDisable(true);
 		} else {
 			greenCheck.setVisible(false);
 			redX.setVisible(true);
@@ -142,34 +172,93 @@ public class PickOrderController implements Initializable {
 
 	public void confirmPick(ActionEvent event) {
 		if (greenCheck.isVisible() && !redX.isVisible()) {
-			for(Invoice invoice : MasterDatabase.getInvoiceDatabase().values()){
-				for(Customer customer : MasterDatabase.getCustomerDatabase().values()){
-					for(Invoice order : customer.getOrders().values()){
-						if(invoice.getInvoiceNumber().equals(order.getInvoiceNumber()) && invoice.getInvoiceNumber().equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())){
-							if(invoice.getShippingMethod().equals("Pickup In-Store")){
+			for (Invoice invoice : MasterDatabase.getInvoiceDatabase().values()) {
+				for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
+					for (Invoice order : customer.getOrders().values()) {
+						if (invoice.getInvoiceNumber().equals(order.getInvoiceNumber()) && invoice.getInvoiceNumber()
+								.equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())) {
+							if (invoice.getShippingMethod().equals("Pickup In-Store")) {
 								invoice.setOrderStatus("Ready For Pickup");
 								order.setOrderStatus("Ready For Pickup");
 							} else {
 								invoice.setOrderStatus("Confirmed");
 								order.setOrderStatus("Confirmed");
 							}
-							
+
 						}
 					}
 				}
-				
-					
-				
+
 			}
 		}
 		MasterDatabase.saveCustomers();
 		MasterDatabase.saveInventory();
 		MasterDatabase.saveInvoices();
+		if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
+			switchToAdminTab(event);
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 2) {
+			switchToOperationsTab(event);
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 1) {
+			switchToCustomerServiceRepTab(event);
+		}
+	}
+
+	public void cancelItem() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Cancel Item?");
+		alert.setContentText("Note that the order will be cancelled if this is the last item");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			list.getItems().remove(list.getSelectionModel().getSelectedItem());
+			MasterDatabase.getOrderBeingViewed().getItems().remove(list.getSelectionModel().getSelectedItem());
+			if(list.getItems().isEmpty()){
+				MasterDatabase.getOrderBeingViewed().setOrderStatus("Cancelled");
+				MasterDatabase.getInvoiceDatabase().get(MasterDatabase.getOrderBeingViewed().getInvoiceNumber()).setOrderStatus("Cancelled");
+				for(Invoice invoice : MasterDatabase.getOrderBeingViewed().getCustomer().getOrders().values()){
+					if(invoice.getInvoiceNumber().equals(MasterDatabase.getOrderBeingViewed())){
+						invoice.setOrderStatus("Cancelled");
+					}
+				}
+			}
+		} else {
+			alert.close();
+		}
+		MasterDatabase.saveInventory();
+		MasterDatabase.saveInvoices();
+	}
+
+	public void switchToAdminTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void switchToOperationsTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageOperations.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void switchToCustomerServiceRepTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageCustServiceRep.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

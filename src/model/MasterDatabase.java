@@ -7,16 +7,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashMap;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class MasterDatabase implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private static MasterDatabase _master;
+	private static LocalDate date = LocalDate.now();
 
 	private static HashMap<String, InvItem> inventory;
 	private static HashMap<String, CustomerServiceRep> employeeDatabase;
@@ -27,6 +26,7 @@ public class MasterDatabase implements Serializable {
 	private static Customer searchCustomer;
 	private static CustomerServiceRep loggedEmployee;
 	private static Invoice orderBeingViewed;
+	private static InvItem currentItem;
 
 	private MasterDatabase() {
 		inventory = new HashMap<>();
@@ -106,6 +106,22 @@ public class MasterDatabase implements Serializable {
 
 	public static void setOrderBeingViewed(Invoice orderBeingViewed) {
 		MasterDatabase.orderBeingViewed = orderBeingViewed;
+	}
+
+	public static LocalDate getDate() {
+		return date;
+	}
+
+	public static void setDate(LocalDate date) {
+		MasterDatabase.date = date;
+	}
+
+	public static InvItem getCurrentItem() {
+		return currentItem;
+	}
+
+	public static void setCurrentItem(InvItem currentItem) {
+		MasterDatabase.currentItem = currentItem;
 	}
 
 	public static void saveInventory() {
@@ -217,7 +233,7 @@ public class MasterDatabase implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void saveInvoices() {
 		System.out.println("All invoices saved!");
 		FileOutputStream fileOutput = null;

@@ -120,8 +120,8 @@
    <bottom>
       <AnchorPane prefHeight="41.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="createBtn" layoutX="10.0" layoutY="7.0" mnemonicParsing="false" onAction="#addCustomerToDatabase" prefHeight="27.0" prefWidth="72.0" text="Create" />
-            <Button fx:id="cancelBtn" layoutX="95.0" layoutY="7.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="70.0" text="Cancel" />
+            <Button fx:id="createBtn" layoutX="109.0" layoutY="7.0" mnemonicParsing="false" onAction="#addCustomerToDatabase" prefHeight="27.0" prefWidth="89.0" text="Create" />
+            <Button fx:id="cancelBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#cancelCustomer" prefHeight="27.0" prefWidth="87.0" text="Back" />
          </children>
       </AnchorPane>
    </bottom>

@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
@@ -16,11 +17,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Customer;
@@ -79,6 +83,19 @@ public class ViewCustomerOrdersController implements Initializable {
 		table.setItems(list);
 
 	}
+	
+	public void onClicked() {
+		table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Invoice>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Invoice> observable, Invoice oldValue, Invoice newValue) {
+				viewBtn.setDisable(false);
+				MasterDatabase.setOrderBeingViewed(table.getSelectionModel().getSelectedItem());
+				
+
+			}
+		});
+	}
 
 	public void viewOrderDetails(ActionEvent event) {
 		MasterDatabase.setOrderBeingViewed(table.getSelectionModel().getSelectedItem());
@@ -109,16 +126,24 @@ public class ViewCustomerOrdersController implements Initializable {
 	}
 
 	public void logout(ActionEvent event) {
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Are you sure you want to logout?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
 		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
 	}
 
 }

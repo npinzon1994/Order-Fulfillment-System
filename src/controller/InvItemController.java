@@ -4,10 +4,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import javafx.beans.binding.Bindings;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +21,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -30,9 +34,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import model.InvItem;
 import model.MasterDatabase;
+import model.Validation;
 
 public class InvItemController implements Initializable {
-	
+
 	@FXML
 	private TextArea description;
 
@@ -66,14 +71,20 @@ public class InvItemController implements Initializable {
 	private InvItem item;
 	private Image tempImage;
 	private Image image;
-	
+
 	transient BufferedImage bufferedImage;
-	
+
 	@FXML
 	private Label employee;
-	
+
 	@FXML
 	private Label empId;
+
+	@FXML
+	private TextField weightField;
+	
+	@FXML
+	private Hyperlink logoutLink;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -89,14 +100,90 @@ public class InvItemController implements Initializable {
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
+		Validation.limitInputToCentsField(priceCents);
+		Validation.limitInputToNumbers(priceDollars);
+		Validation.limitInputToNumbers(weightField);
+		bindFieldsToButton();
 	}
 
+	public void bindFieldsToButton() {
+		submitBtn.disableProperty()
+				.bind(Bindings.isEmpty(description.textProperty()).or(Bindings.isEmpty(priceDollars.textProperty())
+						.or(Bindings.isEmpty(priceCents.textProperty()).or(Bindings.isEmpty(specs.textProperty())))));
+	}
+	
 	public void switchBackToHomeTab(ActionEvent event) {
+		if (description.getText().isEmpty() && priceDollars.getText().isEmpty() && priceCents.getText().isEmpty()
+				&& specs.getText().isEmpty()) {
+			switchBackToAppropriateHomePage(event);
+		} else {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setHeaderText("Abandon changes?");
+			alert.setContentText("New customer information will be discarded");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				switchBackToAppropriateHomePage(event);
+			} else {
+				alert.close();
+			}
+		}
+	}
+	
+	public void switchBackToAppropriateHomePage(ActionEvent event) {
+		if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
+			goToNextPage(event);
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 2) {
+			switchToOperationsTab(event);
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 1) {
+			switchToCustomerServiceRepTab(event);
+		}
+	}
+
+	public void goToNextPage(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+	
+	public void switchToAdminTab(ActionEvent event){
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+	
+	public void switchToOperationsTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageOperations.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+	
+	public void switchToCustomerServiceRepTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageCustServiceRep.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -122,9 +209,10 @@ public class InvItemController implements Initializable {
 		item.setDescription(description.getText());
 		item.setCondition(condition.getSelectionModel().getSelectedItem());
 		item.setSpecs(specs.getText());
-		//item.setImage(tempImage);
+		// item.setImage(tempImage);
+		item.setWeight(Double.parseDouble(weightField.getText()));
 		item.setStatus("In Stock");
-		
+
 	}
 
 	public void chooseImage() {
@@ -162,6 +250,28 @@ public class InvItemController implements Initializable {
 		priceCents.clear();
 		condition.getSelectionModel().selectFirst();
 		specs.clear();
+		weightField.clear();
+	}
+	
+	public void logout(ActionEvent event){
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Are you sure you want to logout?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
+		}
 	}
 
 }

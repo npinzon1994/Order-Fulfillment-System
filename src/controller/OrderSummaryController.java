@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
@@ -15,11 +16,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Customer;
@@ -97,7 +101,6 @@ public class OrderSummaryController implements Initializable {
 		populateTable();
 		NumberFormat format = NumberFormat.getCurrencyInstance();
 		totalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getTotal()));
-		table.setSelectionModel(null);
 
 	}
 
@@ -113,29 +116,44 @@ public class OrderSummaryController implements Initializable {
 	}
 
 	public void logout(ActionEvent event) {
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Cancel order?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
 		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
+		
 	}
 
 	public void cancelOrder(ActionEvent event) {
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Cancel order?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
+				switchToAdminTab(event);
+			} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 2) {
+				switchToOperationsTab(event);
+			} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 1) {
+				switchToCustomerServiceRepTab(event);
+			}
+		} else {
+			alert.close();
 		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
+		
 	}
 
 	public void goToPreviousPage(ActionEvent event) {
@@ -152,7 +170,7 @@ public class OrderSummaryController implements Initializable {
 	}
 
 	public void createInvoice() {
-		Invoice invoice = new Invoice();
+		Invoice invoice = MasterDatabase.getOrderBeingViewed();
 		invoice.setShippingAddress(MasterDatabase.getOrderCustomer().getShippingAddress());
 		invoice.setBillingAddress(MasterDatabase.getOrderCustomer().getBillingAddress());
 		invoice.setOrderStatus("Processed");
@@ -171,7 +189,7 @@ public class OrderSummaryController implements Initializable {
 			}
 			
 		}
-		MasterDatabase.setOrderBeingViewed(invoice);
+		MasterDatabase.getOrderCustomer().getOrders().put(invoice.getInvoiceNumber(), invoice);
 	}
 
 	public void placeOrder(ActionEvent event) {
@@ -185,7 +203,13 @@ public class OrderSummaryController implements Initializable {
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
-		goToHomePage(event);
+		if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
+			switchToAdminTab(event);
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 2) {
+			switchToOperationsTab(event);
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 1) {
+			switchToCustomerServiceRepTab(event);
+		}
 		stage.show();
 		for(InvItem item : MasterDatabase.getOrderCustomer().getCart()){
 			if(MasterDatabase.getInventory().containsValue(item)){
@@ -201,12 +225,38 @@ public class OrderSummaryController implements Initializable {
 		MasterDatabase.saveInvoices();
 	}
 
-	public void goToHomePage(ActionEvent event) {
+	public void switchToAdminTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+	
+	public void switchToOperationsTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageOperations.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void switchToCustomerServiceRepTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageCustServiceRep.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

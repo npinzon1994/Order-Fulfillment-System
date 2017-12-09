@@ -14,7 +14,7 @@
       <AnchorPane prefHeight="48.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Hyperlink fx:id="logoutLink" layoutX="517.0" layoutY="12.0" onAction="#logout" text="Logout" />
-            <HBox layoutX="14.0" layoutY="13.0" prefHeight="24.0" prefWidth="200.0" spacing="20.0">
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="35.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <Label fx:id="employee" text="Employee ID" />
                   <Label fx:id="empId" text="empId" />

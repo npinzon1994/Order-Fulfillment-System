@@ -30,13 +30,10 @@ public class LoginController implements Initializable {
 
 	@FXML
 	private TextField passwordField;
-	
+
 	@FXML
 	private Label invalidId;
-	
-	@FXML
-	private Label invalidPassword;
-	
+
 	@FXML
 	private Hyperlink forgotPasswordLink;
 
@@ -47,32 +44,73 @@ public class LoginController implements Initializable {
 
 	public void login(ActionEvent event) {
 
-		if (!MasterDatabase.getEmployeeDatabase().containsKey(userIdField.getText())) {
-			invalidId.setVisible(false);
-			invalidPassword.setVisible(false);
+		if (!MasterDatabase.getEmployeeDatabase().containsKey(userIdField.getText())
+				|| MasterDatabase.getEmployeeDatabase().containsKey(userIdField.getText()) && MasterDatabase
+						.getEmployeeDatabase().get(userIdField.getText()).getStatus().equals("Terminated")) {
+			invalidId.setText("Invald User ID");
 			invalidId.setVisible(true);
 		} else if (!MasterDatabase.getEmployeeDatabase().get(userIdField.getText()).getPassword()
 				.equals(passwordField.getText())) {
-			invalidId.setVisible(false);
-			invalidPassword.setVisible(false);
-			invalidPassword.setVisible(true);
+			invalidId.setText("Invalid Password");
+			invalidId.setVisible(true);
 		} else {
-			MasterDatabase.setLoggedEmployee(MasterDatabase.getEmployeeDatabase().get(userIdField.getText()));
-			Node node = (Node) event.getSource();
-			Stage stage = (Stage) node.getScene().getWindow();
-			Parent root = null;
-			try {
-				root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
-			} catch (IOException e) {
-				e.printStackTrace();
-
+			if(MasterDatabase.getEmployeeDatabase().get(userIdField.getText()).getStoreLevel() == 3){
+				MasterDatabase.setLoggedEmployee(MasterDatabase.getEmployeeDatabase().get(userIdField.getText()));
+				switchToAdminPane(event);
+			} else if(MasterDatabase.getEmployeeDatabase().get(userIdField.getText()).getStoreLevel() == 2){
+				MasterDatabase.setLoggedEmployee(MasterDatabase.getEmployeeDatabase().get(userIdField.getText()));
+				switchToOperationsPane(event);
+			} else if(MasterDatabase.getEmployeeDatabase().get(userIdField.getText()).getStoreLevel() == 1){
+				MasterDatabase.setLoggedEmployee(MasterDatabase.getEmployeeDatabase().get(userIdField.getText()));
+				switchToCustomerServiceRepPane(event);
 			}
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
+			
 		}
 	}
 	
-	public void goToForgotPasswordPane(){
+	public void switchToAdminPane(ActionEvent event){
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+	
+	public void switchToOperationsPane(ActionEvent event){
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageOperations.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+	
+	public void switchToCustomerServiceRepPane(ActionEvent event){
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageCustServiceRep.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void goToForgotPasswordPane() {
 		Stage stage = new Stage();
 		Parent root = null;
 		try {

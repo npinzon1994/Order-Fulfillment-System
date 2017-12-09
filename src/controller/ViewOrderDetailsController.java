@@ -70,12 +70,9 @@ public class ViewOrderDetailsController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ObservableList<InvItem> items = FXCollections.observableArrayList();
-		for (Invoice order : MasterDatabase.getSearchCustomer().getOrders().values()) {
-			if (order.getInvoiceNumber().equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())) {
-				for (InvItem item : order.getItems()) {
-					items.add(item);
-				}
-			}
+		for (InvItem item : MasterDatabase.getOrderBeingViewed().getItems()) {
+			items.add(item);
+
 		}
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
@@ -152,7 +149,7 @@ public class ViewOrderDetailsController implements Initializable {
 			alert.setHeaderText("Order has already been cancelled!");
 			alert.showAndWait();
 		} else {
-			
+
 			Node node = (Node) event.getSource();
 			Stage stage = (Stage) node.getScene().getWindow();
 			Parent root = null;
@@ -184,35 +181,31 @@ public class ViewOrderDetailsController implements Initializable {
 			alert.setHeaderText("Delivered orders cannot be cancelled. Please return instead.");
 			alert.showAndWait();
 		} else {
+			for(InvItem item : MasterDatabase.getOrderBeingViewed().getItems()){
+				System.out.println(item.getDescription());
+			}
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setHeaderText("Are you sure you want to cancel this order?");
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK) {
-				MasterDatabase.getOrderBeingViewed().setOrderStatus("Cancelled");
-				for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
-					if (customer.getId().equals(MasterDatabase.getSearchCustomer().getId())) {
-						for (Invoice invoice : customer.getOrders().values()) {
-							for (Invoice dataInvoice : MasterDatabase.getInvoiceDatabase().values()) {
-								if (invoice.getInvoiceNumber()
-										.equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())) {
-									invoice.setOrderStatus("Cancelled");
-									if (dataInvoice.getInvoiceNumber()
-											.equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())) {
-										dataInvoice.setOrderStatus("Cancelled");
-									}
-									for (InvItem item : invoice.getItems()) {
-										for (InvItem databaseItem : MasterDatabase.getInventory().values()) {
-											if (item.getItemId().equals(databaseItem.getItemId())) {
-												databaseItem.setStatus("In Stock");
-											}
-										}
-									}
-								}
-							}
 
+				MasterDatabase.getOrderBeingViewed().setOrderStatus("Cancelled");
+
+				MasterDatabase.getInvoiceDatabase().get(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())
+						.setOrderStatus("Cancelled");
+
+				MasterDatabase.getCustomerDatabase().get(MasterDatabase.getSearchCustomer().getId()).getOrders().put(
+						MasterDatabase.getOrderBeingViewed().getInvoiceNumber(), MasterDatabase.getOrderBeingViewed());
+
+				for(InvItem cartItem : MasterDatabase.getOrderBeingViewed().getItems()){
+					for (InvItem item : MasterDatabase.getInventory().values()) {
+						if (item.getItemId().equals(cartItem.getItemId())) {
+							item.setStatus("In Stock");
 						}
 					}
 				}
+				
+
 				MasterDatabase.saveCustomers();
 				MasterDatabase.saveInventory();
 				MasterDatabase.saveInvoices();

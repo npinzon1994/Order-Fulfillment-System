@@ -31,7 +31,6 @@
                         <Button fx:id="loginBtn" layoutX="2.0" layoutY="1.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#login" text="Login" />
                         <Hyperlink fx:id="forgotPasswordLink" alignment="CENTER" layoutX="248.0" layoutY="2.0" onAction="#goToForgotPasswordPane" text="Forgot Password" />
                         <Label fx:id="invalidId" layoutX="4.0" layoutY="36.0" text="Invalid Employee ID" visible="false" />
-                        <Label fx:id="invalidPassword" layoutX="4.0" layoutY="59.0" text="Invalid Password" visible="false" />
                      </children>
                   </AnchorPane>
                </children>

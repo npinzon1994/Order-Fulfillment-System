@@ -36,7 +36,7 @@
                               <ListView fx:id="list" layoutX="15.0" layoutY="65.0" prefHeight="289.0" prefWidth="273.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="300.0" layoutY="53.0" prefHeight="340.0" prefWidth="288.0">
+                        <AnchorPane layoutX="300.0" layoutY="30.0" prefHeight="363.0" prefWidth="288.0">
                            <children>
                               <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="5.0" layoutY="8.0" prefHeight="35.0" prefWidth="283.0" text="description" visible="false" />
                               <Label fx:id="itemId" layoutX="5.0" layoutY="45.0" text="Item ID :" visible="false" />
@@ -45,13 +45,20 @@
                               <Label fx:id="categoryLabel" alignment="TOP_LEFT" layoutX="85.0" layoutY="74.0" prefHeight="52.0" prefWidth="187.0" text="categoryLabel" visible="false" />
                               <Label fx:id="price" layoutX="5.0" layoutY="113.0" text="Price :" visible="false" />
                               <Label fx:id="priceLabel" layoutX="85.0" layoutY="113.0" prefHeight="17.0" prefWidth="96.0" text="priceLabel" visible="false" />
-                              <Label fx:id="condition" layoutX="5.0" layoutY="140.0" text="Condition :" visible="false" />
+                              <Label fx:id="condition" layoutX="4.0" layoutY="140.0" text="Condition :" visible="false" />
                               <Label fx:id="conditionLabel" layoutX="85.0" layoutY="140.0" text="conditionLabel" visible="false" />
-                              <Label fx:id="specifications" layoutX="5.0" layoutY="194.0" text="Specs" visible="false" />
-                              <Label fx:id="specsLabel" alignment="TOP_LEFT" layoutX="5.0" layoutY="221.0" prefHeight="80.0" prefWidth="279.0" text="specsLabel" visible="false" />
-                              <Label fx:id="status" layoutX="5.0" layoutY="169.0" text="Status :" visible="false" />
+                              <Label fx:id="specifications" layoutX="5.0" layoutY="224.0" text="Specs" visible="false" />
+                              <Label fx:id="specsLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="246.0" prefHeight="80.0" prefWidth="279.0" text="specsLabel" visible="false" />
+                              <Label fx:id="status" layoutX="4.0" layoutY="169.0" text="Status :" visible="false" />
                               <Label fx:id="statusLabel" layoutX="85.0" layoutY="169.0" text="statusLabel" visible="false" />
-                              <Button fx:id="addToCart" layoutX="4.0" layoutY="309.0" mnemonicParsing="false" onAction="#addItemToCart" text="Add To Cart" visible="false" />
+                              <Button fx:id="addToCart" layoutX="4.0" layoutY="333.0" mnemonicParsing="false" onAction="#addItemToCart" text="Add To Cart" visible="false" />
+                              <Label fx:id="weight" layoutX="5.0" layoutY="197.0" text="Weight:" visible="false" />
+                              <HBox alignment="CENTER_LEFT" layoutX="85.0" layoutY="195.0" prefHeight="22.0" prefWidth="89.0" spacing="5.0">
+                                 <children>
+                                    <Label fx:id="weightValue" text="0" visible="false" />
+                                    <Label fx:id="lbs" text="lbs" visible="false" />
+                                 </children>
+                              </HBox>
                            </children>
                         </AnchorPane>
                         <ImageView fx:id="imageView" fitHeight="256.0" fitWidth="261.0" layoutX="601.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" visible="false" />
@@ -78,7 +85,7 @@
    <bottom>
       <AnchorPane prefHeight="38.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="nextBtn" layoutX="709.0" layoutY="5.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="87.0" text="Checkout" />
+            <Button fx:id="nextBtn" layoutX="105.0" layoutY="5.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="83.0" text="Next" />
             <Button fx:id="cancelBtn" layoutX="805.0" layoutY="5.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="71.0" text="Cancel" />
             <Button fx:id="previousBtn" layoutX="16.0" layoutY="5.0" mnemonicParsing="false" onAction="#goToPreviousPage" prefHeight="27.0" prefWidth="80.0" text="Previous" />
          </children>

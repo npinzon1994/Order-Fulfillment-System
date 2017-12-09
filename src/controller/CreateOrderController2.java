@@ -2,9 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,15 +17,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import model.Customer;
 import model.InvItem;
 import model.MasterDatabase;
 
@@ -118,6 +118,15 @@ public class CreateOrderController2 implements Initializable {
 	private Label customer;
 	
 	private InvItem item;
+	
+	@FXML
+	private Label weightValue;
+	
+	@FXML
+	private Label weight;
+	
+	@FXML
+	private Label lbs;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -195,6 +204,7 @@ public class CreateOrderController2 implements Initializable {
 			conditionLabel.setText(item.getCondition());
 			specsLabel.setText(item.getSpecs());
 			statusLabel.setText(item.getStatus());
+			weightValue.setText(String.valueOf(item.getWeight()));
 		}
 
 	}
@@ -215,6 +225,9 @@ public class CreateOrderController2 implements Initializable {
 		status.setVisible(true);
 		statusLabel.setVisible(true);
 		addToCart.setVisible(true);
+		weightValue.setVisible(true);
+		weight.setVisible(true);
+		lbs.setVisible(true);
 
 	}
 
@@ -233,6 +246,9 @@ public class CreateOrderController2 implements Initializable {
 		imageView.setVisible(false);
 		status.setVisible(false);
 		statusLabel.setVisible(false);
+		weightValue.setVisible(false);
+		weight.setVisible(false);
+		lbs.setVisible(false);
 
 	}
 
@@ -250,6 +266,28 @@ public class CreateOrderController2 implements Initializable {
 	}
 
 	public void cancelOrder(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Are you sure you want to cancel?");
+		alert.setContentText("All order progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			if(!MasterDatabase.getOrderCustomer().getCart().isEmpty()){
+				MasterDatabase.getOrderCustomer().getCart().clear();
+			}
+			if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 3){
+				switchToAdminTab(event);
+			} else if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 2){
+				switchToOperationsTab(event);
+			} else if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 1){
+				switchToCustomerServiceRepTab(event);
+			}
+		} else {
+			alert.close();
+		}
+		
+	}
+	
+	public void switchToAdminTab(ActionEvent event){
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
@@ -261,19 +299,54 @@ public class CreateOrderController2 implements Initializable {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 	}
-
-	public void logout(ActionEvent event) {
-		MasterDatabase.getOrderCustomer().getCart().clear();
+	
+	public void switchToOperationsTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageOperations.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
+	}
+	
+	public void switchToCustomerServiceRepTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageCustServiceRep.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void logout(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Are you sure you want to logout?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			MasterDatabase.getOrderCustomer().getCart().clear();
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
+		}
+		
 	}
 
 	public void goToMyCart(ActionEvent event) {

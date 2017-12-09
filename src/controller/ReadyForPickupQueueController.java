@@ -73,10 +73,33 @@ public class ReadyForPickupQueueController implements Initializable {
 				cellData -> Bindings.createStringBinding(() -> cellData.getValue().getCustomer().getLastName() + ", "
 						+ cellData.getValue().getCustomer().getFirstName()));
 		table.setItems(orders);
+		nextBtn.setDisable(true);
+		onClicked();
 
+	}
+	
+	public void onClicked() {
+		table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Invoice>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Invoice> observable, Invoice oldValue, Invoice newValue) {
+				MasterDatabase.setOrderBeingViewed(table.getSelectionModel().getSelectedItem());
+				nextBtn.setDisable(false);
+			}
+		});
 	}
 
 	public void goBack(ActionEvent event) {
+		if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 3){
+			switchToAdminTab(event);
+		} else if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 2){
+			switchToOperationsTab(event);
+		} else if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 1){
+			switchToCustomerServiceRepTab(event);
+		}
+	}
+	
+	public void switchToAdminTab(ActionEvent event){
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
@@ -88,13 +111,26 @@ public class ReadyForPickupQueueController implements Initializable {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 	}
-
-	public void logout(ActionEvent event) {
+	
+	public void switchToOperationsTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageOperations.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+	
+	public void switchToCustomerServiceRepTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageCustServiceRep.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -102,31 +138,38 @@ public class ReadyForPickupQueueController implements Initializable {
 		stage.setScene(scene);
 	}
 
+	public void logout(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Cancel order?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
+		}
+	}
+
 	public void pickup() {
-		MasterDatabase.setOrderBeingViewed(table.getSelectionModel().getSelectedItem());
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText("Mark as picked up?");
 		alert.setContentText("Hit yes only if the customer's drivers license matches their customer profile");
 		Optional<ButtonType> result = alert.showAndWait();
 		if(result.get() == ButtonType.OK){
-			table.getItems().remove(MasterDatabase.getOrderBeingViewed());
 			MasterDatabase.getOrderBeingViewed().setOrderStatus("Customer Picked Up");
-			for(Customer customer : MasterDatabase.getCustomerDatabase().values()){
-				if(customer.getId().equals(MasterDatabase.getOrderBeingViewed().getCustomer().getId())){
-					for(Invoice invoice : customer.getOrders().values()){
-						for(Invoice dataInvoice : MasterDatabase.getInvoiceDatabase().values()){
-							if(dataInvoice.getInvoiceNumber().equals(invoice.getInvoiceNumber())){
-								dataInvoice.setOrderStatus("Customer Picked Up");
-								if(invoice.getInvoiceNumber().equals(MasterDatabase.getOrderBeingViewed().getInvoiceNumber())){
-									invoice.setOrderStatus("Customer Picked Up");
-								}
-							}
-						
-						}
-						
-					}
-				}
-			}
+			table.getItems().remove(MasterDatabase.getOrderBeingViewed());
+			table.getSelectionModel().clearSelection();
+			nextBtn.setDisable(true);
+			
 		}
 		MasterDatabase.saveCustomers();
 		MasterDatabase.saveInventory();

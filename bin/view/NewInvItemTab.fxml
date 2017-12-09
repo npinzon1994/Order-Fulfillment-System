@@ -12,6 +12,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InvItemController">
    <center>
@@ -38,8 +39,8 @@
                         <ComboBox fx:id="condition" layoutX="32.0" layoutY="233.0" prefHeight="27.0" prefWidth="123.0" />
                         <Label layoutX="33.0" layoutY="279.0" text="Specifications" />
                         <TextArea fx:id="specs" layoutX="32.0" layoutY="298.0" prefHeight="79.0" prefWidth="261.0" wrapText="true" />
-                        <Button fx:id="cancelBtn" layoutX="32.0" layoutY="389.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" text="Cancel" />
-                        <Button fx:id="submitBtn" layoutX="104.0" layoutY="389.0" mnemonicParsing="false" onAction="#addItemToInventory" text="Submit" />
+                        <Button fx:id="cancelBtn" layoutX="32.0" layoutY="389.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="85.0" text="Cancel" />
+                        <Button fx:id="submitBtn" layoutX="126.0" layoutY="389.0" mnemonicParsing="false" onAction="#addItemToInventory" prefHeight="27.0" prefWidth="91.0" text="Submit" />
                         <Label layoutX="360.0" layoutY="8.0" text="Picture" />
                         <ImageView fx:id="imageView" fitHeight="131.0" fitWidth="181.0" layoutX="359.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -47,6 +48,9 @@
                            </image>
                         </ImageView>
                         <Button fx:id="browseBtn" layoutX="358.0" layoutY="171.0" mnemonicParsing="false" onAction="#chooseImage" text="Browse" />
+                        <Label layoutX="181.0" layoutY="215.0" text="Weight" />
+                        <TextField fx:id="weightField" layoutX="181.0" layoutY="233.0" prefHeight="27.0" prefWidth="68.0" />
+                        <Label layoutX="257.0" layoutY="238.0" text="lbs" />
                      </children>
                   </AnchorPane>
                </content>
@@ -57,9 +61,13 @@
    <top>
       <AnchorPane prefHeight="38.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink layoutX="528.0" layoutY="7.0" text="Logout" />
-            <Label fx:id="employee" layoutX="13.0" layoutY="11.0" text="Employee" />
-            <Label fx:id="empId" layoutX="94.0" layoutY="11.0" text="Label" />
+            <Hyperlink fx:id="logoutLink" layoutX="528.0" layoutY="7.0" onAction="#logout" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="3.0" prefHeight="33.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label fx:id="employee" text="Employee" />
+                  <Label fx:id="empId" text="Label" />
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </top>

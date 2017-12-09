@@ -5,64 +5,65 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OperationsController">
-   <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="600.0" spacing="15.0">
-         <children>
-            <Label text="Label" />
-            <TextField prefHeight="27.0" prefWidth="269.0" />
-         </children>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </HBox>
-      <TabPane prefHeight="298.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Home">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="303.0" prefWidth="600.0">
+<BorderPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OperationsController">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+         <tabs>
+            <Tab text="Home">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="118.0" text="Customer" />
-                        <Label layoutX="176.0" layoutY="16.0" text="Ship" />
-                        <VBox layoutX="9.0" layoutY="35.0" prefHeight="76.0" prefWidth="115.0">
+                        <VBox layoutX="25.0" layoutY="95.0" prefHeight="73.0" prefWidth="147.0">
                            <children>
-                              <Hyperlink prefHeight="25.0" prefWidth="94.0" text="Create Order" />
-                              <Hyperlink text="Order Search" />
-                              <Hyperlink text="Return Search" />
+                              <Label text="Order" translateX="5.0" />
+                              <Hyperlink fx:id="createOrderLink" onAction="#openCreateOrderPane" text="Create Order" />
+                              <Hyperlink fx:id="orderSearchLink" onAction="#openOrderSearchTab" text="Search/Return Order" />
                            </children>
                         </VBox>
-                        <Label layoutX="14.0" layoutY="18.0" text="Order" />
-                        <VBox layoutX="9.0" layoutY="136.0" prefHeight="59.0" prefWidth="125.0">
+                        <VBox layoutX="376.0" layoutY="14.0" prefHeight="94.0" prefWidth="148.0">
                            <children>
-                              <Hyperlink text="Customer Search" />
-                              <Hyperlink text="Create Customer" />
+                              <Label text="Shipping" translateX="5.0" />
+                              <Hyperlink fx:id="pickLink" onAction="#openPickingQueue" text="Picking" />
+                              <Hyperlink fx:id="shipLink" onAction="#openPackingQueue" text="Packing" />
+                              <Hyperlink fx:id="readyForPickupLink" onAction="#openReadyForPickupQueue" text="Ready For Pickup" />
                            </children>
                         </VBox>
-                        <VBox layoutX="171.0" layoutY="35.0" prefHeight="76.0" prefWidth="139.0">
+                        <VBox layoutX="200.0" layoutY="13.0" prefHeight="94.0" prefWidth="175.0">
                            <children>
-                              <Hyperlink text="Picking" />
-                              <Hyperlink text="Packing" />
-                              <Hyperlink text="Track My Shipment" />
+                              <Label text="Inventory Management" translateX="5.0" />
+                              <Hyperlink fx:id="newInvItemLink" onAction="#openAddItemPane" text="Create new Item" />
+                              <Hyperlink fx:id="searchInventoryLink" onAction="#openSearchInventoryPane" text="Search Inventory" />
                            </children>
                         </VBox>
-                        <Label layoutX="177.0" layoutY="116.0" text="Inventory Management" />
-                        <VBox layoutX="172.0" layoutY="135.0" prefHeight="82.0" prefWidth="108.0">
+                        <VBox layoutX="24.0" layoutY="15.0" prefHeight="72.0" prefWidth="124.0">
                            <children>
-                              <Hyperlink text="Item Lookup" />
-                              <Hyperlink text="Add Item" />
-                              <Hyperlink text="Remove Item" />
+                              <Label text="Customer" translateX="5.0" />
+                              <Hyperlink fx:id="createCustomerLink" onAction="#openCreateCustomerTab" text="New Customer" />
+                              <Hyperlink fx:id="customerSearchLink" onAction="#openCustomerSearchTab" text="Customer Search" />
                            </children>
                         </VBox>
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
+               </content>
+            </Tab>
+         </tabs>
       </TabPane>
-   </children>
-</VBox>
+   </center>
+   <top>
+      <HBox prefHeight="50.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="employee" text="Employee" translateY="5.0" />
+            <Label fx:id="empId" text="empId" translateY="5.0" />
+            <Hyperlink fx:id="logout" onAction="#logout" text="Logout" translateX="390.0" />
+         </children>
+         <padding>
+            <Insets left="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </top>
+</BorderPane>

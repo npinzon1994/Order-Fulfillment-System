@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
@@ -16,12 +17,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Customer;
@@ -63,26 +67,7 @@ public class CreateOrderController implements Initializable {
 	@FXML
 	private TableColumn<Customer, String> addressColumn;
 
-	@FXML
-	private Label shippingAddress;
-
-	@FXML
-	private Label shippingStreetAddress;
-
-	@FXML
-	private Label shippingCityStateZip;
-
-	@FXML
-	private Label billingAddress;
-
-	@FXML
-	private Label billingStreetAddress;
-
-	@FXML
-	private Label billingCityStateZip;
-
-	private Customer customer;
-	private ObservableList<Customer> allCustomers, selectedCustomers;
+	private ObservableList<Customer> selectedCustomers;
 
 	@FXML
 	private Label employee;
@@ -98,23 +83,32 @@ public class CreateOrderController implements Initializable {
 	}
 
 	public void logout(ActionEvent event) {
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Are you sure you want to logout?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
 		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
 	}
 
 	public void searchForCustomer() {
 		ObservableList<Customer> customers = FXCollections.observableArrayList();
 		for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
-			if ((!customer.equals(null)) && (customer.getShippingAddress().getZip().contains(zipField.getText())
-					&& !customers.contains(customer))) {
+			if (customer.getFirstName().equals(fNameField.getText()) && !customers.contains(customer)) {
+				customers.add(customer);
+			} else if ((((customer.getShippingAddress().getZip().equals(zipField.getText()) || customer.getLastName().equals(lNameField.getText())) && !customers.contains(customer)))) {
 				customers.add(customer);
 			}
 		}
@@ -130,42 +124,12 @@ public class CreateOrderController implements Initializable {
 
 			@Override
 			public void changed(ObservableValue<? extends Customer> observable, Customer oldValue, Customer newValue) {
-				setShippingFields();
-				setBillingFields();
-				setLabelsVisible();
 				MasterDatabase.setOrderCustomer(table.getSelectionModel().getSelectedItem());
+				MasterDatabase.setOrderBeingViewed(new Invoice());
 			}
 		});
 	}
 
-	public void setShippingFields() {
-		selectedCustomers = table.getSelectionModel().getSelectedItems();
-		for (Customer customer : selectedCustomers) {
-			shippingStreetAddress.setText(customer.getShippingAddress().getStreetAddress());
-			shippingCityStateZip.setText(customer.getShippingAddress().getCity() + " "
-					+ customer.getShippingAddress().getState() + ", " + customer.getShippingAddress().getZip());
-		}
-
-	}
-
-	public void setBillingFields() {
-		selectedCustomers = table.getSelectionModel().getSelectedItems();
-		for (Customer customer : selectedCustomers) {
-			billingStreetAddress.setText(customer.getBillingAddress().getStreetAddress());
-			billingCityStateZip.setText(customer.getBillingAddress().getCity() + " "
-					+ customer.getBillingAddress().getState() + ", " + customer.getBillingAddress().getZip());
-		}
-
-	}
-
-	public void setLabelsVisible() {
-		shippingAddress.setVisible(true);
-		shippingStreetAddress.setVisible(true);
-		shippingCityStateZip.setVisible(true);
-		billingAddress.setVisible(true);
-		billingStreetAddress.setVisible(true);
-		billingCityStateZip.setVisible(true);
-	}
 
 	public void openCreateCustomerTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
@@ -194,11 +158,48 @@ public class CreateOrderController implements Initializable {
 	}
 
 	public void cancelOrder(ActionEvent event) {
+		if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 3){
+			switchToAdminTab(event);
+		} else if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 2){
+			switchToOperationsTab(event);
+		} else if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 1){
+			switchToCustomerServiceRepTab(event);
+		}
+		
+	}
+	
+	public void switchToAdminTab(ActionEvent event){
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+	
+	public void switchToOperationsTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageOperations.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+	
+	public void switchToCustomerServiceRepTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageCustServiceRep.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

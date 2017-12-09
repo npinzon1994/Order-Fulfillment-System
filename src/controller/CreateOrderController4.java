@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -12,14 +13,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.InvItem;
 import model.MasterDatabase;
+import model.ShippingCost;
+import model.Validation;
 
 public class CreateOrderController4 implements Initializable {
 
@@ -54,6 +61,9 @@ public class CreateOrderController4 implements Initializable {
 	private TextField numField3;
 
 	@FXML
+	private TextField numField4;
+
+	@FXML
 	private ComboBox<String> monthBox;
 
 	@FXML
@@ -70,7 +80,16 @@ public class CreateOrderController4 implements Initializable {
 
 	@FXML
 	private Button cancelBtn;
-	
+
+	@FXML
+	private ImageView creditX;
+
+	@FXML
+	private ImageView cvvX;
+
+	@FXML
+	private Label cvvLbl;
+
 	private double subtotal;
 	private double total;
 
@@ -82,13 +101,32 @@ public class CreateOrderController4 implements Initializable {
 		creditBox.getItems().addAll("Visa", "Master Card", "American Express", "Discover");
 		monthBox.getItems().addAll("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
 		yearBox.getItems().addAll("2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024");
+		monthBox.getSelectionModel().selectFirst();
+		yearBox.getSelectionModel().select(1);
+		creditBox.getSelectionModel().selectFirst();
 		NumberFormat format = NumberFormat.getCurrencyInstance();
-		
+
 		setTotals();
 		subtotalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getSubtotal()));
 		shippingLabel.setText(format.format(MasterDatabase.getOrderCustomer().getShippingCost()));
 		totalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getTotal()));
+		limitTextFieldInputs();
+	}
 
+	public void limitTextFieldInputs() {
+		Validation.limitInputToCreditCardField(numField1);
+		Validation.limitInputToCreditCardField(numField2);
+		Validation.limitInputToCreditCardField(numField3);
+		Validation.limitInputToCreditCardField(numField4);
+		Validation.limitInputToCreditCardField(cvvField);
+	}
+
+	public void limitCvvInput() {
+		if (creditBox.getSelectionModel().getSelectedItem().equals("American Express")) {
+			cvvLbl.setText("AMEX Id");
+		} else {
+			cvvLbl.setText("CVV");
+		}
 	}
 
 	public void setTotals() {
@@ -109,22 +147,41 @@ public class CreateOrderController4 implements Initializable {
 			shippingCost = 0;
 			return shippingCost;
 		} else {
-
+			shippingCost = ShippingCost.calculate(MasterDatabase.getOrderCustomer().getShippingAddress().getState(),
+					MasterDatabase.getOrderCustomer().getShippingMethod(), getWeightOfOrder());
 		}
 		return shippingCost;
 	}
+	
+	public double getWeightOfOrder(){
+		double weight = 0;
+		for(InvItem item : MasterDatabase.getOrderCustomer().getCart()){
+			weight += item.getWeight();
+		}
+		return weight;
+	}
 
 	public void logout(ActionEvent event) {
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Are you sure you want to logout?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			MasterDatabase.getOrderCustomer().getCart().clear();
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
 		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
+		
 	}
 
 	public void goToPreviousPage(ActionEvent event) {
@@ -140,7 +197,7 @@ public class CreateOrderController4 implements Initializable {
 		stage.setScene(scene);
 	}
 
-	public void goToNextPage(ActionEvent event) {
+	public void switchToOrderSummaryTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
@@ -153,12 +210,65 @@ public class CreateOrderController4 implements Initializable {
 		stage.setScene(scene);
 	}
 
+	public void goToNextPage(ActionEvent event) {
+		if (Validation.isValidCreditCard(creditX, numField1.getText(), numField2.getText(), numField3.getText(),
+				numField4.getText()) && Validation.isValidCvv(cvvX, creditBox, cvvField.getText())) {
+			switchToOrderSummaryTab(event);
+		}
+	}
+
 	public void cancelOrder(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Cancel order?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			MasterDatabase.getOrderCustomer().getCart().clear();
+			if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
+				switchToAdminTab(event);
+			} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 2) {
+				switchToOperationsTab(event);
+			} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 1) {
+				switchToCustomerServiceRepTab(event);
+			}
+		} else {
+			alert.close();
+		}
+		
+	}
+	
+	public void switchToAdminTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void switchToOperationsTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageOperations.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void switchToCustomerServiceRepTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageCustServiceRep.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

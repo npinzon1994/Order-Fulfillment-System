@@ -10,14 +10,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateOrderTab3Controller">
    <top>
       <AnchorPane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Hyperlink fx:id="logoutLink" layoutX="525.0" layoutY="10.0" onAction="#logout" text="Logout" />
-            <Label fx:id="employee" layoutX="14.0" layoutY="14.0" text="Employee" />
-            <Label fx:id="empId" layoutX="89.0" layoutY="14.0" text="empId" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="11.0" prefHeight="23.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label fx:id="employee" text="Employee" />
+                  <Label fx:id="empId" text="empId" />
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </top>
@@ -30,7 +35,7 @@
                      <children>
                         <Label fx:id="customer" layoutX="14.0" layoutY="14.0" text="Customer" />
                         <Label fx:id="customerLabel" layoutX="94.0" layoutY="14.0" text="customerLabel" />
-                        <ComboBox fx:id="shippingMethodBox" layoutX="15.0" layoutY="49.0" prefHeight="27.0" prefWidth="172.0" promptText="Shipping Method" />
+                        <ComboBox fx:id="shippingMethodBox" layoutX="15.0" layoutY="49.0" prefHeight="27.0" prefWidth="202.0" />
                         <AnchorPane layoutX="14.0" layoutY="93.0" prefHeight="166.0" prefWidth="273.0">
                            <children>
                               <Label layoutX="6.0" layoutY="9.0" text="Shipping Address" />
@@ -49,7 +54,7 @@
                               <TextField fx:id="billZipField" layoutX="5.0" layoutY="101.0" prefHeight="27.0" prefWidth="98.0" promptText="Enter Zip" />
                            </children>
                         </AnchorPane>
-                        <CheckBox fx:id="checkBox" layoutX="202.0" layoutY="53.0" mnemonicParsing="false" onAction="#boxChecked" text="Pickup In-Store" />
+                        <CheckBox fx:id="checkBox" layoutX="239.0" layoutY="53.0" mnemonicParsing="false" onAction="#boxChecked" text="Pickup In-Store" />
                      </children>
                   </AnchorPane>
             </content>
@@ -60,9 +65,9 @@
    <bottom>
       <AnchorPane prefHeight="47.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="nextBtn" layoutX="450.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="63.0" text="Next" />
-            <Button fx:id="cancelBtn" layoutX="523.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancelOrder" text="Cancel" />
-            <Button fx:id="previousBtn" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToPreviousPage" text="Previous" />
+            <Button fx:id="nextBtn" layoutX="107.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="86.0" text="Next" />
+            <Button fx:id="cancelBtn" layoutX="498.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="86.0" text="Cancel" />
+            <Button fx:id="previousBtn" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToPreviousPage" prefHeight="27.0" prefWidth="85.0" text="Previous" />
          </children>
       </AnchorPane>
    </bottom>

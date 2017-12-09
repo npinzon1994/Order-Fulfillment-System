@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
@@ -15,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
@@ -157,14 +159,14 @@ public class NewCustomerController implements Initializable {
 	}
 
 	public void initializeComboBoxes() {
-		billingState.getItems().addAll("State" , "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL",
-				"IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-				"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
-				"WV", "WI", "WY");
-		shippingState.getItems().addAll("State", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL",
-				"IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-				"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
-				"WV", "WI", "WY");
+		billingState.getItems().addAll("State", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID",
+				"IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH",
+				"NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA",
+				"WA", "WV", "WI", "WY");
+		shippingState.getItems().addAll("State", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID",
+				"IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH",
+				"NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA",
+				"WA", "WV", "WI", "WY");
 	}
 
 	public void checkboxClicked() {
@@ -173,37 +175,57 @@ public class NewCustomerController implements Initializable {
 			billingCity.setEditable(false);
 			billingState.setDisable(true);
 			billingZip.setEditable(false);
-			billingStreetAddress.clear();
-			billingCity.clear();
-			billingZip.clear();
-			billingState.getSelectionModel().select("State");
+
+			billingStreetAddress.setText(shippingStreetAddress.getText());
+			billingCity.setText(shippingCity.getText());
+			billingState.setValue(shippingState.getValue());
+			billingZip.setText(shippingZip.getText());
 		} else {
 			billingStreetAddress.setEditable(true);
 			billingCity.setEditable(true);
 			billingState.setDisable(false);
 			billingZip.setEditable(true);
+
+			billingStreetAddress.clear();
+			billingCity.clear();
+			billingState.getSelectionModel().selectFirst();
+			billingZip.clear();
 		}
 
 	}
 
 	public void logout(ActionEvent event) {
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Are you sure you want to logout?");
+		alert.setContentText("All unsaved progress will be lost");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			Node node = (Node) event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+		} else {
+			alert.close();
 		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
 	}
 
 	public void addCustomerToDatabase(ActionEvent event) {
-		if ((Validation.isValidEmail(emailX, emailField.getText()))
-				&& (Validation.isValidPhone(phoneX, phoneField1.getText(), phoneField2.getText(), phoneField3.getText())
+		if ((Validation
+				.isValidEmail(emailX,
+						emailField.getText()))
+				&& (Validation
+						.isValidPhone(phoneX, phoneField1.getText(), phoneField2.getText(),
+								phoneField3
+										.getText())
 						&& (Validation.isValidZipCode(shipZipX, shippingZip.getText())
-								&& Validation.isValidState(shipStateX, shippingState.getValue()) && (Validation.isValidZipCode(billZipX, billingZip.getText())
+								&& Validation.isValidState(shipStateX, shippingState.getValue())
+								&& (Validation.isValidZipCode(billZipX, billingZip.getText())
 										&& Validation.isValidState(billStateX, billingState.getValue()))))) {
 			if (!emailExistsInDatabase()) {
 				customer = new Customer();
@@ -214,7 +236,13 @@ public class NewCustomerController implements Initializable {
 				clearFields();
 				System.out.println(customer.getFirstName() + " " + customer.getLastName() + " added to system!");
 				createAlert();
-				goToNextPage(event);
+				if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
+					goToNextPage(event);
+				} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 2) {
+					switchToOperationsTab(event);
+				} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 1) {
+					switchToCustomerServiceRepTab(event);
+				}
 			}
 
 		}
@@ -231,6 +259,7 @@ public class NewCustomerController implements Initializable {
 	}
 
 	public void initializeCustomer() {
+		initializeAddresses();
 		customer.setShippingAddress(shippingAddress);
 		customer.setBillingAddress(billingAddress);
 		customer.setFirstName(fNameField.getText());
@@ -240,12 +269,69 @@ public class NewCustomerController implements Initializable {
 		MasterDatabase.getCustomerDatabase().put(customer.getId(), customer);
 	}
 
+	public void cancelCustomer(ActionEvent event) {
+		if (fNameField.getText().isEmpty() && lNameField.getText().isEmpty() && emailField.getText().isEmpty()
+				&& phoneField1.getText().isEmpty() && phoneField2.getText().isEmpty() && phoneField3.getText().isEmpty()
+				&& shippingStreetAddress.getText().isEmpty() && shippingCity.getText().isEmpty()
+				&& shippingZip.getText().isEmpty() && billingStreetAddress.getText().isEmpty()
+				&& billingCity.getText().isEmpty() && billingZip.getText().isEmpty()) {
+			switchBackToAppropriateHomePage(event);
+		} else {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setHeaderText("Abandon changes?");
+			alert.setContentText("New customer information will be discarded");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				switchBackToAppropriateHomePage(event);
+			} else {
+				alert.close();
+			}
+		}
+
+	}
+
+	public void switchBackToAppropriateHomePage(ActionEvent event) {
+		if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
+			goToNextPage(event);
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 2) {
+			switchToOperationsTab(event);
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 1) {
+			switchToCustomerServiceRepTab(event);
+		}
+	}
+
 	public void goToNextPage(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/HomePageAdmin.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void switchToOperationsTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageOperations.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+	}
+
+	public void switchToCustomerServiceRepTab(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/HomePageCustServiceRep.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -279,7 +365,8 @@ public class NewCustomerController implements Initializable {
 		phoneField3.clear();
 		shippingStreetAddress.clear();
 		shippingCity.clear();
-		shippingState.getSelectionModel().selectFirst();;
+		shippingState.getSelectionModel().selectFirst();
+		;
 		shippingZip.clear();
 		checkbox.setSelected(false);
 		billingStreetAddress.clear();

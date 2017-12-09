@@ -45,17 +45,15 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <TextField fx:id="idField" layoutX="14.0" layoutY="31.0" />
-                              <TextField fx:id="fNameField" layoutX="14.0" layoutY="89.0" />
-                              <TextField fx:id="lNameField" layoutX="14.0" layoutY="148.0" />
-                              <TextField fx:id="zipField" layoutX="14.0" layoutY="207.0" />
+                              <TextField fx:id="lNameField" layoutX="14.0" layoutY="109.0" />
+                              <TextField fx:id="zipField" layoutX="14.0" layoutY="189.0" />
                               <Label layoutX="14.0" layoutY="14.0" text="Customer ID" />
-                              <Label layoutX="14.0" layoutY="72.0" text="First Name" />
-                              <Label layoutX="14.0" layoutY="131.0" text="Last Name" />
-                              <Label layoutX="14.0" layoutY="188.0" text="Zip Code" />
+                              <Label layoutX="14.0" layoutY="91.0" text="Last Name" />
+                              <Label layoutX="14.0" layoutY="171.0" text="Zip Code" />
                               <TableView fx:id="table" layoutX="200.0" layoutY="31.0" prefHeight="200.0" prefWidth="383.0">
                                  <columns>
                                     <TableColumn fx:id="nameColumn" prefWidth="205.0" text="Name" />
-                                    <TableColumn fx:id="addressColumn" prefWidth="176.0" text="Billing Address" />
+                                    <TableColumn fx:id="addressColumn" prefWidth="176.0" text="Shipping Address" />
                                  </columns>
                               </TableView>
                               <Button fx:id="viewOrdersBtn" layoutX="201.0" layoutY="241.0" mnemonicParsing="false" onAction="#viewOrders" text="View Orders" />
