@@ -25,9 +25,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Customer;
+import model.Address;
 import model.InvItem;
-import model.Invoice;
 import model.MasterDatabase;
 
 public class ViewOrderDetailsController implements Initializable {
@@ -69,6 +68,10 @@ public class ViewOrderDetailsController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		orderNumber.setText(MasterDatabase.getOrderBeingViewed().getInvoiceNumber());
+		Address shippingAddress = MasterDatabase.getInvoiceDatabase().get(orderNumber.getText()).getShippingAddress();
+		Address billingAddress = MasterDatabase.getInvoiceDatabase().get(orderNumber.getText()).getBillingAddress();
+
 		ObservableList<InvItem> items = FXCollections.observableArrayList();
 		for (InvItem item : MasterDatabase.getOrderBeingViewed().getItems()) {
 			items.add(item);
@@ -79,15 +82,10 @@ public class ViewOrderDetailsController implements Initializable {
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 		customer.setText(MasterDatabase.getSearchCustomer().getFirstName() + " "
 				+ MasterDatabase.getSearchCustomer().getLastName());
-		shipStreetAddress.setText(MasterDatabase.getSearchCustomer().getShippingAddress().getStreetAddress());
-		shipCityStateZip.setText(MasterDatabase.getSearchCustomer().getShippingAddress().getCity() + " "
-				+ MasterDatabase.getSearchCustomer().getShippingAddress().getState() + ", "
-				+ MasterDatabase.getSearchCustomer().getShippingAddress().getZip());
-		billStreetAddress.setText(MasterDatabase.getSearchCustomer().getBillingAddress().getStreetAddress());
-		billCityStateZip.setText(MasterDatabase.getSearchCustomer().getBillingAddress().getCity() + " "
-				+ MasterDatabase.getSearchCustomer().getBillingAddress().getState() + ", "
-				+ MasterDatabase.getSearchCustomer().getBillingAddress().getZip());
-		orderNumber.setText(MasterDatabase.getOrderBeingViewed().getInvoiceNumber());
+		shipStreetAddress.setText(shippingAddress.getStreetAddress());
+		shipCityStateZip.setText(shippingAddress.getCity() + " " + shippingAddress.getState() + ", " + shippingAddress.getZip());
+		billStreetAddress.setText(billingAddress.getStreetAddress());
+		billCityStateZip.setText(billingAddress.getCity() + " " + billingAddress.getState() + ", " + billingAddress.getZip());
 		orderStatus.setText(MasterDatabase.getOrderBeingViewed().getOrderStatus());
 		shippingMethodLbl.setText(MasterDatabase.getOrderBeingViewed().getShippingMethod());
 		itemColumn.setCellValueFactory(

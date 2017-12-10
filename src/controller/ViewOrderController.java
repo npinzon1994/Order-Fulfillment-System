@@ -73,14 +73,14 @@ public class ViewOrderController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		customerLabel.setText(MasterDatabase.getOrderCustomer().getFirstName() + " "
 				+ MasterDatabase.getOrderCustomer().getLastName());
-		shipStreetAddress.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getStreetAddress());
-		shipCityStateZip.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getCity() + " "
-				+ MasterDatabase.getOrderCustomer().getShippingAddress().getState() + ", "
-				+ MasterDatabase.getOrderCustomer().getShippingAddress().getZip());
-		billStreetAddress.setText(MasterDatabase.getOrderCustomer().getBillingAddress().getStreetAddress());
-		billCityStateZip.setText(MasterDatabase.getOrderCustomer().getBillingAddress().getCity() + " "
-				+ MasterDatabase.getOrderCustomer().getBillingAddress().getState() + ", "
-				+ MasterDatabase.getOrderCustomer().getBillingAddress().getZip());
+		shipStreetAddress.setText(MasterDatabase.getOrderBeingViewed().getShippingAddress().getStreetAddress());
+		shipCityStateZip.setText(MasterDatabase.getOrderBeingViewed().getShippingAddress().getCity() + " "
+				+ MasterDatabase.getOrderBeingViewed().getShippingAddress().getState() + ", "
+				+ MasterDatabase.getOrderBeingViewed().getShippingAddress().getZip());
+		billStreetAddress.setText(MasterDatabase.getOrderBeingViewed().getBillingAddress().getStreetAddress());
+		billCityStateZip.setText(MasterDatabase.getOrderBeingViewed().getBillingAddress().getCity() + " "
+				+ MasterDatabase.getOrderBeingViewed().getBillingAddress().getState() + ", "
+				+ MasterDatabase.getOrderBeingViewed().getBillingAddress().getZip());
 		shippingMethodLabel.setText(MasterDatabase.getOrderCustomer().getShippingMethod());
 		populateTable();
 		NumberFormat format = NumberFormat.getCurrencyInstance();

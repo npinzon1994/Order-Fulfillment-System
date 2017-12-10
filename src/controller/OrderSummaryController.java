@@ -80,7 +80,6 @@ public class OrderSummaryController implements Initializable {
 
 	@FXML
 	private Label totalLabel;
-	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -89,14 +88,14 @@ public class OrderSummaryController implements Initializable {
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 		customerLabel.setText(MasterDatabase.getOrderCustomer().getFirstName() + " "
 				+ MasterDatabase.getOrderCustomer().getLastName());
-		shipStreetAddress.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getStreetAddress());
-		shipCityStateZip.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getCity() + " "
-				+ MasterDatabase.getOrderCustomer().getShippingAddress().getState() + ", "
-				+ MasterDatabase.getOrderCustomer().getShippingAddress().getZip());
-		billStreetAddress.setText(MasterDatabase.getOrderCustomer().getBillingAddress().getStreetAddress());
-		billCityStateZip.setText(MasterDatabase.getOrderCustomer().getBillingAddress().getCity() + " "
-				+ MasterDatabase.getOrderCustomer().getBillingAddress().getState() + ", "
-				+ MasterDatabase.getOrderCustomer().getBillingAddress().getZip());
+		shipStreetAddress.setText(MasterDatabase.getOrderBeingViewed().getShippingAddress().getStreetAddress());
+		shipCityStateZip.setText(MasterDatabase.getOrderBeingViewed().getShippingAddress().getCity() + " "
+				+ MasterDatabase.getOrderBeingViewed().getShippingAddress().getState() + ", "
+				+ MasterDatabase.getOrderBeingViewed().getShippingAddress().getZip());
+		billStreetAddress.setText(MasterDatabase.getOrderBeingViewed().getBillingAddress().getStreetAddress());
+		billCityStateZip.setText(MasterDatabase.getOrderBeingViewed().getBillingAddress().getCity() + " "
+				+ MasterDatabase.getOrderBeingViewed().getBillingAddress().getState() + ", "
+				+ MasterDatabase.getOrderBeingViewed().getBillingAddress().getZip());
 		shippingMethodLabel.setText(MasterDatabase.getOrderCustomer().getShippingMethod());
 		populateTable();
 		NumberFormat format = NumberFormat.getCurrencyInstance();
@@ -120,7 +119,7 @@ public class OrderSummaryController implements Initializable {
 		alert.setHeaderText("Cancel order?");
 		alert.setContentText("All unsaved progress will be lost");
 		Optional<ButtonType> result = alert.showAndWait();
-		if(result.get() == ButtonType.OK){
+		if (result.get() == ButtonType.OK) {
 			Node node = (Node) event.getSource();
 			Stage stage = (Stage) node.getScene().getWindow();
 			Parent root = null;
@@ -135,7 +134,7 @@ public class OrderSummaryController implements Initializable {
 			alert.close();
 		}
 		MasterDatabase.getOrderCustomer().getCart().clear();
-		
+
 	}
 
 	public void cancelOrder(ActionEvent event) {
@@ -143,7 +142,7 @@ public class OrderSummaryController implements Initializable {
 		alert.setHeaderText("Cancel order?");
 		alert.setContentText("All unsaved progress will be lost");
 		Optional<ButtonType> result = alert.showAndWait();
-		if(result.get() == ButtonType.OK){
+		if (result.get() == ButtonType.OK) {
 			if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
 				switchToAdminTab(event);
 			} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 2) {
@@ -155,7 +154,7 @@ public class OrderSummaryController implements Initializable {
 			alert.close();
 		}
 		MasterDatabase.getOrderCustomer().getCart().clear();
-		
+
 	}
 
 	public void goToPreviousPage(ActionEvent event) {
@@ -173,8 +172,8 @@ public class OrderSummaryController implements Initializable {
 
 	public void createInvoice() {
 		Invoice invoice = MasterDatabase.getOrderBeingViewed();
-		invoice.setShippingAddress(MasterDatabase.getOrderCustomer().getShippingAddress());
-		invoice.setBillingAddress(MasterDatabase.getOrderCustomer().getBillingAddress());
+		invoice.setShippingAddress(MasterDatabase.getOrderBeingViewed().getShippingAddress());
+		invoice.setBillingAddress(MasterDatabase.getOrderBeingViewed().getBillingAddress());
 		invoice.setOrderStatus("Processed");
 		for (InvItem item : MasterDatabase.getOrderCustomer().getCart()) {
 			invoice.getItems().add(item);
@@ -184,12 +183,12 @@ public class OrderSummaryController implements Initializable {
 		invoice.setTotal(MasterDatabase.getOrderCustomer().getTotal());
 		invoice.setShippingMethod(MasterDatabase.getOrderCustomer().getShippingMethod());
 		MasterDatabase.getInvoiceDatabase().put(invoice.getInvoiceNumber(), invoice);
-		for(Customer customer : MasterDatabase.getCustomerDatabase().values()){
-			if(customer.getId().equals(MasterDatabase.getOrderCustomer().getId())){
+		for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
+			if (customer.getId().equals(MasterDatabase.getOrderCustomer().getId())) {
 				customer.getOrders().put(invoice.getInvoiceNumber(), invoice);
 				invoice.setCustomer(customer);
 			}
-			
+
 		}
 		MasterDatabase.getOrderCustomer().getOrders().put(invoice.getInvoiceNumber(), invoice);
 	}
@@ -213,8 +212,8 @@ public class OrderSummaryController implements Initializable {
 			switchToCustomerServiceRepTab(event);
 		}
 		stage.show();
-		for(InvItem item : MasterDatabase.getOrderCustomer().getCart()){
-			if(MasterDatabase.getInventory().containsValue(item)){
+		for (InvItem item : MasterDatabase.getOrderCustomer().getCart()) {
+			if (MasterDatabase.getInventory().containsValue(item)) {
 				item.setStatus("Out of Stock");
 			}
 		}
@@ -239,7 +238,7 @@ public class OrderSummaryController implements Initializable {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 	}
-	
+
 	public void switchToOperationsTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();

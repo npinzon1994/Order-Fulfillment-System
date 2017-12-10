@@ -67,8 +67,6 @@ public class CreateOrderController implements Initializable {
 	@FXML
 	private TableColumn<Customer, String> addressColumn;
 
-	private ObservableList<Customer> selectedCustomers;
-
 	@FXML
 	private Label employee;
 
@@ -80,6 +78,7 @@ public class CreateOrderController implements Initializable {
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
+		nextBtn.setDisable(true);
 	}
 
 	public void logout(ActionEvent event) {
@@ -126,6 +125,7 @@ public class CreateOrderController implements Initializable {
 			public void changed(ObservableValue<? extends Customer> observable, Customer oldValue, Customer newValue) {
 				MasterDatabase.setOrderCustomer(table.getSelectionModel().getSelectedItem());
 				MasterDatabase.setOrderBeingViewed(new Invoice());
+				nextBtn.setDisable(false);
 			}
 		});
 	}

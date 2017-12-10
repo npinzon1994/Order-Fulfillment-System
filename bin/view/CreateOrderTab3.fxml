@@ -54,9 +54,9 @@
                               <TextField fx:id="billZipField" layoutX="5.0" layoutY="101.0" prefHeight="27.0" prefWidth="98.0" promptText="Enter Zip" />
                            </children>
                         </AnchorPane>
-                        <RadioButton fx:id="billShipBox" layoutX="234.0" layoutY="14.0" mnemonicParsing="false" onAction="#billShippedBoxChecked" text="Shipping Address Same as Billing Address" />
-                        <RadioButton fx:id="checkBox" layoutX="234.0" layoutY="42.0" mnemonicParsing="false" onAction="#boxChecked" text="Pickup In-Store" />
-                        <RadioButton fx:id="enterNewAddress" layoutX="235.0" layoutY="70.0" mnemonicParsing="false" onAction="#enterNewBillingAddressButtonSelected" text="Enter New Addresses" />
+                        <RadioButton fx:id="billShipBox" layoutX="234.0" layoutY="14.0" mnemonicParsing="false" onAction="#fillFieldsWhenBillShippedBoxIsChecked" text="Shipping Address Same as Billing Address" />
+                        <RadioButton fx:id="checkBox" layoutX="234.0" layoutY="42.0" mnemonicParsing="false" onAction="#fillFieldsWhenPickupCheckboxIsChecked" text="Pickup In-Store" />
+                        <RadioButton fx:id="enterNewAddress" layoutX="235.0" layoutY="70.0" mnemonicParsing="false" onAction="#setAllFieldsEditable" text="Enter New Addresses" />
                      </children>
                   </AnchorPane>
             </content>
