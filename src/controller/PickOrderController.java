@@ -80,10 +80,11 @@ public class PickOrderController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		ObservableList<InvItem> items = FXCollections.observableArrayList();
 		invoice = MasterDatabase.getOrderBeingViewed();
-		Address shippingAddress = invoice.getCustomer().getShippingAddress();
-		Address billingAddress = invoice.getCustomer().getBillingAddress();
+		Address shippingAddress = invoice.getShippingAddress();
+		Address billingAddress = invoice.getBillingAddress();
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());

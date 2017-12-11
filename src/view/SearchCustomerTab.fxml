@@ -15,42 +15,42 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchCustomerController">
    <top>
-      <AnchorPane prefHeight="44.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="44.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="logoutLink" layoutX="517.0" layoutY="10.0" onAction="#logout" text="Logout" />
-            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="10.0" prefHeight="25.0" prefWidth="195.0" spacing="20.0">
+            <Hyperlink fx:id="logoutLink" layoutX="514.0" layoutY="4.0" onAction="#logout" style="-fx-font-size: 20;" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="10.0" prefHeight="26.0" prefWidth="445.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" text="Employee :" />
-                  <Label fx:id="empId" text="empId" />
+                  <Label fx:id="employee" style="-fx-font-size: 20;" text="Employee " />
+                  <Label fx:id="empId" style="-fx-font-size: 20;" text="empId" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="44.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="44.0" prefWidth="600.0" style="-fx-background-color: #09357A;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="searchBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#search" text="Search" />
-            <Button fx:id="cancelBtn" layoutX="83.0" layoutY="7.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+            <Button fx:id="searchBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#search" stylesheets="@application.css" text="Search" />
+            <Button fx:id="cancelBtn" layoutX="83.0" layoutY="7.0" mnemonicParsing="false" onAction="#cancel" stylesheets="@application.css" text="Cancel" />
          </children>
       </AnchorPane>
    </bottom>
    <center>
       <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@application.css" tabClosingPolicy="UNAVAILABLE">
                <tabs>
                   <Tab text="Customer Search">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="idField" layoutX="14.0" layoutY="31.0" />
-                              <TextField fx:id="lNameField" layoutX="14.0" layoutY="109.0" />
-                              <TextField fx:id="zipField" layoutX="14.0" layoutY="189.0" />
-                              <Label layoutX="14.0" layoutY="14.0" text="Customer ID" />
-                              <Label layoutX="14.0" layoutY="91.0" text="Last Name" />
-                              <Label layoutX="14.0" layoutY="171.0" text="Zip Code" />
-                              <TableView fx:id="table" layoutX="200.0" layoutY="31.0" prefHeight="200.0" prefWidth="383.0">
+                              <TextField id="newCustField" fx:id="idField" layoutX="14.0" layoutY="31.0" />
+                              <TextField id="newCustField" fx:id="lNameField" layoutX="14.0" layoutY="109.0" />
+                              <TextField id="newCustField" fx:id="zipField" layoutX="14.0" layoutY="189.0" />
+                              <Label layoutX="14.0" layoutY="10.0" text="Customer ID" />
+                              <Label layoutX="14.0" layoutY="87.0" text="Last Name" />
+                              <Label layoutX="14.0" layoutY="167.0" text="Zip Code" />
+                              <TableView fx:id="table" layoutX="200.0" layoutY="31.0" prefHeight="200.0" prefWidth="383.0" stylesheets="@application.css">
                                  <columns>
                                     <TableColumn fx:id="nameColumn" prefWidth="205.0" text="Name" />
                                     <TableColumn fx:id="addressColumn" prefWidth="176.0" text="Shipping Address" />

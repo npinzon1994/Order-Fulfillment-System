@@ -29,7 +29,7 @@ public class Main extends Application {
 				System.out.println(invoice.getCustomer().getLastName());
 			}
 			Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
-			Scene scene = new Scene(root, 558, 367);
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();

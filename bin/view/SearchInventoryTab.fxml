@@ -14,17 +14,16 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="411.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchInvItemController">
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
             <Tab text="Inventory Lookup">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="334.0" prefWidth="600.0">
                      <children>
                         <Label layoutX="27.0" layoutY="24.0" text="Enter Search Criteria" />
-                        <TextField fx:id="searchBar" layoutX="27.0" layoutY="45.0" prefHeight="27.0" prefWidth="161.0" />
+                        <TextField id="newCustField" fx:id="searchBar" layoutX="27.0" layoutY="45.0" prefHeight="27.0" prefWidth="161.0" />
                         <Button fx:id="searchBtn" layoutX="197.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchItem" text="Search" />
-                        <Button fx:id="cancelBtn" layoutX="28.0" layoutY="298.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="67.0" text="Back" />
-                        <ListView fx:id="list" layoutX="28.0" layoutY="90.0" prefHeight="200.0" prefWidth="230.0" />
+                        <ListView fx:id="list" layoutX="27.0" layoutY="83.0" prefHeight="200.0" prefWidth="230.0" />
                         <AnchorPane layoutX="273.0" layoutY="59.0" prefHeight="113.0" prefWidth="250.0">
                            <children>
                               <Label fx:id="itemId" layoutX="14.0" layoutY="14.0" text="Item ID:" visible="false" />
@@ -39,9 +38,8 @@
                         <Label fx:id="price" layoutX="288.0" layoutY="176.0" text="Price:" visible="false" />
                         <Label fx:id="priceLabel" layoutX="345.0" layoutY="176.0" text="priceLabel" visible="false" />
                         <Label fx:id="specifications" layoutX="288.0" layoutY="263.0" text="Specifications" visible="false" />
-                        <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="21.0" prefHeight="40.0" prefWidth="305.0" text="descriptionLabel" wrapText="true" />
+                        <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="21.0" prefHeight="40.0" prefWidth="305.0" text="descriptionLabel" visible="false" wrapText="true" />
                         <Label fx:id="specsLabel" alignment="TOP_LEFT" layoutX="289.0" layoutY="290.0" prefHeight="98.0" prefWidth="395.0" text="specsLabel" visible="false" wrapText="true" />
-                        <Button fx:id="removeBtn" layoutX="104.0" layoutY="298.0" mnemonicParsing="false" onAction="#removeItem" prefHeight="27.0" prefWidth="154.0" text="Remove From INV" />
                         <Label fx:id="status" layoutX="288.0" layoutY="206.0" text="Status:" visible="false" />
                         <Label fx:id="statusLabel" layoutX="346.0" layoutY="205.0" prefHeight="17.0" prefWidth="117.0" text="statusLabel" visible="false" />
                         <Label layoutX="288.0" layoutY="234.0" text="Weight:" visible="false" />
@@ -51,7 +49,6 @@
                               <Label fx:id="lbs" text="lbs" visible="false" />
                            </children>
                         </HBox>
-                        <Button fx:id="addBtn" layoutX="104.0" layoutY="298.0" mnemonicParsing="false" onAction="#addItem" prefHeight="27.0" prefWidth="154.0" text="Add Back to INV" />
                      </children>
                   </AnchorPane>
                </content>
@@ -60,16 +57,25 @@
       </TabPane>
    </center>
    <top>
-      <AnchorPane prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="39.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="logoutLink" layoutX="528.0" layoutY="7.0" onAction="#logout" text="Logout" />
-            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="3.0" prefHeight="34.0" prefWidth="200.0" spacing="20.0">
+            <Hyperlink fx:id="logoutLink" layoutX="517.0" layoutY="1.0" onAction="#logout" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="5.0" prefHeight="30.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" text="Employee" />
-                  <Label fx:id="empId" text="empId" />
+                  <Label fx:id="employee" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="Employee" />
+                  <Label fx:id="empId" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="empId" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
+   <bottom>
+      <AnchorPane prefHeight="48.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="cancelBtn" layoutX="28.0" layoutY="8.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="67.0" text="Back" />
+            <Button fx:id="addBtn" layoutX="104.0" layoutY="8.0" mnemonicParsing="false" onAction="#addItem" prefHeight="27.0" prefWidth="154.0" text="Add Back to INV" />
+            <Button fx:id="removeBtn" layoutX="104.0" layoutY="8.0" mnemonicParsing="false" onAction="#removeItem" prefHeight="27.0" prefWidth="154.0" text="Remove From INV" />
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>

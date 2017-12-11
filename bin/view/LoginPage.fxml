@@ -6,39 +6,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="558.0" prefWidth="559.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <AnchorPane maxHeight="367.0" maxWidth="558.0" minHeight="367.0" minWidth="558.0" prefHeight="367.0" prefWidth="558.0">
+      <AnchorPane id="anchor" maxHeight="558.0" maxWidth="601.0" minHeight="367.0" minWidth="558.0" prefHeight="558.0" prefWidth="510.0" stylesheets="@application.css">
          <children>
-            <VBox layoutX="88.0" layoutY="70.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="227.0" prefWidth="382.0" spacing="20.0">
-               <children>
-                  <TextField fx:id="userIdField" prefHeight="0.0" prefWidth="382.0" promptText="Employee ID">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </TextField>
-                  <PasswordField fx:id="passwordField" prefHeight="10.0" prefWidth="306.0" promptText="Password">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </PasswordField>
-                  <AnchorPane prefHeight="81.0" prefWidth="362.0">
-                     <children>
-                        <Button fx:id="loginBtn" layoutX="2.0" layoutY="1.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#login" text="Login" />
-                        <Hyperlink fx:id="forgotPasswordLink" alignment="CENTER" layoutX="248.0" layoutY="2.0" onAction="#goToForgotPasswordPane" text="Forgot Password" />
-                        <Label fx:id="invalidId" layoutX="4.0" layoutY="36.0" text="Invalid Employee ID" visible="false" />
-                     </children>
-                  </AnchorPane>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </VBox>
-            <Label layoutX="99.0" layoutY="45.0" text="Sign In" />
+            <Label layoutX="90.0" layoutY="176.0" prefHeight="37.0" prefWidth="248.0" style="-fx-text-fill: #c0c0c0; -fx-font-size: 25;" stylesheets="@application.css" text="Associate Login" />
+            <Hyperlink id="forgotPassword" fx:id="forgotPasswordLink" alignment="CENTER" layoutX="366.0" layoutY="409.0" onAction="#goToForgotPasswordPane" text="Forgot Password" />
+            <TextField fx:id="userIdField" layoutX="90.0" layoutY="250.0" prefHeight="0.0" prefWidth="382.0" promptText="Employee ID" />
+            <PasswordField fx:id="passwordField" layoutX="89.0" layoutY="308.0" prefHeight="28.0" prefWidth="382.0" promptText="Password" />
+            <Button id="loginBtn" fx:id="loginBtn" layoutX="90.0" layoutY="363.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#login" prefHeight="27.0" prefWidth="382.0" stylesheets="@application.css" text="Login" />
+            <ImageView fitHeight="113.0" fitWidth="106.0" layoutX="215.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../Desktop/restore_Logo.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="invalidId" layoutX="95.0" layoutY="403.0" prefHeight="26.0" prefWidth="220.0" style="-fx-font-size: 14; -fx-text-fill: #dc143c;" text="Label" visible="false" />
          </children>
          <padding>
             <Insets top="10.0" />

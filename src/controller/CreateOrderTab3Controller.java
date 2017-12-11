@@ -104,7 +104,7 @@ public class CreateOrderTab3Controller implements Initializable {
 		billShipBox.setSelected(true);
 		fillFieldsWhenBillShippedBoxIsChecked();
 		shippingMethodBox.getSelectionModel().selectFirst();
-		
+
 	}
 
 	public void initializeComboBoxes() {
@@ -148,13 +148,13 @@ public class CreateOrderTab3Controller implements Initializable {
 		address.setCity("Ronkonkoma");
 		address.setState("NY");
 		address.setZip("11779");
-		
+
 		Address address2 = new Address();
 		address2.setStreetAddress(shipStreetField.getText());
 		address2.setCity(shipCityField.getText());
 		address2.setState(shipStateBox.getValue());
 		address2.setZip(shipZipField.getText());
-		
+
 		MasterDatabase.getOrderBeingViewed().setBillingAddress(address2);
 		MasterDatabase.getOrderBeingViewed().setShippingAddress(address);
 		shipStreetField.setText("2111 Lakeland Ave");
@@ -180,16 +180,16 @@ public class CreateOrderTab3Controller implements Initializable {
 		address1.setCity(billCityField.getText());
 		address1.setState(billStateBox.getValue());
 		address1.setZip(billZipField.getText());
-		
+
 		Address address2 = new Address();
 		address2.setStreetAddress(shipStreetField.getText());
 		address2.setCity(shipCityField.getText());
 		address2.setState(shipStateBox.getValue());
 		address2.setZip(shipZipField.getText());
-		
+
 		MasterDatabase.getOrderBeingViewed().setBillingAddress(address1);
 		MasterDatabase.getOrderBeingViewed().setShippingAddress(address2);
-		
+
 		shipStreetField.setText(billStreetField.getText());
 		shipCityField.setText(billCityField.getText());
 		shipStateBox.getSelectionModel().select(billStateBox.getValue());
@@ -208,20 +208,7 @@ public class CreateOrderTab3Controller implements Initializable {
 	}
 
 	public void setAllFieldsEditable() {
-		Address address1 = new Address();
-		address1.setStreetAddress(billStreetField.getText());
-		address1.setCity(billCityField.getText());
-		address1.setState(billStateBox.getValue());
-		address1.setZip(billZipField.getText());
-		
-		Address address2 = new Address();
-		address2.setStreetAddress(shipStreetField.getText());
-		address2.setCity(shipCityField.getText());
-		address2.setState(shipStateBox.getValue());
-		address2.setZip(shipZipField.getText());
-		
-		MasterDatabase.getOrderBeingViewed().setBillingAddress(address1);
-		MasterDatabase.getOrderBeingViewed().setShippingAddress(address2);
+
 		shipStreetField.setEditable(true);
 		shipCityField.setEditable(true);
 		shipStateBox.setDisable(false);
@@ -340,6 +327,12 @@ public class CreateOrderTab3Controller implements Initializable {
 	}
 
 	public void setOrderCustomerBillingInfo() {
+		Address address1 = new Address();
+		address1.setStreetAddress(billStreetField.getText());
+		address1.setCity(billCityField.getText());
+		address1.setState(billStateBox.getValue());
+		address1.setZip(billZipField.getText());
+		MasterDatabase.getOrderBeingViewed().setBillingAddress(address1);
 		MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getValue());
 		MasterDatabase.getOrderCustomer().getBillingAddress().setStreetAddress(billStreetField.getText());
 		MasterDatabase.getOrderCustomer().getBillingAddress().setCity(billCityField.getText());
@@ -348,6 +341,12 @@ public class CreateOrderTab3Controller implements Initializable {
 	}
 
 	public void setOrderCustomerShippingInfo() {
+		Address address2 = new Address();
+		address2.setStreetAddress(shipStreetField.getText());
+		address2.setCity(shipCityField.getText());
+		address2.setState(shipStateBox.getValue());
+		address2.setZip(shipZipField.getText());
+		MasterDatabase.getOrderBeingViewed().setShippingAddress(address2);
 		MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getValue());
 		MasterDatabase.getOrderCustomer().getShippingAddress().setStreetAddress(shipStreetField.getText());
 		MasterDatabase.getOrderCustomer().getShippingAddress().setCity(shipCityField.getText());

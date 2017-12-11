@@ -8,55 +8,61 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateOrderTab3Controller">
    <top>
-      <AnchorPane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="45.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="logoutLink" layoutX="525.0" layoutY="10.0" onAction="#logout" text="Logout" />
-            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="11.0" prefHeight="23.0" prefWidth="200.0" spacing="20.0">
+            <Hyperlink fx:id="logoutLink" layoutX="518.0" layoutY="4.0" onAction="#logout" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="9.0" prefHeight="23.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" text="Employee" />
-                  <Label fx:id="empId" text="empId" />
+                  <Label fx:id="employee" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Employee" />
+                  <Label fx:id="empId" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="empId" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Shipping Information">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="customer" layoutX="14.0" layoutY="14.0" text="Customer" />
-                        <Label fx:id="customerLabel" layoutX="94.0" layoutY="14.0" text="customerLabel" />
+                        <Label fx:id="customerLabel" layoutX="55.0" layoutY="10.0" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="customerLabel" />
                         <ComboBox fx:id="shippingMethodBox" layoutX="15.0" layoutY="49.0" prefHeight="27.0" prefWidth="202.0" />
                         <AnchorPane layoutX="14.0" layoutY="93.0" prefHeight="166.0" prefWidth="273.0">
                            <children>
-                              <Label layoutX="6.0" layoutY="9.0" text="Shipping Address" />
-                              <TextField fx:id="shipStreetField" layoutX="5.0" layoutY="34.0" prefHeight="27.0" prefWidth="262.0" promptText="Enter Street Address" />
-                              <TextField fx:id="shipCityField" layoutX="5.0" layoutY="67.0" prefHeight="27.0" prefWidth="173.0" promptText="Enter City" />
+                              <Label layoutX="6.0" layoutY="6.0" style="-fx-font-size: 20;" text="Shipping Address" />
+                              <TextField id="newCustField" fx:id="shipStreetField" layoutX="5.0" layoutY="34.0" prefHeight="27.0" prefWidth="262.0" promptText="Enter Street Address" />
+                              <TextField id="newCustField" fx:id="shipCityField" layoutX="5.0" layoutY="67.0" prefHeight="27.0" prefWidth="173.0" promptText="Enter City" />
                               <ComboBox fx:id="shipStateBox" layoutX="184.0" layoutY="67.0" prefHeight="27.0" prefWidth="82.0" promptText="State" />
-                              <TextField fx:id="shipZipField" layoutX="5.0" layoutY="101.0" prefHeight="27.0" prefWidth="98.0" promptText="Enter Zip" />
+                              <TextField id="newCustField" fx:id="shipZipField" layoutX="5.0" layoutY="101.0" prefHeight="27.0" prefWidth="98.0" promptText="Enter Zip" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="298.0" layoutY="93.0" prefHeight="166.0" prefWidth="273.0">
                            <children>
-                              <Label layoutX="6.0" layoutY="9.0" text="Billing Address" />
-                              <TextField fx:id="billStreetField" layoutX="5.0" layoutY="34.0" prefHeight="27.0" prefWidth="262.0" promptText="Enter Street Address" />
-                              <TextField fx:id="billCityField" layoutX="5.0" layoutY="67.0" prefHeight="27.0" prefWidth="173.0" promptText="Enter City" />
+                              <Label layoutX="6.0" layoutY="7.0" style="-fx-font-size: 20;" text="Billing Address" />
+                              <TextField id="newCustField" fx:id="billStreetField" layoutX="5.0" layoutY="34.0" prefHeight="27.0" prefWidth="262.0" promptText="Enter Street Address" />
+                              <TextField id="newCustField" fx:id="billCityField" layoutX="5.0" layoutY="67.0" prefHeight="27.0" prefWidth="173.0" promptText="Enter City" />
                               <ComboBox fx:id="billStateBox" layoutX="184.0" layoutY="67.0" prefHeight="27.0" prefWidth="82.0" promptText="State" />
-                              <TextField fx:id="billZipField" layoutX="5.0" layoutY="101.0" prefHeight="27.0" prefWidth="98.0" promptText="Enter Zip" />
+                              <TextField id="newCustField" fx:id="billZipField" layoutX="5.0" layoutY="101.0" prefHeight="27.0" prefWidth="98.0" promptText="Enter Zip" />
                            </children>
                         </AnchorPane>
-                        <RadioButton fx:id="billShipBox" layoutX="234.0" layoutY="14.0" mnemonicParsing="false" onAction="#fillFieldsWhenBillShippedBoxIsChecked" text="Shipping Address Same as Billing Address" />
-                        <RadioButton fx:id="checkBox" layoutX="234.0" layoutY="42.0" mnemonicParsing="false" onAction="#fillFieldsWhenPickupCheckboxIsChecked" text="Pickup In-Store" />
-                        <RadioButton fx:id="enterNewAddress" layoutX="235.0" layoutY="70.0" mnemonicParsing="false" onAction="#setAllFieldsEditable" text="Enter New Addresses" />
+                        <RadioButton fx:id="billShipBox" layoutX="293.0" layoutY="14.0" mnemonicParsing="false" onAction="#fillFieldsWhenBillShippedBoxIsChecked" text="Shipping Address Same as Billing Address" />
+                        <RadioButton fx:id="checkBox" layoutX="293.0" layoutY="40.0" mnemonicParsing="false" onAction="#fillFieldsWhenPickupCheckboxIsChecked" text="Pickup In-Store" />
+                        <RadioButton fx:id="enterNewAddress" layoutX="294.0" layoutY="67.0" mnemonicParsing="false" onAction="#setAllFieldsEditable" text="Enter New Addresses" />
+                        <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="16.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/customer-512.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
             </content>
@@ -65,7 +71,7 @@
       </TabPane>
    </center>
    <bottom>
-      <AnchorPane prefHeight="47.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="nextBtn" layoutX="107.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="86.0" text="Next" />
             <Button fx:id="cancelBtn" layoutX="498.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="86.0" text="Cancel" />

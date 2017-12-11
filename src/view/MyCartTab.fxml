@@ -7,43 +7,51 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MyCartController">
    <top>
-      <AnchorPane prefHeight="51.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="52.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink layoutX="517.0" layoutY="13.0" onAction="#logout" text="Logout" />
+            <Hyperlink layoutX="513.0" layoutY="8.0" onAction="#logout" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Logout" />
             <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="12.0" prefHeight="28.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" text="Employee" />
-                  <Label fx:id="empId" text="empId" />
+                  <Label fx:id="employee" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="Employee" />
+                  <Label fx:id="empId" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="empId" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="My Cart">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="yourCart" layoutX="21.0" layoutY="14.0" prefHeight="39.0" prefWidth="64.0" text="Your cart" />
-                        <Label fx:id="isEmpty" layoutX="84.0" layoutY="25.0" text="is empty" visible="false" />
-                        <TableView fx:id="table" layoutX="21.0" layoutY="53.0" prefHeight="200.0" prefWidth="439.0">
+                        <Label fx:id="yourCart" layoutX="21.0" layoutY="35.0" prefHeight="39.0" prefWidth="96.0" text="Your cart" />
+                        <Label fx:id="isEmpty" layoutX="91.0" layoutY="45.0" text="is empty" visible="false" />
+                        <TableView fx:id="table" layoutX="21.0" layoutY="66.0" prefHeight="200.0" prefWidth="439.0">
                           <columns>
                             <TableColumn fx:id="itemColumn" prefWidth="323.0" text="Item Description" />
                             <TableColumn fx:id="priceColumn" prefWidth="115.0" text="Price" />
                           </columns>
                         </TableView>
-                        <Label fx:id="subtotal" layoutX="323.0" layoutY="264.0" text="Subtotal " />
-                        <Label fx:id="subtotalLabel" layoutX="394.0" layoutY="264.0" text="subTotal" />
-                        <Label layoutX="21.0" layoutY="264.0" text="Total Items :" />
-                        <Label fx:id="totalItemsLbl" layoutX="105.0" layoutY="264.0" text="0" />
+                        <Label fx:id="subtotal" layoutX="323.0" layoutY="269.0" text="Subtotal " />
+                        <Label fx:id="subtotalLabel" layoutX="394.0" layoutY="269.0" text="subTotal" />
+                        <Label layoutX="21.0" layoutY="269.0" text="Total Items :" />
+                        <Label fx:id="totalItemsLbl" layoutX="105.0" layoutY="269.0" text="0" />
+                        <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="21.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/customer-512.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="customerId" layoutX="64.0" layoutY="11.0" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="customer" />
                      </children>
                   </AnchorPane>
             </content>
@@ -52,7 +60,7 @@
       </TabPane>
    </center>
    <bottom>
-      <AnchorPane prefHeight="41.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="cancelBtn" layoutX="525.0" layoutY="7.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
             <Button fx:id="removeBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#removeFromCart" text="Remove from cart" />

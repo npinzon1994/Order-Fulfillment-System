@@ -5,42 +5,49 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewCustomerOrdersController">
    <top>
-      <AnchorPane prefHeight="48.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="48.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="logoutLink" layoutX="517.0" layoutY="12.0" onAction="#logout" text="Logout" />
-            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="35.0" prefWidth="200.0" spacing="20.0">
+            <Hyperlink fx:id="logoutLink" layoutX="512.0" layoutY="6.0" onAction="#logout" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="35.0" prefWidth="468.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" text="Employee ID" />
-                  <Label fx:id="empId" text="empId" />
+                  <Label fx:id="employee" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="Employee ID" />
+                  <Label fx:id="empId" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="empId" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #c0c0c0;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="customer" layoutX="22.0" layoutY="21.0" text="customer" />
-            <TableView fx:id="table" layoutX="22.0" layoutY="55.0" prefHeight="230.0" prefWidth="382.0">
+            <Label fx:id="customer" layoutX="71.0" layoutY="15.0" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="customer" />
+            <TableView fx:id="table" layoutX="22.0" layoutY="55.0" prefHeight="230.0" prefWidth="382.0" stylesheets="@application.css">
               <columns>
                 <TableColumn fx:id="numberColumn" prefWidth="212.0" text="Order Number" />
                 <TableColumn fx:id="statusColumn" prefWidth="168.0" text="Status" />
               </columns>
             </TableView>
+            <ImageView fitHeight="37.0" fitWidth="41.0" layoutX="28.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/customer-512.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </center>
    <bottom>
-      <AnchorPane prefHeight="48.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="48.0" prefWidth="600.0" style="-fx-background-color: #09357A;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="viewBtn" layoutX="11.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewOrderDetails" text="View Order Details" />
-            <Button fx:id="backBtn" layoutX="154.0" layoutY="11.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="67.0" text="Back" />
+            <Button fx:id="viewBtn" layoutX="11.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewOrderDetails" stylesheets="@application.css" text="View Order Details" />
+            <Button fx:id="backBtn" layoutX="154.0" layoutY="11.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="67.0" stylesheets="@application.css" text="Back" />
          </children>
       </AnchorPane>
    </bottom>

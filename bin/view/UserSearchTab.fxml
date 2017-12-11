@@ -15,14 +15,13 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmployeeSearchController">
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
          <tabs>
             <Tab text="Search Users">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="405.0" prefWidth="766.0">
                      <children>
-                        <Button fx:id="cancelBtn" layoutX="28.0" layoutY="339.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" text="Cancel" />
-                        <ListView fx:id="list" layoutX="28.0" layoutY="91.0" prefHeight="241.0" prefWidth="230.0" />
+                        <ListView fx:id="list" layoutX="28.0" layoutY="84.0" prefHeight="241.0" prefWidth="230.0" />
                         <AnchorPane layoutX="267.0" layoutY="75.0" prefHeight="231.0" prefWidth="253.0">
                            <children>
                               <Label fx:id="empId" layoutX="14.0" layoutY="14.0" text="Employee ID:" visible="false" />
@@ -45,10 +44,9 @@
                            </image>
                         </ImageView>
                         <Label fx:id="nameLabel" alignment="TOP_LEFT" layoutX="281.0" layoutY="43.0" prefHeight="38.0" prefWidth="232.0" text="nameLabel" visible="false" wrapText="true" />
-                        <Button fx:id="removeBtn" layoutX="97.0" layoutY="339.0" mnemonicParsing="false" onAction="#removeUser" text="Remove User" />
-                        <TextField fx:id="searchByNameField" layoutX="28.0" layoutY="23.0" prefHeight="27.0" prefWidth="161.0" promptText="Search By Name" />
+                        <TextField id="newCustField" fx:id="searchByNameField" layoutX="28.0" layoutY="23.0" prefHeight="27.0" prefWidth="161.0" promptText="Search By Name" />
                         <Button fx:id="searchByNameBtn" layoutX="197.0" layoutY="23.0" mnemonicParsing="false" onAction="#searchUserByName" text="Search" />
-                        <Label layoutX="28.0" layoutY="67.0" text="Search Results" />
+                        <Label layoutX="28.0" layoutY="62.0" text="Search Results" />
                      </children>
                   </AnchorPane>
                </content>
@@ -57,16 +55,24 @@
       </TabPane>
    </center>
    <top>
-      <AnchorPane prefHeight="38.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="38.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="logoutLink" layoutX="523.0" layoutY="7.0" onAction="#logout" text="Logout" />
-            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="3.0" prefHeight="33.0" prefWidth="200.0" spacing="20.0">
+            <Hyperlink fx:id="logoutLink" layoutX="513.0" onAction="#logout" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="2.0" prefHeight="33.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" text="Employee" />
-                  <Label fx:id="empId" text="empId" />
+                  <Label fx:id="employee" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Employee" />
+                  <Label fx:id="empId" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="empId" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
+   <bottom>
+      <AnchorPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="cancelBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="66.0" text="Cancel" />
+            <Button fx:id="removeBtn" layoutX="89.0" layoutY="8.0" mnemonicParsing="false" onAction="#removeUser" text="Remove User" />
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>

@@ -16,31 +16,29 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InvItemController">
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
          <tabs>
             <Tab text="Create New Item">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="405.0" prefWidth="600.0">
                      <children>
                         <ComboBox fx:id="category" layoutX="32.0" layoutY="115.0" prefHeight="27.0" prefWidth="215.0" />
-                        <Label layoutX="32.0" layoutY="96.0" text="Category" />
-                        <Label layoutX="32.0" layoutY="12.0" text="Description" />
-                        <TextArea fx:id="description" layoutX="32.0" layoutY="31.0" prefHeight="52.0" prefWidth="262.0" wrapText="true" />
+                        <Label layoutX="32.0" layoutY="94.0" text="Category" />
+                        <Label layoutX="32.0" layoutY="10.0" text="Description" />
+                        <TextArea id="newCustArea" fx:id="description" layoutX="32.0" layoutY="31.0" prefHeight="52.0" prefWidth="262.0" style="-fx-background-color: #c0c0c0;" wrapText="true" />
                         <AnchorPane layoutX="13.0" layoutY="151.0" prefHeight="66.0" prefWidth="131.0">
                            <children>
-                              <Label layoutX="20.0" layoutY="6.0" text="Price" />
+                              <Label layoutX="20.0" layoutY="4.0" text="Price" />
                               <Label layoutX="9.0" layoutY="27.0" text="\$" />
-                              <TextField fx:id="priceDollars" layoutX="20.0" layoutY="23.0" prefHeight="27.0" prefWidth="56.0" />
+                              <TextField id="newCustField" fx:id="priceDollars" layoutX="20.0" layoutY="23.0" prefHeight="27.0" prefWidth="56.0" />
                               <Label layoutX="79.0" layoutY="35.0" text="." />
-                              <TextField fx:id="priceCents" layoutX="86.0" layoutY="23.0" prefHeight="27.0" prefWidth="40.0" />
+                              <TextField id="newCustField" fx:id="priceCents" layoutX="86.0" layoutY="23.0" prefHeight="27.0" prefWidth="40.0" />
                            </children>
                         </AnchorPane>
-                        <Label layoutX="33.0" layoutY="215.0" text="Condition" />
+                        <Label layoutX="33.0" layoutY="213.0" text="Condition" />
                         <ComboBox fx:id="condition" layoutX="32.0" layoutY="233.0" prefHeight="27.0" prefWidth="123.0" />
-                        <Label layoutX="33.0" layoutY="279.0" text="Specifications" />
-                        <TextArea fx:id="specs" layoutX="32.0" layoutY="298.0" prefHeight="79.0" prefWidth="261.0" wrapText="true" />
-                        <Button fx:id="cancelBtn" layoutX="32.0" layoutY="389.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="85.0" text="Cancel" />
-                        <Button fx:id="submitBtn" layoutX="126.0" layoutY="389.0" mnemonicParsing="false" onAction="#addItemToInventory" prefHeight="27.0" prefWidth="91.0" text="Submit" />
+                        <Label layoutX="33.0" layoutY="277.0" text="Specifications" />
+                        <TextArea id="newCustArea" fx:id="specs" layoutX="32.0" layoutY="298.0" prefHeight="79.0" prefWidth="261.0" wrapText="true" />
                         <Label layoutX="360.0" layoutY="8.0" text="Picture" />
                         <ImageView fx:id="imageView" fitHeight="131.0" fitWidth="181.0" layoutX="359.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -48,8 +46,8 @@
                            </image>
                         </ImageView>
                         <Button fx:id="browseBtn" layoutX="358.0" layoutY="171.0" mnemonicParsing="false" onAction="#chooseImage" text="Browse" />
-                        <Label layoutX="181.0" layoutY="215.0" text="Weight" />
-                        <TextField fx:id="weightField" layoutX="181.0" layoutY="233.0" prefHeight="27.0" prefWidth="68.0" />
+                        <Label layoutX="181.0" layoutY="213.0" text="Weight" />
+                        <TextField id="newCustField" fx:id="weightField" layoutX="181.0" layoutY="233.0" prefHeight="27.0" prefWidth="68.0" />
                         <Label layoutX="257.0" layoutY="238.0" text="lbs" />
                      </children>
                   </AnchorPane>
@@ -59,16 +57,24 @@
       </TabPane>
    </center>
    <top>
-      <AnchorPane prefHeight="38.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="38.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="logoutLink" layoutX="528.0" layoutY="7.0" onAction="#logout" text="Logout" />
-            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="3.0" prefHeight="33.0" prefWidth="200.0" spacing="20.0">
+            <Hyperlink fx:id="logoutLink" layoutX="515.0" layoutY="1.0" onAction="#logout" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="2.0" prefHeight="33.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" text="Employee" />
-                  <Label fx:id="empId" text="Label" />
+                  <Label fx:id="employee" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Employee" />
+                  <Label fx:id="empId" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Label" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
+   <bottom>
+      <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="cancelBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="85.0" text="Cancel" />
+            <Button fx:id="submitBtn" layoutX="110.0" layoutY="8.0" mnemonicParsing="false" onAction="#addItemToInventory" prefHeight="27.0" prefWidth="91.0" text="Submit" />
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>

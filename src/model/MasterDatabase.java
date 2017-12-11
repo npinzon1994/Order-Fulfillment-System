@@ -21,6 +21,7 @@ public class MasterDatabase implements Serializable {
 	private static HashMap<String, CustomerServiceRep> employeeDatabase;
 	private static HashMap<String, Customer> customerDatabase;
 	private static HashMap<String, Invoice> invoiceDatabase;
+	private static HashMap<String, ShippingLabel> shippingLabelDatabase;
 
 	private static Customer orderCustomer;
 	private static Customer searchCustomer;
@@ -122,6 +123,14 @@ public class MasterDatabase implements Serializable {
 
 	public static void setCurrentItem(InvItem currentItem) {
 		MasterDatabase.currentItem = currentItem;
+	}
+
+	public static HashMap<String, ShippingLabel> getShippingLabelDatabase() {
+		return shippingLabelDatabase;
+	}
+
+	public static void setShippingLabelDatabase(HashMap<String, ShippingLabel> shippingLabelDatabase) {
+		MasterDatabase.shippingLabelDatabase = shippingLabelDatabase;
 	}
 
 	public static void saveInventory() {
@@ -258,6 +267,40 @@ public class MasterDatabase implements Serializable {
 			fileInput = new FileInputStream("invoices.dat");
 			objectInput = new ObjectInputStream(fileInput);
 			setInvoiceDatabase((HashMap<String, Invoice>) objectInput.readObject());
+			objectInput.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void saveShippingLabels() {
+		System.out.println("All shipping labels saved!");
+		FileOutputStream fileOutput = null;
+		ObjectOutputStream objectOutput = null;
+		try {
+			fileOutput = new FileOutputStream("shippingLabels.dat");
+			objectOutput = new ObjectOutputStream(fileOutput);
+			objectOutput.writeObject(getShippingLabelDatabase());
+			objectOutput.close();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void loadShippingLabels() {
+		System.out.println("All shipping labels loaded!");
+		FileInputStream fileInput = null;
+		ObjectInputStream objectInput = null;
+		try {
+			fileInput = new FileInputStream("shippingLabels.dat");
+			objectInput = new ObjectInputStream(fileInput);
+			setShippingLabelDatabase((HashMap<String, ShippingLabel>) objectInput.readObject());
 			objectInput.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

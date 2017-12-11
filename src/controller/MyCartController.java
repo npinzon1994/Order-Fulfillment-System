@@ -39,6 +39,9 @@ public class MyCartController implements Initializable {
 	private Label empId;
 
 	@FXML
+	private Label customerId;
+
+	@FXML
 	private TableView<InvItem> table;
 
 	@FXML
@@ -64,12 +67,12 @@ public class MyCartController implements Initializable {
 
 	@FXML
 	private Label subtotalLabel;
-	
+
 	@FXML
 	private Label totalItemsLbl;
 
 	private double subTotal;
-	
+
 	ObservableList<InvItem> items;
 
 	@Override
@@ -79,6 +82,8 @@ public class MyCartController implements Initializable {
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
+		customerId.setText(MasterDatabase.getOrderCustomer().getFirstName() + " "
+				+ MasterDatabase.getOrderCustomer().getLastName());
 		subTotal = 0;
 		subtotalLabel.setText(format.format(subTotal));
 		if (MasterDatabase.getOrderCustomer().getCart().isEmpty()) {
@@ -105,7 +110,7 @@ public class MyCartController implements Initializable {
 		alert.setHeaderText("Are you sure you want to logout?");
 		alert.setContentText("All unsaved progress will be lost");
 		Optional<ButtonType> result = alert.showAndWait();
-		if(result.get() == ButtonType.OK){
+		if (result.get() == ButtonType.OK) {
 			Node node = (Node) event.getSource();
 			Stage stage = (Stage) node.getScene().getWindow();
 			Parent root = null;
@@ -120,7 +125,7 @@ public class MyCartController implements Initializable {
 			alert.close();
 		}
 	}
-	
+
 	public void onClicked() {
 		table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<InvItem>() {
 
@@ -148,14 +153,14 @@ public class MyCartController implements Initializable {
 		NumberFormat format = NumberFormat.getCurrencyInstance();
 		InvItem item = null;
 		Iterator<InvItem> iter = MasterDatabase.getOrderCustomer().getCart().iterator();
-		
+
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText("Remove Item?");
 		Optional<ButtonType> result = alert.showAndWait();
-		if(result.get() == ButtonType.OK){
-			while(iter.hasNext()){
+		if (result.get() == ButtonType.OK) {
+			while (iter.hasNext()) {
 				item = iter.next();
-				if(item.equals(table.getSelectionModel().getSelectedItem())){
+				if (item.equals(table.getSelectionModel().getSelectedItem())) {
 					iter.remove();
 					subTotal -= item.getPrice();
 					subtotalLabel.setText(format.format(subTotal));
@@ -165,11 +170,7 @@ public class MyCartController implements Initializable {
 		} else {
 			alert.close();
 		}
-		
-				
-		
-			
-		
+
 	}
 
 }

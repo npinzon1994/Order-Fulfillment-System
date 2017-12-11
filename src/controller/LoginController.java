@@ -47,11 +47,11 @@ public class LoginController implements Initializable {
 		if (!MasterDatabase.getEmployeeDatabase().containsKey(userIdField.getText())
 				|| MasterDatabase.getEmployeeDatabase().containsKey(userIdField.getText()) && MasterDatabase
 						.getEmployeeDatabase().get(userIdField.getText()).getStatus().equals("Terminated")) {
-			invalidId.setText("Invald User ID");
+			invalidId.setText("*Invald User ID");
 			invalidId.setVisible(true);
 		} else if (!MasterDatabase.getEmployeeDatabase().get(userIdField.getText()).getPassword()
 				.equals(passwordField.getText())) {
-			invalidId.setText("Invalid Password");
+			invalidId.setText("*Invalid Password");
 			invalidId.setVisible(true);
 		} else {
 			if(MasterDatabase.getEmployeeDatabase().get(userIdField.getText()).getStoreLevel() == 3){

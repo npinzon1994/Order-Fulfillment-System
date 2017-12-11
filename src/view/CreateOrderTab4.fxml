@@ -15,20 +15,20 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateOrderController4">
    <top>
-      <AnchorPane prefHeight="43.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="43.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="logoutLink" layoutX="529.0" layoutY="10.0" onAction="#logout" text="Logout" />
-            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="200.0" spacing="20.0">
+            <Hyperlink fx:id="logoutLink" layoutX="515.0" layoutY="4.0" onAction="#logout" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="5.0" prefHeight="31.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" text="Employee" />
-                  <Label fx:id="empId" text="empId" />
+                  <Label fx:id="employee" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="Employee" />
+                  <Label fx:id="empId" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="empId" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="45.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="previousBtn" layoutX="11.0" layoutY="9.0" mnemonicParsing="false" onAction="#goToPreviousPage" text="Previous" />
             <Button fx:id="cancelBtn" layoutX="527.0" layoutY="9.0" mnemonicParsing="false" onAction="#cancelOrder" text="Cancel" />
@@ -37,7 +37,7 @@
       </AnchorPane>
    </bottom>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Payment Information">
             <content>
@@ -47,7 +47,7 @@
                         <Label fx:id="subtotalLabel" layoutX="500.0" layoutY="14.0" text="subtotal" />
                         <ComboBox fx:id="creditBox" layoutX="16.0" layoutY="18.0" onAction="#limitCvvInput" prefHeight="27.0" prefWidth="176.0" />
                         <Label layoutX="17.0" layoutY="55.0" text="Card Number" />
-                        <TextField fx:id="numField1" layoutX="15.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
+                        <TextField id="newCustField" fx:id="numField1" layoutX="15.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
                         <Label layoutX="16.0" layoutY="110.0" text="Expiration Date" />
                         <ComboBox fx:id="monthBox" layoutX="16.0" layoutY="134.0" prefHeight="27.0" prefWidth="66.0" />
                         <ComboBox fx:id="yearBox" layoutX="88.0" layoutY="134.0" prefHeight="27.0" prefWidth="86.0" />
@@ -76,10 +76,10 @@
                         <Label fx:id="shippingLabel" layoutX="500.0" layoutY="41.0" text="shipping" />
                         <Label layoutX="427.0" layoutY="67.0" text="Total:" />
                         <Label fx:id="totalLabel" layoutX="501.0" layoutY="68.0" text="total" />
-                        <TextField fx:id="numField2" layoutX="76.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
-                        <TextField fx:id="numField3" layoutX="137.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
-                        <TextField fx:id="numField4" layoutX="197.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
-                        <TextField fx:id="cvvField" layoutX="181.0" layoutY="134.0" prefHeight="27.0" prefWidth="72.0" />
+                        <TextField id="newCustField" fx:id="numField2" layoutX="76.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
+                        <TextField id="newCustField" fx:id="numField3" layoutX="137.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
+                        <TextField id="newCustField" fx:id="numField4" layoutX="197.0" layoutY="74.0" prefHeight="27.0" prefWidth="57.0" />
+                        <TextField id="newCustField" fx:id="cvvField" layoutX="181.0" layoutY="134.0" prefHeight="27.0" prefWidth="72.0" />
                         <ImageView fx:id="creditX" fitHeight="23.0" fitWidth="23.0" layoutX="255.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@../../../../../Desktop/goodRedX.png" />

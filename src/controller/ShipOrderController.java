@@ -22,10 +22,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Address;
 import model.InvItem;
 import model.Invoice;
 import model.MasterDatabase;
 import model.ShippingCost;
+import model.ShippingLabel;
 
 public class ShipOrderController implements Initializable {
 
@@ -93,15 +95,15 @@ public class ShipOrderController implements Initializable {
 		phoneField1.setText(invoice.getCustomer().getPhone().substring(0, 3));
 		phoneField2.setText(invoice.getCustomer().getPhone().substring(3, 6));
 		phoneField3.setText(invoice.getCustomer().getPhone().substring(6, 10));
-		streetAddressField.setText(invoice.getCustomer().getShippingAddress().getStreetAddress());
-		cityField.setText(invoice.getCustomer().getShippingAddress().getCity());
-		stateBox.getSelectionModel().select(invoice.getCustomer().getShippingAddress().getState());
-		zipField.setText(invoice.getCustomer().getShippingAddress().getZip());
+		streetAddressField.setText(invoice.getShippingAddress().getStreetAddress());
+		cityField.setText(invoice.getShippingAddress().getCity());
+		stateBox.getSelectionModel().select(invoice.getShippingAddress().getState());
+		zipField.setText(invoice.getShippingAddress().getZip());
 		shippingMethodBox.getSelectionModel().select(invoice.getCustomer().getShippingMethod());
 		emailField.setText(invoice.getCustomer().getEmail());
 		costLbl.setText(format.format(cost));
 		double weight = 0;
-		for(InvItem item : invoice.getItems()){
+		for (InvItem item : invoice.getItems()) {
 			weight += item.getWeight();
 		}
 		weightField.setText(String.valueOf(weight));
@@ -162,46 +164,21 @@ public class ShipOrderController implements Initializable {
 		costLbl.setText(format.format(shippingCost));
 	}
 
-	public void setFields() {
-		invoice.getCustomer().setFirstName(fNameField.getText());
-		invoice.getCustomer().setLastName(lNameField.getText());
-		invoice.getCustomer().setEmail(emailField.getText());
-		invoice.getCustomer().setPhone(phoneField1.getText() + phoneField2.getText() + phoneField3.getText());
-		invoice.getCustomer().getShippingAddress().setStreetAddress(streetAddressField.getText());
-		invoice.getCustomer().getShippingAddress().setCity(cityField.getText());
-		invoice.getCustomer().getShippingAddress().setState(stateBox.getValue());
-		invoice.getCustomer().getShippingAddress().setZip(zipField.getText());
-		invoice.setShippingMethod(shippingMethodBox.getValue());
-		if (!remarkField1.equals(null)) {
-			invoice.setRemark1(remarkField1.getText());
-		}
-		if (!remarkField2.equals(null)) {
-			invoice.setRemark2(remarkField2.getText());
-		}
-		invoice.setshippingCost(Double.parseDouble(costLbl.getText()));
-		invoice.setOrderStatus("Shipped");
+	public void setShippingLabelInfo(ShippingLabel label) {
+		label.setStoreAddress(new Address("2111 Lakeland Ave", "Ronkonkoma", "NY", "11779"));
+		label.setCustomerAddress(new Address(streetAddressField.getText(), cityField.getText(), stateBox.getValue(),
+				zipField.getText()));
+		label.setWeight(weightField.getText());
+		label.setReferenceField1(remarkField1.getText());
+		label.setReferenceField2(remarkField2.getText());
+		label.setShippingMethod(shippingMethodBox.getValue());
 	}
 
 	public void ship(ActionEvent event) {
-		setFields();
+		ShippingLabel shippingLabel = new ShippingLabel();
+		setShippingLabelInfo(shippingLabel);
 		for (Invoice invoice : MasterDatabase.getInvoiceDatabase().values()) {
 			if (invoice.getInvoiceNumber().equals(this.invoice.getInvoiceNumber())) {
-				invoice.getCustomer().setFirstName(fNameField.getText());
-				invoice.getCustomer().setLastName(lNameField.getText());
-				invoice.getCustomer().setEmail(emailField.getText());
-				invoice.getCustomer().setPhone(phoneField1.getText() + phoneField2.getText() + phoneField3.getText());
-				invoice.getCustomer().getShippingAddress().setStreetAddress(streetAddressField.getText());
-				invoice.getCustomer().getShippingAddress().setCity(cityField.getText());
-				invoice.getCustomer().getShippingAddress().setState(stateBox.getValue());
-				invoice.getCustomer().getShippingAddress().setZip(zipField.getText());
-				invoice.setShippingMethod(shippingMethodBox.getValue());
-				if (!remarkField1.equals(null)) {
-					invoice.setRemark1(remarkField1.getText());
-				}
-				if (!remarkField2.equals(null)) {
-					invoice.setRemark2(remarkField2.getText());
-				}
-				invoice.setshippingCost(Double.parseDouble(costLbl.getText()));
 				invoice.setOrderStatus("Shipped");
 			}
 
@@ -210,6 +187,7 @@ public class ShipOrderController implements Initializable {
 		MasterDatabase.saveCustomers();
 		MasterDatabase.saveInventory();
 		MasterDatabase.saveInvoices();
+		MasterDatabase.saveShippingLabels();
 		switchBackToPackingQueue(event);
 
 	}

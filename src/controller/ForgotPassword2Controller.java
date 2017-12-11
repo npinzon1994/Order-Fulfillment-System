@@ -3,6 +3,7 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,63 +37,70 @@ public class ForgotPassword2Controller implements Initializable {
 	private ImageView redX2;
 	@FXML
 	private ImageView redX3;
-	
+
 	private Tooltip toolTip1;
 	private Tooltip toolTip2;
 	private Tooltip toolTip3;
-	
+
 	private Stage stage;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		employeeNameLbl.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
+		employeeNameLbl.setText("Change Password For " + MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		toolTip1 = new Tooltip("Password doesn't match password on file!!");
 		toolTip2 = new Tooltip("New password cannot be the same as the old password!!");
 		toolTip3 = new Tooltip("Password confirmation doesn't match new password!");
-		
+
 		toolTip2.setWrapText(true);
 		toolTip3.setWrapText(true);
-		
+
 		Tooltip.install(redX1, toolTip1);
 		Tooltip.install(redX2, toolTip2);
 		Tooltip.install(redX3, toolTip3);
-		
+
+		bindFieldsToButton();
+
+	}
+
+	public void bindFieldsToButton() {
+		submitBtn.disableProperty().bind(Bindings.isEmpty(oldPassword.textProperty())
+				.or(Bindings.isEmpty(newPassword.textProperty()).or(Bindings.isEmpty(confirmPassword.textProperty()))));
 	}
 
 	public void submitPassword(ActionEvent event) {
-		if(!MasterDatabase.getLoggedEmployee().getPassword().equals(oldPassword.getText())){
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		if (!MasterDatabase.getLoggedEmployee().getPassword().equals(oldPassword.getText())) {
 			redX1.setVisible(true);
-			Node node = (Node) event.getSource();
-			stage = (Stage) node.getScene().getWindow();
-			toolTip1.show(stage);
-		} else if (MasterDatabase.getLoggedEmployee().getPassword().equals(oldPassword.getText())) {
-			if ((!newPassword.getText().equals(oldPassword.getText())
-					&& !confirmPassword.getText().equals(oldPassword.getText()))
-					&& (newPassword.getText().equals(confirmPassword.getText()))) {
-				for (CustomerServiceRep rep : MasterDatabase.getEmployeeDatabase().values()) {
-					if (rep.getId().equals(MasterDatabase.getLoggedEmployee().getId())) {
-						rep.setPassword(newPassword.getText());
-						MasterDatabase.saveEmployees();
-						clearFields();
-					} else {
-						
-					}
-				}
-			} else {
-				redX2.setVisible(true);
-				Node node = (Node) event.getSource();
-				stage = (Stage) node.getScene().getWindow();
-				toolTip2.show(stage);
-			}
+			redX2.setVisible(false);
+			redX3.setVisible(false);
+			 Node node1 = (Node) event.getSource();
+			 Stage stage1 = (Stage) node1.getScene().getWindow();
+			 toolTip1.show(stage1);
+		} else if (MasterDatabase.getLoggedEmployee().getPassword().equals(oldPassword.getText())
+				&& MasterDatabase.getLoggedEmployee().getPassword().equals(newPassword.getText())) {
+			redX1.setVisible(false);
+			redX2.setVisible(true);
+			redX3.setVisible(false);
+		} else if (MasterDatabase.getLoggedEmployee().getPassword().equals(oldPassword.getText())
+				&& !MasterDatabase.getLoggedEmployee().getPassword().equals(newPassword.getText())
+				&& !newPassword.getText().equals(confirmPassword.getText())) {
+			redX1.setVisible(false);
+			redX2.setVisible(false);
+			redX3.setVisible(true);
+		} else {
+			MasterDatabase.getEmployeeDatabase().get(MasterDatabase.getLoggedEmployee().getId()).setPassword(newPassword.getText());
+			MasterDatabase.saveEmployees();
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("Password changed successfully!");
+			alert.showAndWait();
+			stage.close();
 		}
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setHeaderText("Password changed successfully!");
-		alert.showAndWait();
-		
+
 	}
-	
-	public void clearFields(){
+
+	public void clearFields() {
 		oldPassword.clear();
 		newPassword.clear();
 		confirmPassword.clear();

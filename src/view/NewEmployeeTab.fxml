@@ -15,42 +15,37 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewEmployeeController">
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
          <tabs>
             <Tab text="New Employee">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="imageView" fitHeight="180.0" fitWidth="219.0" layoutX="322.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imageView" fitHeight="180.0" fitWidth="219.0" layoutX="332.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/emptyImage.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="browseBtn" layoutX="324.0" layoutY="218.0" mnemonicParsing="false" onAction="#chooseImage" text="Browse" />
+                        <Button fx:id="browseBtn" layoutX="333.0" layoutY="218.0" mnemonicParsing="false" onAction="#chooseImage" text="Browse" />
                         <AnchorPane layoutX="14.0" layoutY="16.0" prefHeight="296.0" prefWidth="300.0">
                            <children>
                               <Label layoutX="7.0" layoutY="16.0" text="First Name" />
-                              <TextField fx:id="fNameField" layoutX="88.0" layoutY="11.0" />
+                              <TextField id="newCustField" fx:id="fNameField" layoutX="98.0" layoutY="11.0" />
                               <Label layoutX="8.0" layoutY="68.0" text="Last Name" />
-                              <TextField fx:id="lNameField" layoutX="88.0" layoutY="63.0" />
+                              <TextField id="newCustField" fx:id="lNameField" layoutX="98.0" layoutY="63.0" />
                               <Label layoutX="8.0" layoutY="118.0" text="Store Level" />
-                              <ComboBox fx:id="levelBox" layoutX="89.0" layoutY="114.0" prefWidth="150.0" />
+                              <ComboBox fx:id="levelBox" layoutX="99.0" layoutY="114.0" prefWidth="150.0" />
                               <Label layoutX="9.0" layoutY="169.0" text="Phone" />
-                              <TextField fx:id="phoneField" layoutX="88.0" layoutY="164.0" />
+                              <TextField id="newCustField" fx:id="phoneField" layoutX="98.0" layoutY="164.0" />
                               <Label layoutX="11.0" layoutY="218.0" text="Email" />
-                              <TextField fx:id="emailField" layoutX="88.0" layoutY="213.0" />
-                              <HBox layoutX="20.0" layoutY="260.0" prefHeight="36.0" prefWidth="234.0" spacing="10.0">
-                                 <children>
-                                    <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="88.0" text="Cancel" translateX="-5.0" />
-                                    <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#addUserToDatabase" prefHeight="27.0" prefWidth="90.0" text="Submit" translateX="-3.0" />
-                                 </children>
-                              </HBox>
-                              <ImageView fx:id="phoneX" fitHeight="23.0" fitWidth="23.0" layoutX="260.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+                              <TextField id="newCustField" fx:id="emailField" layoutX="98.0" layoutY="213.0" />
+                              <HBox layoutX="20.0" layoutY="260.0" prefHeight="36.0" prefWidth="234.0" spacing="10.0" />
+                              <ImageView fx:id="phoneX" fitHeight="23.0" fitWidth="23.0" layoutX="270.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../../../Desktop/goodRedX.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="emailX" fitHeight="23.0" fitWidth="23.0" layoutX="260.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="emailX" fitHeight="23.0" fitWidth="23.0" layoutX="270.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../../../Desktop/goodRedX.png" />
                                  </image>
@@ -65,16 +60,24 @@
       </TabPane>
    </center>
    <top>
-      <AnchorPane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="42.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="logoutLink" layoutX="523.0" layoutY="9.0" onAction="#logout" text="Logout" />
-            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="6.0" prefHeight="31.0" prefWidth="200.0" spacing="20.0">
+            <Hyperlink fx:id="logoutLink" layoutX="515.0" layoutY="3.0" onAction="#logout" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="4.0" prefHeight="31.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" text="Employee" />
-                  <Label fx:id="empId" text="empId" />
+                  <Label fx:id="employee" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Employee" />
+                  <Label fx:id="empId" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="empId" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
+   <bottom>
+      <AnchorPane prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="cancelBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="88.0" text="Cancel" />
+            <Button fx:id="submitBtn" layoutX="112.0" layoutY="7.0" mnemonicParsing="false" onAction="#addUserToDatabase" prefHeight="27.0" prefWidth="90.0" text="Submit" />
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>

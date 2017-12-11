@@ -107,8 +107,8 @@ public class OrderSearchController implements Initializable {
 		orderColumn.setCellValueFactory(
 				cellData -> Bindings.createStringBinding(() -> cellData.getValue().getInvoiceNumber()));
 		customerColumn.setCellValueFactory(
-				cellData -> Bindings.createStringBinding(() -> cellData.getValue().getCustomer().getLastName()
-						+ cellData.getValue().getCustomer().getFirstName()));
+				cellData -> Bindings.createStringBinding(() -> cellData.getValue().getCustomer().getFirstName()
+						+ " " + cellData.getValue().getCustomer().getLastName()));
 		customerIdColumn.setCellValueFactory(
 				cellData -> Bindings.createStringBinding(() -> cellData.getValue().getCustomer().getId()));
 

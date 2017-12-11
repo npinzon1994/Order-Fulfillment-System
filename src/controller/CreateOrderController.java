@@ -86,7 +86,7 @@ public class CreateOrderController implements Initializable {
 		alert.setHeaderText("Are you sure you want to logout?");
 		alert.setContentText("All unsaved progress will be lost");
 		Optional<ButtonType> result = alert.showAndWait();
-		if(result.get() == ButtonType.OK){
+		if (result.get() == ButtonType.OK) {
 			Node node = (Node) event.getSource();
 			Stage stage = (Stage) node.getScene().getWindow();
 			Parent root = null;
@@ -107,7 +107,8 @@ public class CreateOrderController implements Initializable {
 		for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
 			if (customer.getFirstName().equals(fNameField.getText()) && !customers.contains(customer)) {
 				customers.add(customer);
-			} else if ((((customer.getBillingAddress().getZip().equals(zipField.getText()) || customer.getLastName().equals(lNameField.getText())) && !customers.contains(customer)))) {
+			} else if ((((customer.getBillingAddress().getZip().equals(zipField.getText())
+					|| customer.getLastName().equals(lNameField.getText())) && !customers.contains(customer)))) {
 				customers.add(customer);
 			}
 		}
@@ -129,7 +130,6 @@ public class CreateOrderController implements Initializable {
 			}
 		});
 	}
-
 
 	public void openCreateCustomerTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
@@ -158,17 +158,17 @@ public class CreateOrderController implements Initializable {
 	}
 
 	public void cancelOrder(ActionEvent event) {
-		if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 3){
+		if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
 			switchToAdminTab(event);
-		} else if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 2){
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 2) {
 			switchToOperationsTab(event);
-		} else if(MasterDatabase.getLoggedEmployee().getStoreLevel() == 1){
+		} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 1) {
 			switchToCustomerServiceRepTab(event);
 		}
-		
+
 	}
-	
-	public void switchToAdminTab(ActionEvent event){
+
+	public void switchToAdminTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		Parent root = null;
@@ -180,7 +180,7 @@ public class CreateOrderController implements Initializable {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 	}
-	
+
 	public void switchToOperationsTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
@@ -193,7 +193,7 @@ public class CreateOrderController implements Initializable {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 	}
-	
+
 	public void switchToCustomerServiceRepTab(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();

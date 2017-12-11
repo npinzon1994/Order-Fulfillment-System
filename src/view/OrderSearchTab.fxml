@@ -15,20 +15,20 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrderSearchController">
    <top>
-      <AnchorPane prefHeight="44.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="44.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="logoutLink" layoutX="528.0" layoutY="10.0" onAction="#logout" text="Logout" />
-            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="32.0" prefWidth="200.0" spacing="20.0">
+            <Hyperlink fx:id="logoutLink" layoutX="514.0" layoutY="4.0" onAction="#logout" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="5.0" prefHeight="32.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" text="Employee" />
-                  <Label fx:id="empId" text="empId" />
+                  <Label fx:id="employee" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Employee" />
+                  <Label fx:id="empId" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="empId" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="43.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="backBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="74.0" text="Back" />
             <Button fx:id="viewOrderBtn" layoutX="99.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewOrder" prefHeight="27.0" prefWidth="88.0" text="View Order" />
@@ -38,21 +38,21 @@
    <center>
       <ScrollPane prefHeight="396.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <content>
-            <TabPane prefHeight="403.0" prefWidth="581.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane prefHeight="403.0" prefWidth="581.0" stylesheets="@application.css" tabClosingPolicy="UNAVAILABLE">
                <tabs>
                   <Tab text="Order Search">
                      <content>
                         <AnchorPane prefHeight="366.0" prefWidth="581.0">
                            <children>
                               <Label layoutX="14.0" layoutY="14.0" text="Order Number" />
-                              <TextField fx:id="orderNumber" layoutX="14.0" layoutY="33.0" />
+                              <TextField id="newCustField" fx:id="orderNumber" layoutX="14.0" layoutY="33.0" />
                               <Label layoutX="225.0" layoutY="14.0" text="Customer ID" />
-                              <TextField fx:id="customerId" layoutX="225.0" layoutY="33.0" />
+                              <TextField id="newCustField" fx:id="customerId" layoutX="225.0" layoutY="33.0" />
                               <Label layoutX="14.0" layoutY="77.0" text="Last Name" />
                               <Label layoutX="225.0" layoutY="77.0" text="Zip Code" />
-                              <TextField fx:id="lastName" layoutX="14.0" layoutY="95.0" />
-                              <TextField fx:id="zipCode" layoutX="225.0" layoutY="95.0" />
-                              <TableView fx:id="table" layoutX="14.0" layoutY="143.0" prefHeight="117.0" prefWidth="552.0">
+                              <TextField id="newCustField" fx:id="lastName" layoutX="14.0" layoutY="95.0" />
+                              <TextField id="newCustField" fx:id="zipCode" layoutX="225.0" layoutY="95.0" />
+                              <TableView fx:id="table" layoutX="14.0" layoutY="143.0" prefHeight="192.0" prefWidth="552.0">
                                 <columns>
                                   <TableColumn fx:id="orderColumn" prefWidth="145.0" text="Order Number" />
                                   <TableColumn fx:id="customerColumn" prefWidth="253.0" text="Customer" />

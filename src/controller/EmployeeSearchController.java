@@ -178,6 +178,7 @@ public class EmployeeSearchController implements Initializable {
 
 	public void setLabelsVisible() {
 		nameLabel.setVisible(true);
+		empId.setVisible(true);
 		empIdLabel.setVisible(true);
 		position.setVisible(true);
 		positionLabel.setVisible(true);
@@ -197,6 +198,7 @@ public class EmployeeSearchController implements Initializable {
 
 	public void setLabelsInvisible() {
 		nameLabel.setVisible(false);
+		empId.setVisible(false);
 		empIdLabel.setVisible(false);
 		position.setVisible(false);
 		positionLabel.setVisible(false);

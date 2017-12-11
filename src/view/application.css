@@ -1,1 +1,141 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+#anchor {
+	-fx-background-color : #09357A;
+}
+
+#newCustField {
+	-fx-background-color: #e8e8e8;
+    -fx-text-fill: #09357A;
+}
+
+#newCustArea {
+	-fx-background-color: #e8e8e8;
+	-fx-text-fill: #09357A;
+}
+
+#newCustField:focused {
+	-fx-background-color: #e8e8e8;
+}
+
+.hyperlink {
+    -fx-border-color: transparent;
+    -fx-padding: 4.0 0.0 4.0 0.0;
+    -fx-text-fill: #09357A;
+    -fx-font-size: 15;
+}
+
+.hyperlink:hover {
+	-fx-underline: true;
+}
+
+.hyperlink:visited {
+	-fx-text-fill: #09357A;
+	-fx-underline: false;
+}
+
+#forgotPassword {
+	-fx-text-fill: #00bfff;
+	-fx-font-size: 13;
+}
+
+.hyperlink:visited:hover {
+	-fx-underline: true;
+}
+
+#forgotPassword:visited {
+	-fx-text-fill: #00bfff;
+}
+
+#forgotPassword:visited:hover {
+	-fx-text-fill: #c0c0c0;
+}
+
+#forgotPassword:hover {
+	-fx-text-fill: #c0c0c0;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+	-fx-background-color : #09357A;
+}
+
+.tab-header-area {
+	-fx-pref-height: 35px;
+}
+
+.tab {
+	-fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+	-fx-pref-height: 35px;
+	-fx-background-color: #09357A;
+	-fx-text-fill: #c0c0c0;
+}
+
+.tab-label {
+	-fx-text-fill: #c0c0c0;
+	-fx-font-size: 15;
+}
+
+.tab-pane {
+	-fx-background-color: #c0c0c0;
+}
+
+.button {
+	-fx-background-color: #4FAC25;
+	-fx-text-fill:  white;
+}
+
+.button:hover {
+	-fx-background-color: #228b22;
+}
+
+.text-field {
+    -fx-background-color: #09357A;
+    -fx-border-color: #09357A #09357A #e8e8e8 #09357A;
+    -fx-border-width: 0.0 0.0 1.0 0.0;
+    -fx-text-fill: #c0c0c0;
+    -fx-prompt-text-fill: #c0c0c0;
+}
+
+.text-field:focused {
+    -fx-background-color: #09357A;
+}
+
+.label {
+	-fx-text-fill : black;
+	-fx-font-weight: bold;
+	-fx-font-size: 15;
+}
+
+.combo-box {
+	-fx-background-color: #09357A;
+}
+
+.combo-box .list-cell:hover {
+	-fx-background-color: #09357A;
+	-fx-text-fill: #c0c0c0;
+}
+
+.combo-box .list-cell 
+{
+    -fx-background: #e8e8e8;
+    -fx-background-color: #e8e8e8;
+    -fx-text-fill: #09357A;
+}
+
+.check-box .box {
+	-fx-background-color: #09357A;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #c0c0c0;
+}
+
+
+.table-row-cell:selected{
+	-fx-background-color: #09357A;
+    -fx-text-fill: #c0c0c0;
+}
+
+.list-cell:selected {
+	-fx-background-color: #09357A;
+    -fx-text-fill: #c0c0c0;
+}
