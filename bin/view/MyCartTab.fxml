@@ -62,8 +62,8 @@
    <bottom>
       <AnchorPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="cancelBtn" layoutX="525.0" layoutY="7.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
-            <Button fx:id="removeBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#removeFromCart" text="Remove from cart" />
+            <Button id="bottomButton" fx:id="cancelBtn" layoutX="502.0" layoutY="7.0" mnemonicParsing="false" onAction="#cancel" prefHeight="27.0" prefWidth="84.0" text="Cancel" />
+            <Button id="bottomButton" fx:id="removeBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#removeFromCart" prefHeight="27.0" prefWidth="154.0" text="Remove from cart" />
          </children>
       </AnchorPane>
    </bottom>

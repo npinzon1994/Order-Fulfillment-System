@@ -134,6 +134,13 @@ public class SearchInvItemController implements Initializable {
 				MasterDatabase.setCurrentItem(list.getSelectionModel().getSelectedItem());
 				setFields();
 				setLabelsVisible();
+				if(list.getSelectionModel().getSelectedItem().getImagePath() != null){
+					MasterDatabase.load(MasterDatabase.getCurrentItem().getImagePath(), imageView);
+					imageView.setVisible(true);
+				} else {
+					imageView.setVisible(false);
+				}
+				
 				if (MasterDatabase.getCurrentItem().getStatus().equals("In Stock")) {
 					addBtn.setVisible(false);
 					removeBtn.setVisible(true);

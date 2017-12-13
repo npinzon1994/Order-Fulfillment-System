@@ -21,12 +21,6 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="imageView" fitHeight="180.0" fitWidth="219.0" layoutX="332.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/emptyImage.png" />
-                           </image>
-                        </ImageView>
-                        <Button fx:id="browseBtn" layoutX="333.0" layoutY="218.0" mnemonicParsing="false" onAction="#chooseImage" text="Browse" />
                         <AnchorPane layoutX="14.0" layoutY="16.0" prefHeight="296.0" prefWidth="300.0">
                            <children>
                               <Label layoutX="7.0" layoutY="16.0" text="First Name" />
@@ -75,8 +69,8 @@
    <bottom>
       <AnchorPane prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="cancelBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="88.0" text="Cancel" />
-            <Button fx:id="submitBtn" layoutX="112.0" layoutY="7.0" mnemonicParsing="false" onAction="#addUserToDatabase" prefHeight="27.0" prefWidth="90.0" text="Submit" />
+            <Button id="bottomButton" fx:id="cancelBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="88.0" text="Cancel" />
+            <Button id="bottomButton" fx:id="submitBtn" layoutX="112.0" layoutY="7.0" mnemonicParsing="false" onAction="#addUserToDatabase" prefHeight="27.0" prefWidth="90.0" text="Submit" />
          </children>
       </AnchorPane>
    </bottom>

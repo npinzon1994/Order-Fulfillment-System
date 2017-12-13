@@ -84,9 +84,6 @@ public class EmployeeSearchController implements Initializable {
 	@FXML
 	private Label termDateLabel;
 
-	@FXML
-	private ImageView imageView;
-
 	private ObservableList<CustomerServiceRep> allUsers, usersSelected;
 
 	private LocalDate date = LocalDate.now();
@@ -105,6 +102,7 @@ public class EmployeeSearchController implements Initializable {
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
+		
 	}
 
 	public void switchBackToHomeTab(ActionEvent event) {
@@ -151,7 +149,6 @@ public class EmployeeSearchController implements Initializable {
 			empIdLabel.setText(user.getId());
 			positionLabel.setText(user.getPosition());
 			levelLabel.setText(String.valueOf(user.getStoreLevel()));
-			imageView.setImage(user.getImage());
 			statusLabel.setText(user.getStatus());
 			startDateLabel.setText(user.getHireDate());
 			if (user.getStatus().equals("Terminated")) {
@@ -188,10 +185,11 @@ public class EmployeeSearchController implements Initializable {
 		levelLabel.setVisible(true);
 		startDate.setVisible(true);
 		startDateLabel.setVisible(true);
-		imageView.setVisible(true);
 		termDate.setVisible(true);
 		if (!isEmployed()) {
 			termDateLabel.setVisible(true);
+		} else {
+			termDateLabel.setVisible(false);
 		}
 
 	}
@@ -209,8 +207,11 @@ public class EmployeeSearchController implements Initializable {
 		startDate.setVisible(false);
 		startDateLabel.setVisible(false);
 		termDate.setVisible(false);
-		termDateLabel.setVisible(false);
-		imageView.setVisible(false);
+		if (!isEmployed()) {
+			termDateLabel.setVisible(false);
+		} else {
+			termDateLabel.setVisible(true);
+		}
 
 	}
 

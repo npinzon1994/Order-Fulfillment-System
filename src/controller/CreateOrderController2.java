@@ -149,6 +149,12 @@ public class CreateOrderController2 implements Initializable {
 				setFields();
 				setLabelsVisible();
 				item = list.getSelectionModel().getSelectedItem();
+				if(list.getSelectionModel().getSelectedItem().getImagePath() != null){
+					MasterDatabase.load(list.getSelectionModel().getSelectedItem().getImagePath(), imageView);
+					imageView.setVisible(true);
+				} else {
+					imageView.setVisible(false);
+				}
 			}
 		});
 	}
@@ -255,6 +261,7 @@ public class CreateOrderController2 implements Initializable {
 	public void addItemToCart() {
 		if(!MasterDatabase.getOrderCustomer().getCart().contains(item) && !list.getSelectionModel().isEmpty()){
 			MasterDatabase.getOrderCustomer().getCart().add(item);
+			MasterDatabase.getOrderBeingViewed().getItems().add(item);
 			list.getItems().remove(item);
 			numItems.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
 			Alert alert = new Alert(AlertType.INFORMATION);

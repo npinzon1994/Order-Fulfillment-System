@@ -29,8 +29,8 @@
    <bottom>
       <AnchorPane prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="nextBtn" layoutX="97.0" layoutY="8.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="73.0" text="Next" />
-            <Button fx:id="cancelBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="72.0" text="Back" />
+            <Button id="bottomButton" fx:id="nextBtn" layoutX="97.0" layoutY="8.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="73.0" text="Next" />
+            <Button id="bottomButton" fx:id="cancelBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="72.0" text="Back" />
          </children>
       </AnchorPane>
    </bottom>
@@ -53,7 +53,7 @@
                               <TextField id="newCustField" fx:id="fNameField" layoutX="8.0" layoutY="18.0" promptText="First Name" />
                               <TextField id="newCustField" fx:id="lNameField" layoutX="184.0" layoutY="18.0" promptText="Last Name" />
                               <TextField id="newCustField" fx:id="zipField" layoutX="359.0" layoutY="18.0" prefHeight="27.0" prefWidth="97.0" promptText="Zip Code" />
-                              <Button fx:id="searchBtn" layoutX="466.0" layoutY="19.0" mnemonicParsing="false" onAction="#searchForCustomer" prefHeight="27.0" prefWidth="76.0" text="Search" />
+                              <Button fx:id="searchBtn" layoutX="466.0" layoutY="19.0" mnemonicParsing="false" onAction="#searchForCustomer" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: #09357A;" text="Search" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutY="137.0" prefHeight="220.0" prefWidth="600.0">

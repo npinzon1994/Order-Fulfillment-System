@@ -21,14 +21,14 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="405.0" prefWidth="766.0">
                      <children>
-                        <ListView fx:id="list" layoutX="28.0" layoutY="84.0" prefHeight="241.0" prefWidth="230.0" />
+                        <ListView fx:id="list" layoutX="28.0" layoutY="84.0" prefHeight="235.0" prefWidth="230.0" />
                         <AnchorPane layoutX="267.0" layoutY="75.0" prefHeight="231.0" prefWidth="253.0">
                            <children>
                               <Label fx:id="empId" layoutX="14.0" layoutY="14.0" text="Employee ID:" visible="false" />
                               <Label fx:id="position" layoutX="14.0" layoutY="77.0" text="Position:" visible="false" />
                               <Label fx:id="level" layoutX="14.0" layoutY="122.0" text="Store Level:" visible="false" />
                               <Label fx:id="empIdLabel" alignment="TOP_LEFT" layoutX="117.0" layoutY="14.0" prefHeight="23.0" prefWidth="93.0" text="empIdLabel" visible="false" />
-                              <Label fx:id="positionLabel" alignment="TOP_LEFT" layoutX="117.0" layoutY="76.0" prefHeight="37.0" prefWidth="133.0" text="positionLabel" visible="false" wrapText="true" />
+                              <Label fx:id="positionLabel" alignment="TOP_LEFT" layoutX="117.0" layoutY="76.0" prefHeight="37.0" prefWidth="201.0" text="positionLabel" visible="false" wrapText="true" />
                               <Label fx:id="levelLabel" alignment="TOP_LEFT" layoutX="118.0" layoutY="121.0" prefHeight="26.0" prefWidth="62.0" text="level" visible="false" />
                               <Label fx:id="startDate" layoutX="14.0" layoutY="156.0" text="Start Date:" visible="false" />
                               <Label fx:id="startDateLabel" layoutX="118.0" layoutY="155.0" text="startDateLabel" visible="false" />
@@ -45,7 +45,7 @@
                         </ImageView>
                         <Label fx:id="nameLabel" alignment="TOP_LEFT" layoutX="281.0" layoutY="43.0" prefHeight="38.0" prefWidth="232.0" text="nameLabel" visible="false" wrapText="true" />
                         <TextField id="newCustField" fx:id="searchByNameField" layoutX="28.0" layoutY="23.0" prefHeight="27.0" prefWidth="161.0" promptText="Search By Name" />
-                        <Button fx:id="searchByNameBtn" layoutX="197.0" layoutY="23.0" mnemonicParsing="false" onAction="#searchUserByName" text="Search" />
+                        <Button fx:id="searchByNameBtn" layoutX="197.0" layoutY="23.0" mnemonicParsing="false" onAction="#searchUserByName" style="-fx-background-color: #09357A;" text="Search" />
                         <Label layoutX="28.0" layoutY="62.0" text="Search Results" />
                      </children>
                   </AnchorPane>
@@ -68,10 +68,10 @@
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="cancelBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="66.0" text="Cancel" />
-            <Button fx:id="removeBtn" layoutX="89.0" layoutY="8.0" mnemonicParsing="false" onAction="#removeUser" text="Remove User" />
+            <Button id="bottomButton" fx:id="cancelBtn" layoutX="13.0" layoutY="9.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="88.0" text="Cancel" />
+            <Button id="bottomButton" fx:id="removeBtn" layoutX="113.0" layoutY="10.0" mnemonicParsing="false" onAction="#removeUser" prefHeight="27.0" prefWidth="133.0" text="Remove User" />
          </children>
       </AnchorPane>
    </bottom>

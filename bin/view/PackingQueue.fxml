@@ -9,19 +9,24 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PackingQueueController">
    <top>
-      <AnchorPane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="45.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="employee" layoutX="14.0" layoutY="14.0" text="Employee" />
-            <Label fx:id="empId" layoutX="95.0" layoutY="14.0" text="empId" />
-            <Hyperlink fx:id="logoutLink" layoutX="527.0" layoutY="10.0" onAction="#logout" text="Logout" />
+            <Hyperlink id="topLabel" fx:id="logoutLink" layoutX="506.0" layoutY="5.0" onAction="#logout" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="6.0" prefHeight="34.0" prefWidth="461.0" spacing="20.0">
+               <children>
+                  <Label id="topLabel" fx:id="employee" text="Employee" />
+                  <Label id="topLabel" fx:id="empId" text="empId" />
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Packing Queue">
             <content>
@@ -42,10 +47,10 @@
       </TabPane>
    </center>
    <bottom>
-      <AnchorPane prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #09357A;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="backBtn" layoutX="14.0" layoutY="6.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="69.0" text="Back" />
-            <Button fx:id="nextBtn" layoutX="94.0" layoutY="6.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="73.0" text="Next" />
+            <Button id="bottomButton" fx:id="backBtn" layoutX="14.0" layoutY="6.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="69.0" stylesheets="@application.css" text="Back" />
+            <Button id="bottomButton" fx:id="nextBtn" layoutX="94.0" layoutY="6.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="73.0" stylesheets="@application.css" text="Next" />
          </children>
       </AnchorPane>
    </bottom>

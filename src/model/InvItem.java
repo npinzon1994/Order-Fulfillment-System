@@ -17,8 +17,10 @@ public class InvItem implements Serializable {
 	private String id;
 	private String condition;
 	private double weight;
+	private String imagePath;
 
-	public InvItem(String description, String category, double price, String specs, String status, String condition) {
+	public InvItem(String description, String category, double price, String specs, String status, String condition,
+			String imagePath) {
 		super();
 		this.description = description;
 		this.category = category;
@@ -104,6 +106,14 @@ public class InvItem implements Serializable {
 	@Override
 	public String toString() {
 		return description;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 }

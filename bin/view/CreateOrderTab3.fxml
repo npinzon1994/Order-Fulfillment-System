@@ -73,9 +73,9 @@
    <bottom>
       <AnchorPane prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="nextBtn" layoutX="107.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="86.0" text="Next" />
-            <Button fx:id="cancelBtn" layoutX="498.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="86.0" text="Cancel" />
-            <Button fx:id="previousBtn" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToPreviousPage" prefHeight="27.0" prefWidth="85.0" text="Previous" />
+            <Button id="bottomButton" fx:id="nextBtn" layoutX="107.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="86.0" text="Next" />
+            <Button id="bottomButton" fx:id="cancelBtn" layoutX="498.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="86.0" text="Cancel" />
+            <Button id="bottomButton" fx:id="previousBtn" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToPreviousPage" prefHeight="27.0" prefWidth="85.0" text="Previous" />
          </children>
       </AnchorPane>
    </bottom>

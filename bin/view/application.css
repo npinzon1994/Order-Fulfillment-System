@@ -16,6 +16,20 @@
 	-fx-background-color: #e8e8e8;
 }
 
+#topLabel {
+	-fx-font-size: 20;
+	-fx-text-fill: #09357A;
+}
+
+#bottomButton {
+	-fx-background-color: #e8e8e8;
+	-fx-text-fill: gray;
+}
+
+#bottomButton:hover {
+	-fx-background-color: darkgray;
+}
+
 .hyperlink {
     -fx-border-color: transparent;
     -fx-padding: 4.0 0.0 4.0 0.0;

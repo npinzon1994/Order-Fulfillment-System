@@ -76,7 +76,8 @@ public class ShipOrderController implements Initializable {
 
 	private double cost;
 
-	Invoice invoice;
+	private Invoice invoice;
+	private ShippingLabel shippingLabel;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -175,7 +176,7 @@ public class ShipOrderController implements Initializable {
 	}
 
 	public void ship(ActionEvent event) {
-		ShippingLabel shippingLabel = new ShippingLabel();
+		shippingLabel = new ShippingLabel();
 		setShippingLabelInfo(shippingLabel);
 		for (Invoice invoice : MasterDatabase.getInvoiceDatabase().values()) {
 			if (invoice.getInvoiceNumber().equals(this.invoice.getInvoiceNumber())) {
@@ -183,13 +184,27 @@ public class ShipOrderController implements Initializable {
 			}
 
 		}
+		MasterDatabase.setCurrentShippingLabel(shippingLabel);
 		clearFields();
 		MasterDatabase.saveCustomers();
 		MasterDatabase.saveInventory();
 		MasterDatabase.saveInvoices();
 		MasterDatabase.saveShippingLabels();
 		switchBackToPackingQueue(event);
+		openShippingLabelPane();
+	}
 
+	public void openShippingLabelPane() {
+		Stage stage = new Stage();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/ShippingLabel.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	public void switchBackToPackingQueue(ActionEvent event) {

@@ -108,7 +108,7 @@ public class CreateOrderController4 implements Initializable {
 
 		setTotals();
 		subtotalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getSubtotal()));
-		shippingLabel.setText(format.format(MasterDatabase.getOrderCustomer().getShippingCost()));
+		shippingLabel.setText(format.format(MasterDatabase.getOrderBeingViewed().getshippingCost()));
 		totalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getTotal()));
 		limitTextFieldInputs();
 	}

@@ -32,9 +32,9 @@
    <bottom>
       <AnchorPane prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="previousBtn" layoutX="10.0" layoutY="6.0" mnemonicParsing="false" onAction="#goToPreviousPage" text="Previous" />
-            <Button fx:id="cancelBtn" layoutX="525.0" layoutY="6.0" mnemonicParsing="false" onAction="#cancelOrder" text="Cancel" />
-            <Button fx:id="placeOrderBtn" layoutX="426.0" layoutY="6.0" mnemonicParsing="false" onAction="#placeOrder" text="Place Order" />
+            <Button id="bottomButton" fx:id="previousBtn" layoutX="10.0" layoutY="6.0" mnemonicParsing="false" onAction="#goToPreviousPage" text="Previous" />
+            <Button id="bottomButton" fx:id="cancelBtn" layoutX="525.0" layoutY="6.0" mnemonicParsing="false" onAction="#cancelOrder" text="Cancel" />
+            <Button id="bottomButton" fx:id="placeOrderBtn" layoutX="426.0" layoutY="6.0" mnemonicParsing="false" onAction="#placeOrder" text="Place Order" />
          </children>
       </AnchorPane>
    </bottom>

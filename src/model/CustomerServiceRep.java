@@ -20,7 +20,6 @@ public class CustomerServiceRep implements Serializable {
 	private String termDate;
 	private String status;
 	private String position;
-	private transient Image image;
 	private int storeLevel;
 	private String password;
 
@@ -47,14 +46,6 @@ public class CustomerServiceRep implements Serializable {
 
 	public static int getIdInt() {
 		return idInt;
-	}
-
-	public Image getImage() {
-		return image;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
 	}
 
 	public static void setIdInt(int idInt) {

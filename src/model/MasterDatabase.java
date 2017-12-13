@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,6 +12,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class MasterDatabase implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -17,6 +25,7 @@ public class MasterDatabase implements Serializable {
 	private static MasterDatabase _master;
 	private static LocalDate date = LocalDate.now();
 
+	private static HashMap<String, String> imageMap;
 	private static HashMap<String, InvItem> inventory;
 	private static HashMap<String, CustomerServiceRep> employeeDatabase;
 	private static HashMap<String, Customer> customerDatabase;
@@ -28,6 +37,7 @@ public class MasterDatabase implements Serializable {
 	private static CustomerServiceRep loggedEmployee;
 	private static Invoice orderBeingViewed;
 	private static InvItem currentItem;
+	private static ShippingLabel currentShippingLabel;
 
 	private MasterDatabase() {
 		inventory = new HashMap<>();
@@ -131,6 +141,22 @@ public class MasterDatabase implements Serializable {
 
 	public static void setShippingLabelDatabase(HashMap<String, ShippingLabel> shippingLabelDatabase) {
 		MasterDatabase.shippingLabelDatabase = shippingLabelDatabase;
+	}
+
+	public static ShippingLabel getCurrentShippingLabel() {
+		return currentShippingLabel;
+	}
+
+	public static void setCurrentShippingLabel(ShippingLabel currentShippingLabel) {
+		MasterDatabase.currentShippingLabel = currentShippingLabel;
+	}
+
+	public static HashMap<String, String> getImageMap() {
+		return imageMap;
+	}
+
+	public static void setImageMap(HashMap<String, String> imageMap) {
+		MasterDatabase.imageMap = imageMap;
 	}
 
 	public static void saveInventory() {
@@ -276,7 +302,7 @@ public class MasterDatabase implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void saveShippingLabels() {
 		System.out.println("All shipping labels saved!");
 		FileOutputStream fileOutput = null;
@@ -307,6 +333,35 @@ public class MasterDatabase implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void saveImage(String path) {
+		BufferedImage bufferedImage = null;
+		File image = null;
+		try {
+			image = new File(path);
+			bufferedImage = ImageIO.read(image);
+			ImageIO.write(bufferedImage, "png", new File("images/" + image.getName()));
+		} catch (IOException e) {
+			System.out.println("No image found!");
+			e.printStackTrace();
+		}
+		System.out.println(image.getName());
+	}
+
+	public static void load(String fileName, ImageView imageView) {
+		BufferedImage bufferedImage = null;
+		File file = new File(fileName);
+		try {
+			bufferedImage = ImageIO.read(file);
+			if (file.exists()) {
+				Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+				imageView.setImage(image);
+			}
+		} catch (IOException e) {
+			System.out.println("Nothing to load!");
 			e.printStackTrace();
 		}
 	}

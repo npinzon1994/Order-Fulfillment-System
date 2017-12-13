@@ -30,8 +30,8 @@
    <bottom>
       <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="backBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="74.0" text="Back" />
-            <Button fx:id="viewOrderBtn" layoutX="99.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewOrder" prefHeight="27.0" prefWidth="88.0" text="View Order" />
+            <Button id="bottomButton" fx:id="backBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="74.0" text="Back" />
+            <Button id="bottomButton" fx:id="viewOrderBtn" layoutX="99.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewOrder" prefHeight="27.0" prefWidth="88.0" text="View Order" />
          </children>
       </AnchorPane>
    </bottom>
@@ -59,7 +59,7 @@
                                     <TableColumn fx:id="customerIdColumn" prefWidth="151.0" text="Customer ID" />
                                 </columns>
                               </TableView>
-                              <Button fx:id="searchBtn" layoutX="408.0" layoutY="33.0" mnemonicParsing="false" onAction="#orderSearch" prefHeight="27.0" prefWidth="94.0" text="Search" />
+                              <Button fx:id="searchBtn" layoutX="408.0" layoutY="33.0" mnemonicParsing="false" onAction="#orderSearch" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: #09357A;" text="Search" />
                            </children>
                         </AnchorPane>
                      </content>

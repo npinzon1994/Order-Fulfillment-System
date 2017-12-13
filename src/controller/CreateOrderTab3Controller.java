@@ -24,7 +24,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import model.Address;
+import model.InvItem;
 import model.MasterDatabase;
+import model.ShippingCost;
 import model.Validation;
 
 public class CreateOrderTab3Controller implements Initializable {
@@ -172,6 +174,7 @@ public class CreateOrderTab3Controller implements Initializable {
 		billStateBox.setDisable(true);
 		billZipField.setEditable(false);
 		MasterDatabase.getOrderCustomer().setShippingMethod("Pickup In-Store");
+		MasterDatabase.getOrderBeingViewed().setShippingMethod("Pickup In-Store");
 	}
 
 	public void fillFieldsWhenBillShippedBoxIsChecked() {
@@ -205,6 +208,7 @@ public class CreateOrderTab3Controller implements Initializable {
 		shippingMethodBox.setDisable(false);
 		shippingMethodBox.getSelectionModel().selectFirst();
 		MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getValue());
+		MasterDatabase.getOrderBeingViewed().setShippingMethod(shippingMethodBox.getValue());
 	}
 
 	public void setAllFieldsEditable() {
@@ -235,6 +239,15 @@ public class CreateOrderTab3Controller implements Initializable {
 				|| !shipZipField.getText().equals(MasterDatabase.getOrderCustomer().getShippingAddress().getZip())))) {
 			promptUserToChangeInfo(event);
 		} else {
+			MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getValue());
+			MasterDatabase.getOrderBeingViewed().setShippingMethod(shippingMethodBox.getValue());
+			double weight = 0;
+			for (InvItem item : MasterDatabase.getOrderBeingViewed().getItems()) {
+				weight += item.getWeight();
+			}
+			MasterDatabase.getOrderBeingViewed().setshippingCost(
+					ShippingCost.calculate(MasterDatabase.getOrderBeingViewed().getShippingAddress().getState(),
+							MasterDatabase.getOrderBeingViewed().getShippingMethod(), weight));
 			switchToOrderPane4(event);
 		}
 	}
@@ -347,6 +360,7 @@ public class CreateOrderTab3Controller implements Initializable {
 		address2.setState(shipStateBox.getValue());
 		address2.setZip(shipZipField.getText());
 		MasterDatabase.getOrderBeingViewed().setShippingAddress(address2);
+		MasterDatabase.getOrderBeingViewed().setShippingMethod(shippingMethodBox.getValue());
 		MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getValue());
 		MasterDatabase.getOrderCustomer().getShippingAddress().setStreetAddress(shipStreetField.getText());
 		MasterDatabase.getOrderCustomer().getShippingAddress().setCity(shipCityField.getText());

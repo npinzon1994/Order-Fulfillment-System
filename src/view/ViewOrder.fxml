@@ -14,7 +14,7 @@
             <Label fx:id="customerLabel" layoutX="55.0" layoutY="11.0" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="customerLabel" />
             <AnchorPane layoutX="10.0" layoutY="75.0" prefHeight="83.0" prefWidth="273.0">
                <children>
-                  <Label layoutX="5.0" layoutY="5.0" text="Shipping Address" />
+                  <Label id="topLabel" layoutX="4.0" layoutY="5.0" text="Shipping Address" />
                   <Label fx:id="shipStreetAddress" layoutX="5.0" layoutY="31.0" text="streetAddress" />
                   <Label fx:id="shipCityStateZip" layoutX="5.0" layoutY="51.0" text="cityStateZip" />
                </children>
@@ -23,7 +23,7 @@
             <Label fx:id="shippingMethodLabel" layoutX="151.0" layoutY="51.0" text="shippingMethodLabel" />
             <AnchorPane layoutX="291.0" layoutY="76.0" prefHeight="83.0" prefWidth="273.0">
                <children>
-                  <Label layoutX="5.0" layoutY="5.0" text="Billing Address" />
+                  <Label id="topLabel" layoutX="4.0" layoutY="5.0" text="Billing Address" />
                   <Label fx:id="billStreetAddress" layoutX="5.0" layoutY="31.0" text="streetAddress" />
                   <Label fx:id="billCityStateZip" layoutX="5.0" layoutY="51.0" text="cityStateZip" />
                </children>

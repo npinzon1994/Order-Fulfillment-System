@@ -72,7 +72,7 @@ public class InvItemController implements Initializable {
 	private Image tempImage;
 	private Image image;
 
-	transient BufferedImage bufferedImage;
+	private BufferedImage bufferedImage;
 
 	@FXML
 	private Label employee;
@@ -85,6 +85,9 @@ public class InvItemController implements Initializable {
 
 	@FXML
 	private Hyperlink logoutLink;
+	
+	@FXML
+	private TextField imagePathField;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -209,7 +212,13 @@ public class InvItemController implements Initializable {
 		item.setDescription(description.getText());
 		item.setCondition(condition.getSelectionModel().getSelectedItem());
 		item.setSpecs(specs.getText());
-		// item.setImage(tempImage);
+		if(imagePathField != null){
+			item.setImagePath(imagePathField.getText());
+			System.out.println(imagePathField.getText());
+			MasterDatabase.saveImage(imagePathField.getText());
+		}
+		
+		
 		item.setWeight(Double.parseDouble(weightField.getText()));
 		item.setStatus("In Stock");
 
@@ -225,15 +234,10 @@ public class InvItemController implements Initializable {
 		chooser.getExtensionFilters().addAll(png, jpeg, bitmap, tif);
 		File file = chooser.showOpenDialog(specs.getScene().getWindow());
 		if (file != null) {
-			bufferedImage = null;
-			try {
-				bufferedImage = ImageIO.read(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			image = SwingFXUtils.toFXImage(bufferedImage, null);
+			imagePathField.setText(file.getPath());
+			image = new Image("file:///" + file.getPath());
+			System.out.println("file:///" + file.getPath());
 			imageView.setImage(image);
-			tempImage = image;
 		}
 	}
 

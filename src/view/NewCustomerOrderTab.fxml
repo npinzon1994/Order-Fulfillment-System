@@ -16,7 +16,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewCustomerOrderController">
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="New Customer">
             <content>
@@ -28,12 +28,12 @@
                               <Label layoutX="14.0" layoutY="68.0" text="Last Name" />
                               <Label layoutX="14.0" layoutY="104.0" text="Email" />
                               <Label layoutX="14.0" layoutY="141.0" text="Phone" />
-                              <TextField fx:id="fNameField" layoutX="97.0" layoutY="29.0" />
-                              <TextField fx:id="lNameField" layoutX="97.0" layoutY="63.0" />
-                              <TextField fx:id="emailField" layoutX="97.0" layoutY="99.0" />
-                              <TextField fx:id="phoneField1" layoutX="97.0" layoutY="136.0" prefHeight="27.0" prefWidth="46.0" />
-                              <TextField fx:id="phoneField2" layoutX="150.0" layoutY="136.0" prefHeight="27.0" prefWidth="47.0" />
-                              <TextField fx:id="phoneField3" layoutX="204.0" layoutY="136.0" prefHeight="27.0" prefWidth="59.0" />
+                              <TextField id="newCustField" fx:id="fNameField" layoutX="97.0" layoutY="29.0" />
+                              <TextField id="newCustField" fx:id="lNameField" layoutX="97.0" layoutY="63.0" />
+                              <TextField id="newCustField" fx:id="emailField" layoutX="97.0" layoutY="99.0" />
+                              <TextField id="newCustField" fx:id="phoneField1" layoutX="97.0" layoutY="136.0" prefHeight="27.0" prefWidth="46.0" />
+                              <TextField id="newCustField" fx:id="phoneField2" layoutX="150.0" layoutY="136.0" prefHeight="27.0" prefWidth="47.0" />
+                              <TextField id="newCustField" fx:id="phoneField3" layoutX="204.0" layoutY="136.0" prefHeight="27.0" prefWidth="59.0" />
                               <Label layoutX="13.0" text="Customer Information" />
                               <Label layoutX="88.0" layoutY="27.0" text="*" />
                               <Label layoutX="88.0" layoutY="62.0" text="*" />
@@ -42,10 +42,10 @@
                         <AnchorPane layoutX="1.0" layoutY="204.0" prefHeight="170.0" prefWidth="329.0">
                            <children>
                               <Label layoutX="13.0" layoutY="9.0" text="Shipping Address" />
-                              <TextField fx:id="shippingStreetAddress" layoutX="13.0" layoutY="34.0" prefHeight="27.0" prefWidth="309.0" promptText="Street Address" />
-                              <TextField fx:id="shippingCity" layoutX="13.0" layoutY="68.0" prefHeight="27.0" prefWidth="192.0" promptText="City" />
+                              <TextField id="newCustField" fx:id="shippingStreetAddress" layoutX="13.0" layoutY="34.0" prefHeight="27.0" prefWidth="309.0" promptText="Street Address" />
+                              <TextField id="newCustField" fx:id="shippingCity" layoutX="13.0" layoutY="68.0" prefHeight="27.0" prefWidth="192.0" promptText="City" />
                               <ComboBox fx:id="shippingState" layoutX="220.0" layoutY="68.0" prefHeight="27.0" prefWidth="102.0" promptText="State" />
-                              <TextField fx:id="shippingZip" layoutX="13.0" layoutY="103.0" prefHeight="27.0" prefWidth="106.0" promptText="Zip Code" />
+                              <TextField id="newCustField" fx:id="shippingZip" layoutX="13.0" layoutY="103.0" prefHeight="27.0" prefWidth="106.0" promptText="Zip Code" />
                               <CheckBox fx:id="checkbox" layoutX="150.0" layoutY="97.0" mnemonicParsing="false" onAction="#checkboxClicked" prefHeight="43.0" prefWidth="180.0" text="Billing Address same as Shipping Address" wrapText="true" />
                               <Label layoutX="4.0" layoutY="33.0" text="*" />
                               <Label layoutX="4.0" layoutY="66.0" text="*" />
@@ -61,10 +61,10 @@
                         <AnchorPane layoutX="293.0" prefHeight="181.0" prefWidth="328.0">
                            <children>
                               <Label layoutX="10.0" layoutY="8.0" text="Billing Address" />
-                              <TextField fx:id="billingStreetAddress" layoutX="10.0" layoutY="40.0" prefHeight="27.0" prefWidth="298.0" promptText="Street Address" />
-                              <TextField fx:id="billingCity" layoutX="10.0" layoutY="74.0" prefHeight="27.0" prefWidth="171.0" promptText="City" />
+                              <TextField id="newCustField" fx:id="billingStreetAddress" layoutX="10.0" layoutY="40.0" prefHeight="27.0" prefWidth="298.0" promptText="Street Address" />
+                              <TextField id="newCustField" fx:id="billingCity" layoutX="10.0" layoutY="74.0" prefHeight="27.0" prefWidth="171.0" promptText="City" />
                               <ComboBox fx:id="billingState" layoutX="194.0" layoutY="74.0" prefHeight="27.0" prefWidth="114.0" promptText="State" />
-                              <TextField fx:id="billingZip" layoutX="10.0" layoutY="107.0" prefHeight="27.0" prefWidth="95.0" promptText="Zip Code" />
+                              <TextField id="newCustField" fx:id="billingZip" layoutX="10.0" layoutY="107.0" prefHeight="27.0" prefWidth="95.0" promptText="Zip Code" />
                               <Label layoutX="1.0" layoutY="39.0" text="*" visible="false" />
                               <Label layoutX="1.0" layoutY="73.0" text="*" visible="false" />
                               <Label layoutX="1.0" layoutY="107.0" text="*" visible="false" />
@@ -105,23 +105,23 @@
       </TabPane>
    </center>
    <top>
-      <AnchorPane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="45.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="logoutLink" layoutX="554.0" layoutY="10.0" onAction="#logout" text="Logout" />
+            <Hyperlink id="topLabel" fx:id="logoutLink" layoutX="548.0" layoutY="6.0" onAction="#logout" text="Logout" />
             <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="32.0" prefWidth="203.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" text="Employee ID" />
-                  <Label fx:id="empId" text="Label" />
+                  <Label id="topLabel" fx:id="employee" text="Employee ID" />
+                  <Label id="topLabel" fx:id="empId" text="Label" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="41.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #09357A;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="createBtn" layoutX="108.0" layoutY="7.0" mnemonicParsing="false" onAction="#addCustomerToDatabase" prefHeight="27.0" prefWidth="89.0" text="Next" />
-            <Button fx:id="cancelBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#goToPreviousPage" prefHeight="27.0" prefWidth="84.0" text="Back" />
+            <Button id="bottomButton" fx:id="createBtn" layoutX="108.0" layoutY="7.0" mnemonicParsing="false" onAction="#addCustomerToDatabase" prefHeight="27.0" prefWidth="89.0" stylesheets="@application.css" text="Next" />
+            <Button id="bottomButton" fx:id="cancelBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#goToPreviousPage" prefHeight="27.0" prefWidth="84.0" stylesheets="@application.css" text="Back" />
          </children>
       </AnchorPane>
    </bottom>

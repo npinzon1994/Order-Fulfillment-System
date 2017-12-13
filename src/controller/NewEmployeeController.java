@@ -209,7 +209,6 @@ public class NewEmployeeController implements Initializable {
 		user.setLastName(lNameField.getText());
 		user.setStatus("Currently Employed");
 		user.setHireDate(user.getHireDate());
-		user.setImage(tempImage);
 		user.setPassword("habitat12");
 	}
 

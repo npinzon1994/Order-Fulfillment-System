@@ -24,7 +24,7 @@ public class ShippingLabel {
 	}
 
 	public ShippingLabel() {
-
+		this.trackingNumber = String.valueOf("1Z589Y4Y03" + trackingNumberInt++);
 	}
 
 	public static int getTrackingNumberInt() {

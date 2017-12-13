@@ -113,8 +113,8 @@
    <bottom>
       <AnchorPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #09357A;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="createBtn" layoutX="109.0" layoutY="7.0" mnemonicParsing="false" onAction="#addCustomerToDatabase" prefHeight="27.0" prefWidth="89.0" stylesheets="@application.css" text="Create" />
-            <Button fx:id="cancelBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#cancelCustomer" prefHeight="27.0" prefWidth="87.0" stylesheets="@application.css" text="Back" />
+            <Button id="bottomButton" fx:id="createBtn" layoutX="109.0" layoutY="7.0" mnemonicParsing="false" onAction="#addCustomerToDatabase" prefHeight="27.0" prefWidth="89.0" stylesheets="@application.css" text="Create" />
+            <Button id="bottomButton" fx:id="cancelBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#cancelCustomer" prefHeight="27.0" prefWidth="87.0" stylesheets="@application.css" text="Back" />
          </children>
       </AnchorPane>
    </bottom>
