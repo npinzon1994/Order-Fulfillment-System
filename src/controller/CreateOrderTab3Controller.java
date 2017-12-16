@@ -106,6 +106,9 @@ public class CreateOrderTab3Controller implements Initializable {
 		billShipBox.setSelected(true);
 		fillFieldsWhenBillShippedBoxIsChecked();
 		shippingMethodBox.getSelectionModel().selectFirst();
+		for(InvItem item : MasterDatabase.getOrderBeingViewed().getItems()){
+			System.out.println(item.getDescription());
+		}
 
 	}
 
@@ -122,8 +125,8 @@ public class CreateOrderTab3Controller implements Initializable {
 	}
 
 	public void setUserLabels() {
-		customerLabel.setText(MasterDatabase.getOrderCustomer().getFirstName() + " "
-				+ MasterDatabase.getOrderCustomer().getLastName());
+		customerLabel.setText(MasterDatabase.getOrderBeingViewed().getCustomer().getFirstName() + " "
+				+ MasterDatabase.getOrderBeingViewed().getCustomer().getLastName());
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
@@ -131,17 +134,17 @@ public class CreateOrderTab3Controller implements Initializable {
 	}
 
 	public void setBillingFields() {
-		billStreetField.setText(MasterDatabase.getOrderCustomer().getBillingAddress().getStreetAddress());
-		billCityField.setText(MasterDatabase.getOrderCustomer().getBillingAddress().getCity());
-		billStateBox.getSelectionModel().select(MasterDatabase.getOrderCustomer().getBillingAddress().getState());
-		billZipField.setText(MasterDatabase.getOrderCustomer().getBillingAddress().getZip());
+		billStreetField.setText(MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().getStreetAddress());
+		billCityField.setText(MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().getCity());
+		billStateBox.getSelectionModel().select(MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().getState());
+		billZipField.setText(MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().getZip());
 	}
 
 	public void setShippingFields() {
-		shipStreetField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getStreetAddress());
-		shipCityField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getCity());
-		shipStateBox.getSelectionModel().select(MasterDatabase.getOrderCustomer().getShippingAddress().getState());
-		shipZipField.setText(MasterDatabase.getOrderCustomer().getShippingAddress().getZip());
+		shipStreetField.setText(MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().getStreetAddress());
+		shipCityField.setText(MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().getCity());
+		shipStateBox.getSelectionModel().select(MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().getState());
+		shipZipField.setText(MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().getZip());
 	}
 
 	public void fillFieldsWhenPickupCheckboxIsChecked() {
@@ -173,7 +176,6 @@ public class CreateOrderTab3Controller implements Initializable {
 		billCityField.setEditable(false);
 		billStateBox.setDisable(true);
 		billZipField.setEditable(false);
-		MasterDatabase.getOrderCustomer().setShippingMethod("Pickup In-Store");
 		MasterDatabase.getOrderBeingViewed().setShippingMethod("Pickup In-Store");
 	}
 
@@ -207,8 +209,39 @@ public class CreateOrderTab3Controller implements Initializable {
 		billZipField.setEditable(false);
 		shippingMethodBox.setDisable(false);
 		shippingMethodBox.getSelectionModel().selectFirst();
-		MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getValue());
 		MasterDatabase.getOrderBeingViewed().setShippingMethod(shippingMethodBox.getValue());
+	}
+	
+	public void setTotals() {
+		double subtotal = 0;
+		double total = 0;
+		for (InvItem item : MasterDatabase.getOrderBeingViewed().getItems()) {
+			subtotal += item.getPrice();
+		}
+		total = subtotal + determineShippingCost();
+		MasterDatabase.getOrderBeingViewed().setSubtotal(subtotal);
+		MasterDatabase.getOrderBeingViewed().setShippingCost(determineShippingCost());
+		MasterDatabase.getOrderBeingViewed().setTotal(total);
+	}
+
+	public double determineShippingCost() {
+		double shippingCost = 0;
+		if (MasterDatabase.getOrderBeingViewed().getShippingMethod().equals("Pickup In-Store")) {
+			shippingCost = 0;
+			return shippingCost;
+		} else {
+			shippingCost = ShippingCost.calculate(MasterDatabase.getOrderBeingViewed().getShippingAddress().getState(),
+					MasterDatabase.getOrderBeingViewed().getShippingMethod(), getWeightOfOrder());
+		}
+		return shippingCost;
+	}
+	
+	public double getWeightOfOrder(){
+		double weight = 0;
+		for(InvItem item : MasterDatabase.getOrderBeingViewed().getItems()){
+			weight += item.getWeight();
+		}
+		return weight;
 	}
 
 	public void setAllFieldsEditable() {
@@ -223,31 +256,31 @@ public class CreateOrderTab3Controller implements Initializable {
 		billZipField.setEditable(true);
 		shippingMethodBox.setDisable(false);
 		shippingMethodBox.getSelectionModel().selectFirst();
-		MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getValue());
+		MasterDatabase.getOrderBeingViewed().setShippingMethod(shippingMethodBox.getValue());
 	}
 
 	public void goToNextPage(ActionEvent event) {
 		if (enterNewAddress.isSelected() && ((!billStreetField.getText()
-				.equals(MasterDatabase.getOrderCustomer().getBillingAddress().getStreetAddress())
-				|| !billCityField.getText().equals(MasterDatabase.getOrderCustomer().getBillingAddress().getCity())
-				|| !billStateBox.getValue().equals(MasterDatabase.getOrderCustomer().getBillingAddress().getState())
-				|| !billZipField.getText().equals(MasterDatabase.getOrderCustomer().getBillingAddress().getZip())
+				.equals(MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().getStreetAddress())
+				|| !billCityField.getText().equals(MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().getCity())
+				|| !billStateBox.getValue().equals(MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().getState())
+				|| !billZipField.getText().equals(MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().getZip())
 				|| !shipStreetField.getText()
-						.equals(MasterDatabase.getOrderCustomer().getShippingAddress().getStreetAddress())
-				|| !shipCityField.getText().equals(MasterDatabase.getOrderCustomer().getShippingAddress().getCity())
-				|| !shipStateBox.getValue().equals(MasterDatabase.getOrderCustomer().getShippingAddress().getState())
-				|| !shipZipField.getText().equals(MasterDatabase.getOrderCustomer().getShippingAddress().getZip())))) {
+						.equals(MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().getStreetAddress())
+				|| !shipCityField.getText().equals(MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().getCity())
+				|| !shipStateBox.getValue().equals(MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().getState())
+				|| !shipZipField.getText().equals(MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().getZip())))) {
 			promptUserToChangeInfo(event);
 		} else {
-			MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getValue());
 			MasterDatabase.getOrderBeingViewed().setShippingMethod(shippingMethodBox.getValue());
 			double weight = 0;
 			for (InvItem item : MasterDatabase.getOrderBeingViewed().getItems()) {
 				weight += item.getWeight();
 			}
-			MasterDatabase.getOrderBeingViewed().setshippingCost(
-					ShippingCost.calculate(MasterDatabase.getOrderBeingViewed().getShippingAddress().getState(),
+			MasterDatabase.getOrderBeingViewed().setShippingCost(
+					ShippingCost.calculate(MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().getState(),
 							MasterDatabase.getOrderBeingViewed().getShippingMethod(), weight));
+			setTotals();
 			switchToOrderPane4(event);
 		}
 	}
@@ -259,6 +292,7 @@ public class CreateOrderTab3Controller implements Initializable {
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 			MasterDatabase.getOrderCustomer().getCart().clear();
+			MasterDatabase.getOrderBeingViewed().getItems().clear();
 			if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 3) {
 				switchToAdminTab(event);
 			} else if (MasterDatabase.getLoggedEmployee().getStoreLevel() == 2) {
@@ -327,12 +361,13 @@ public class CreateOrderTab3Controller implements Initializable {
 	public void promptUserToChangeInfo(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText("Change Address Information");
-		alert.setContentText("Overwrite billing address for " + MasterDatabase.getOrderCustomer().getFirstName() + " "
-				+ MasterDatabase.getOrderCustomer().getLastName() + "?");
+		alert.setContentText("Overwrite billing address for " + MasterDatabase.getOrderBeingViewed().getCustomer().getFirstName() + " "
+				+ MasterDatabase.getOrderBeingViewed().getCustomer().getLastName() + "?");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 			setOrderCustomerBillingInfo();
 			setOrderCustomerShippingInfo();
+			setTotals();
 			switchToOrderPane4(event);
 		} else {
 			alert.close();
@@ -346,11 +381,11 @@ public class CreateOrderTab3Controller implements Initializable {
 		address1.setState(billStateBox.getValue());
 		address1.setZip(billZipField.getText());
 		MasterDatabase.getOrderBeingViewed().setBillingAddress(address1);
-		MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getValue());
-		MasterDatabase.getOrderCustomer().getBillingAddress().setStreetAddress(billStreetField.getText());
-		MasterDatabase.getOrderCustomer().getBillingAddress().setCity(billCityField.getText());
-		MasterDatabase.getOrderCustomer().getBillingAddress().setState(billStateBox.getValue());
-		MasterDatabase.getOrderCustomer().getBillingAddress().setZip(billZipField.getText());
+		MasterDatabase.getOrderBeingViewed().setShippingMethod(shippingMethodBox.getValue());
+		MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().setStreetAddress(billStreetField.getText());
+		MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().setCity(billCityField.getText());
+		MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().setState(billStateBox.getValue());
+		MasterDatabase.getOrderBeingViewed().getCustomer().getBillingAddress().setZip(billZipField.getText());
 	}
 
 	public void setOrderCustomerShippingInfo() {
@@ -361,11 +396,11 @@ public class CreateOrderTab3Controller implements Initializable {
 		address2.setZip(shipZipField.getText());
 		MasterDatabase.getOrderBeingViewed().setShippingAddress(address2);
 		MasterDatabase.getOrderBeingViewed().setShippingMethod(shippingMethodBox.getValue());
-		MasterDatabase.getOrderCustomer().setShippingMethod(shippingMethodBox.getValue());
-		MasterDatabase.getOrderCustomer().getShippingAddress().setStreetAddress(shipStreetField.getText());
-		MasterDatabase.getOrderCustomer().getShippingAddress().setCity(shipCityField.getText());
-		MasterDatabase.getOrderCustomer().getShippingAddress().setState(shipStateBox.getValue());
-		MasterDatabase.getOrderCustomer().getShippingAddress().setZip(shipZipField.getText());
+		MasterDatabase.getOrderBeingViewed().getCustomer().setShippingMethod(shippingMethodBox.getValue());
+		MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().setStreetAddress(shipStreetField.getText());
+		MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().setCity(shipCityField.getText());
+		MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().setState(shipStateBox.getValue());
+		MasterDatabase.getOrderBeingViewed().getCustomer().getShippingAddress().setZip(shipZipField.getText());
 	}
 
 	public void switchToOrderPane4(ActionEvent event) {

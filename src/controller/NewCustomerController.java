@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Address;
 import model.Customer;
+import model.Invoice;
 import model.MasterDatabase;
 import model.Validation;
 
@@ -146,6 +149,19 @@ public class NewCustomerController implements Initializable {
 		Validation.limitInputToZipField(billingZip);
 		shippingState.getSelectionModel().selectFirst();
 		billingState.getSelectionModel().selectFirst();
+		bindShippingStateToBillingState();
+	}
+	
+	public void bindShippingStateToBillingState() {
+		shippingState.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if(checkbox.isSelected()){
+					billingState.getSelectionModel().select(shippingState.getValue());
+				}
+			}
+		});
 	}
 
 	public void bindFieldsToButton() {

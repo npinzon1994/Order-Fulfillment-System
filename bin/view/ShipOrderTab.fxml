@@ -55,7 +55,7 @@
                         <Label layoutX="452.0" layoutY="197.0" text="lbs" />
                         <Label layoutX="382.0" layoutY="245.0" text="Calculated Cost" />
                         <Label fx:id="costLbl" layoutX="514.0" layoutY="246.0" text="costLbl" />
-                        <Button fx:id="shipBtn" layoutX="379.0" layoutY="274.0" mnemonicParsing="false" onAction="#ship" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: #09357A;" text="Ship" />
+                        <Button fx:id="shipBtn" layoutX="379.0" layoutY="274.0" mnemonicParsing="false" onAction="#ship" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: #005F99;" text="Ship" />
                      </children>
                   </AnchorPane>
             </content>
@@ -64,7 +64,7 @@
       </TabPane>
    </center>
    <bottom>
-      <AnchorPane prefHeight="50.0" prefWidth="604.0" style="-fx-background-color: #09357A;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="50.0" prefWidth="604.0" style="-fx-background-color: #005F99;" BorderPane.alignment="CENTER">
          <children>
             <Button id="bottomButton" fx:id="backBtn" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="94.0" stylesheets="@application.css" text="Back" />
          </children>

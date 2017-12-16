@@ -86,10 +86,10 @@ public class MyCartController implements Initializable {
 				+ MasterDatabase.getOrderCustomer().getLastName());
 		subTotal = 0;
 		subtotalLabel.setText(format.format(subTotal));
-		if (MasterDatabase.getOrderCustomer().getCart().isEmpty()) {
+		if (MasterDatabase.getOrderBeingViewed().getItems().isEmpty()) {
 			isEmpty.setVisible(true);
 		} else {
-			for (InvItem item : MasterDatabase.getOrderCustomer().getCart()) {
+			for (InvItem item : MasterDatabase.getOrderBeingViewed().getItems()) {
 				items.add(item);
 				subTotal += item.getPrice();
 			}
@@ -100,7 +100,7 @@ public class MyCartController implements Initializable {
 			subtotalLabel.setText("$" + String.valueOf(subTotal));
 			table.setItems(items);
 		}
-		totalItemsLbl.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
+		totalItemsLbl.setText(String.valueOf(MasterDatabase.getOrderBeingViewed().getItems().size()));
 		removeBtn.setDisable(true);
 		onClicked();
 	}
@@ -152,7 +152,7 @@ public class MyCartController implements Initializable {
 	public void removeFromCart() {
 		NumberFormat format = NumberFormat.getCurrencyInstance();
 		InvItem item = null;
-		Iterator<InvItem> iter = MasterDatabase.getOrderCustomer().getCart().iterator();
+		Iterator<InvItem> iter = MasterDatabase.getOrderBeingViewed().getItems().iterator();
 
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText("Remove Item?");
@@ -164,7 +164,7 @@ public class MyCartController implements Initializable {
 					iter.remove();
 					subTotal -= item.getPrice();
 					subtotalLabel.setText(format.format(subTotal));
-					totalItemsLbl.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
+					totalItemsLbl.setText(String.valueOf(MasterDatabase.getOrderBeingViewed().getItems().size()));
 				}
 			}
 		} else {

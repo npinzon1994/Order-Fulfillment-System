@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -116,7 +117,7 @@ public class SearchInvItemController implements Initializable {
 	@FXML
 	private Hyperlink logoutLink;
 	
-	private InvItem currentItem;
+	private InvItem currentItem = MasterDatabase.getCurrentItem();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -125,6 +126,7 @@ public class SearchInvItemController implements Initializable {
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 		removeBtn.setVisible(false);
 		addBtn.setVisible(false);
+		onClicked();
 	}
 
 	public void onClicked() {
@@ -134,35 +136,40 @@ public class SearchInvItemController implements Initializable {
 				MasterDatabase.setCurrentItem(list.getSelectionModel().getSelectedItem());
 				setFields();
 				setLabelsVisible();
-				if(list.getSelectionModel().getSelectedItem().getImagePath() != null){
-					MasterDatabase.load(MasterDatabase.getCurrentItem().getImagePath(), imageView);
-					imageView.setVisible(true);
-				} else {
-					imageView.setVisible(false);
-				}
+//				if(list.getSelectionModel().getSelectedItem().getImagePath() != null){
+//					MasterDatabase.load(MasterDatabase.getCurrentItem().getImagePath(), imageView);
+//					imageView.setVisible(true);
+//				} else {
+//					imageView.setVisible(false);
+//				}
 				
-				if (MasterDatabase.getCurrentItem().getStatus().equals("In Stock")) {
+				if (list.getSelectionModel().getSelectedItem().getStatus().equals("In Stock")) {
 					addBtn.setVisible(false);
 					removeBtn.setVisible(true);
-				} else if (MasterDatabase.getCurrentItem().getStatus().equals("Out of Stock")) {
+				} else if (list.getSelectionModel().getSelectedItem().getStatus().equals("Out of Stock")) {
 					addBtn.setVisible(true);
 					removeBtn.setVisible(false);
 				}
-				
+				searchBtn.setDisable(true);
 
 			}
 		});
 	}
+	
+	public void textFieldClicked(){
+		searchBtn.setDisable(false);
+	}
 
 	public void searchItem() {
 		items = FXCollections.observableArrayList();
-		for (InvItem item : MasterDatabase.getInventory().values()) {
-			if (item.getDescription().contains(searchBar.getText()) && !items.contains(item)) {
-				items.add(item);
+		if (list.getSelectionModel().isEmpty()) {
+			for (InvItem item : MasterDatabase.getInventory().values()) {
+				if (item.getDescription().contains(searchBar.getText()) && !items.contains(item)) {
+					items.add(item);
+				}
 			}
+			list.setItems(items);
 		}
-		list.setItems(items);
-		onClicked();
 	}
 
 	public void removeItem() {

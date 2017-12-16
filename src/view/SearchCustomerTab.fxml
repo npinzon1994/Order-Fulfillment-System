@@ -28,7 +28,7 @@
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="44.0" prefWidth="600.0" style="-fx-background-color: #09357A;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="44.0" prefWidth="600.0" style="-fx-background-color: #005F99;" BorderPane.alignment="CENTER">
          <children>
             <Button id="bottomButton" fx:id="searchBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#search" prefHeight="27.0" prefWidth="90.0" stylesheets="@application.css" text="Search" />
             <Button id="bottomButton" fx:id="cancelBtn" layoutX="114.0" layoutY="7.0" mnemonicParsing="false" onAction="#cancel" prefHeight="27.0" prefWidth="89.0" stylesheets="@application.css" text="Cancel" />
@@ -56,7 +56,7 @@
                                     <TableColumn fx:id="addressColumn" prefWidth="176.0" text="Shipping Address" />
                                  </columns>
                               </TableView>
-                              <Button fx:id="viewOrdersBtn" layoutX="201.0" layoutY="238.0" mnemonicParsing="false" onAction="#viewOrders" style="-fx-background-color: #09357A;" text="View Orders" />
+                              <Button id="tealBtn" fx:id="viewOrdersBtn" layoutX="201.0" layoutY="238.0" mnemonicParsing="false" onAction="#viewOrders" prefHeight="27.0" prefWidth="129.0" text="View Orders" />
                            </children>
                         </AnchorPane>
                      </content>

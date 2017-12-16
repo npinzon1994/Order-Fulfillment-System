@@ -3,7 +3,7 @@ package model;
 public class ShippingCost {
 
 	private static double costPerPound;
-	private static double costPerMile = 2.15;
+	private static double costPerMile = 1.15;
 	private static double totalDistance;
 
 	/*Shipping charge = (cost per pounds * total weight) * (cost per miles * total distance)*/

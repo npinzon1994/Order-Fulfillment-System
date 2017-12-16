@@ -51,7 +51,7 @@
                               <Image url="@../images/customer-512.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="customerId" layoutX="64.0" layoutY="11.0" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="customer" />
+                        <Label fx:id="customerId" layoutX="64.0" layoutY="11.0" style="-fx-font-size: 20; -fx-text-fill: #005F99;" text="customer" />
                      </children>
                   </AnchorPane>
             </content>
@@ -60,7 +60,7 @@
       </TabPane>
    </center>
    <bottom>
-      <AnchorPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #005F99;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
             <Button id="bottomButton" fx:id="cancelBtn" layoutX="502.0" layoutY="7.0" mnemonicParsing="false" onAction="#cancel" prefHeight="27.0" prefWidth="84.0" text="Cancel" />
             <Button id="bottomButton" fx:id="removeBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#removeFromCart" prefHeight="27.0" prefWidth="154.0" text="Remove from cart" />

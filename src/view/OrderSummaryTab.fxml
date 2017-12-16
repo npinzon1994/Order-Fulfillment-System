@@ -30,7 +30,7 @@
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #005F99;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
             <Button id="bottomButton" fx:id="previousBtn" layoutX="10.0" layoutY="6.0" mnemonicParsing="false" onAction="#goToPreviousPage" text="Previous" />
             <Button id="bottomButton" fx:id="cancelBtn" layoutX="525.0" layoutY="6.0" mnemonicParsing="false" onAction="#cancelOrder" text="Cancel" />
@@ -49,7 +49,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="411.0" prefWidth="581.0">
                                  <children>
-                                    <Label fx:id="customerLabel" layoutX="57.0" layoutY="10.0" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="customerLabel" />
+                                    <Label fx:id="customerLabel" layoutX="57.0" layoutY="10.0" style="-fx-text-fill: #005F99; -fx-font-size: 20;" text="customerLabel" />
                                     <AnchorPane layoutX="10.0" layoutY="69.0" prefHeight="83.0" prefWidth="273.0">
                                        <children>
                                           <Label layoutX="5.0" layoutY="5.0" text="Shipping Address" />

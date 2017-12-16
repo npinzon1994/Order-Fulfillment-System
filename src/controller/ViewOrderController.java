@@ -71,8 +71,8 @@ public class ViewOrderController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		customerLabel.setText(MasterDatabase.getOrderCustomer().getFirstName() + " "
-				+ MasterDatabase.getOrderCustomer().getLastName());
+		customerLabel.setText(MasterDatabase.getOrderBeingViewed().getCustomer().getFirstName() + " "
+				+ MasterDatabase.getOrderBeingViewed().getCustomer().getLastName());
 		shipStreetAddress.setText(MasterDatabase.getOrderBeingViewed().getShippingAddress().getStreetAddress());
 		shipCityStateZip.setText(MasterDatabase.getOrderBeingViewed().getShippingAddress().getCity() + " "
 				+ MasterDatabase.getOrderBeingViewed().getShippingAddress().getState() + ", "
@@ -81,19 +81,19 @@ public class ViewOrderController implements Initializable {
 		billCityStateZip.setText(MasterDatabase.getOrderBeingViewed().getBillingAddress().getCity() + " "
 				+ MasterDatabase.getOrderBeingViewed().getBillingAddress().getState() + ", "
 				+ MasterDatabase.getOrderBeingViewed().getBillingAddress().getZip());
-		shippingMethodLabel.setText(MasterDatabase.getOrderCustomer().getShippingMethod());
+		shippingMethodLabel.setText(MasterDatabase.getOrderBeingViewed().getShippingMethod());
 		populateTable();
 		NumberFormat format = NumberFormat.getCurrencyInstance();
-		subtotalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getSubtotal()));
-		shippingLabel.setText(format.format(MasterDatabase.getOrderCustomer().getShippingCost()));
-		totalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getTotal()));
+		subtotalLabel.setText(format.format(MasterDatabase.getOrderBeingViewed().getSubtotal()));
+		shippingLabel.setText(format.format(MasterDatabase.getOrderBeingViewed().getShippingCost()));
+		totalLabel.setText(format.format(MasterDatabase.getOrderBeingViewed().getTotal()));
 		orderNumber.setText(MasterDatabase.getOrderBeingViewed().getInvoiceNumber());
 
 	}
 
 	public void populateTable() {
 		ObservableList<InvItem> items = FXCollections.observableArrayList();
-		for (InvItem item : MasterDatabase.getOrderCustomer().getCart()) {
+		for (InvItem item : MasterDatabase.getOrderBeingViewed().getItems()) {
 			items.add(item);
 		}
 		itemColumn.setCellValueFactory(

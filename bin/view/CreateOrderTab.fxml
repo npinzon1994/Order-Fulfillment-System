@@ -16,18 +16,18 @@
    <top>
       <AnchorPane prefHeight="41.0" prefWidth="600.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <Hyperlink fx:id="logoutLink" layoutX="518.0" layoutY="3.0" onAction="#logout" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Logout" />
-            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="9.0" prefHeight="24.0" prefWidth="200.0" spacing="20.0">
+            <Hyperlink fx:id="logoutLink" layoutX="518.0" layoutY="3.0" onAction="#logout" style="-fx-text-fill: #005F99; -fx-font-size: 20;" text="Logout" />
+            <HBox alignment="CENTER_LEFT" layoutX="11.0" layoutY="9.0" prefHeight="24.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label fx:id="employee" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="Employee" />
-                  <Label fx:id="empId" style="-fx-text-fill: #09357A; -fx-font-size: 20;" text="empId" />
+                  <Label fx:id="employee" style="-fx-text-fill: #005F99; -fx-font-size: 20;" text="Employee" />
+                  <Label fx:id="empId" style="-fx-text-fill: #005F99; -fx-font-size: 20;" text="empId" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #005F99;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
             <Button id="bottomButton" fx:id="nextBtn" layoutX="97.0" layoutY="8.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="73.0" text="Next" />
             <Button id="bottomButton" fx:id="cancelBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="72.0" text="Back" />
@@ -53,7 +53,7 @@
                               <TextField id="newCustField" fx:id="fNameField" layoutX="8.0" layoutY="18.0" promptText="First Name" />
                               <TextField id="newCustField" fx:id="lNameField" layoutX="184.0" layoutY="18.0" promptText="Last Name" />
                               <TextField id="newCustField" fx:id="zipField" layoutX="359.0" layoutY="18.0" prefHeight="27.0" prefWidth="97.0" promptText="Zip Code" />
-                              <Button fx:id="searchBtn" layoutX="466.0" layoutY="19.0" mnemonicParsing="false" onAction="#searchForCustomer" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: #09357A;" text="Search" />
+                              <Button id="tealBtn" fx:id="searchBtn" layoutX="466.0" layoutY="19.0" mnemonicParsing="false" onAction="#searchForCustomer" prefHeight="27.0" prefWidth="84.0" text="Search" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutY="137.0" prefHeight="220.0" prefWidth="600.0">

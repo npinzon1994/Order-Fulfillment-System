@@ -11,7 +11,7 @@
    <children>
       <AnchorPane layoutX="11.0" layoutY="69.0" minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="624.0">
          <children>
-            <Label fx:id="customerLabel" layoutX="55.0" layoutY="11.0" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="customerLabel" />
+            <Label fx:id="customerLabel" layoutX="55.0" layoutY="11.0" style="-fx-font-size: 20; -fx-text-fill: #005F99;" text="customerLabel" />
             <AnchorPane layoutX="10.0" layoutY="75.0" prefHeight="83.0" prefWidth="273.0">
                <children>
                   <Label id="topLabel" layoutX="4.0" layoutY="5.0" text="Shipping Address" />

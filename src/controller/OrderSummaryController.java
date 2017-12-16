@@ -86,7 +86,7 @@ public class OrderSummaryController implements Initializable {
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
-		customerLabel.setText(MasterDatabase.getOrderCustomer().getFirstName() + " "
+		customerLabel.setText(MasterDatabase.getOrderBeingViewed().getCustomer().getFirstName() + " "
 				+ MasterDatabase.getOrderCustomer().getLastName());
 		shipStreetAddress.setText(MasterDatabase.getOrderBeingViewed().getShippingAddress().getStreetAddress());
 		shipCityStateZip.setText(MasterDatabase.getOrderBeingViewed().getShippingAddress().getCity() + " "
@@ -96,16 +96,16 @@ public class OrderSummaryController implements Initializable {
 		billCityStateZip.setText(MasterDatabase.getOrderBeingViewed().getBillingAddress().getCity() + " "
 				+ MasterDatabase.getOrderBeingViewed().getBillingAddress().getState() + ", "
 				+ MasterDatabase.getOrderBeingViewed().getBillingAddress().getZip());
-		shippingMethodLabel.setText(MasterDatabase.getOrderCustomer().getShippingMethod());
+		shippingMethodLabel.setText(MasterDatabase.getOrderBeingViewed().getShippingMethod());
 		populateTable();
 		NumberFormat format = NumberFormat.getCurrencyInstance();
-		totalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getTotal()));
+		totalLabel.setText(format.format(MasterDatabase.getOrderBeingViewed().getTotal()));
 
 	}
 
 	public void populateTable() {
 		ObservableList<InvItem> items = FXCollections.observableArrayList();
-		for (InvItem item : MasterDatabase.getOrderCustomer().getCart()) {
+		for (InvItem item : MasterDatabase.getOrderBeingViewed().getItems()) {
 			items.add(item);
 		}
 		itemColumn.setCellValueFactory(
@@ -134,7 +134,7 @@ public class OrderSummaryController implements Initializable {
 			alert.close();
 		}
 		MasterDatabase.getOrderCustomer().getCart().clear();
-
+		MasterDatabase.getOrderBeingViewed().getItems().clear();
 	}
 
 	public void cancelOrder(ActionEvent event) {
@@ -154,7 +154,7 @@ public class OrderSummaryController implements Initializable {
 			alert.close();
 		}
 		MasterDatabase.getOrderCustomer().getCart().clear();
-
+		MasterDatabase.getOrderBeingViewed().getItems().clear();
 	}
 
 	public void goToPreviousPage(ActionEvent event) {
@@ -172,29 +172,31 @@ public class OrderSummaryController implements Initializable {
 
 	public void createInvoice() {
 		Invoice invoice = MasterDatabase.getOrderBeingViewed();
-		invoice.setShippingAddress(MasterDatabase.getOrderBeingViewed().getShippingAddress());
-		invoice.setBillingAddress(MasterDatabase.getOrderBeingViewed().getBillingAddress());
 		invoice.setOrderStatus("Processed");
-		for (InvItem item : MasterDatabase.getOrderCustomer().getCart()) {
-			invoice.getItems().add(item);
-		}
-		invoice.setSubtotal(MasterDatabase.getOrderCustomer().getSubtotal());
-		invoice.setshippingCost(MasterDatabase.getOrderCustomer().getShippingCost());
-		invoice.setTotal(MasterDatabase.getOrderCustomer().getTotal());
-		invoice.setShippingMethod(MasterDatabase.getOrderCustomer().getShippingMethod());
 		MasterDatabase.getInvoiceDatabase().put(invoice.getInvoiceNumber(), invoice);
 		for (Customer customer : MasterDatabase.getCustomerDatabase().values()) {
-			if (customer.getId().equals(MasterDatabase.getOrderCustomer().getId())) {
+			if (customer.getId().equals(MasterDatabase.getOrderBeingViewed().getCustomer().getId())) {
 				customer.getOrders().put(invoice.getInvoiceNumber(), invoice);
-				invoice.setCustomer(customer);
 			}
 
 		}
-		MasterDatabase.getOrderCustomer().getOrders().put(invoice.getInvoiceNumber(), invoice);
 	}
 
+	// when place order button is actually clicked
 	public void placeOrder(ActionEvent event) {
 		createInvoice();
+		for (InvItem item : MasterDatabase.getOrderBeingViewed().getItems()) {
+			if (MasterDatabase.getInventory().containsValue(item)) {
+				item.setStatus("Out of Stock");
+			}
+		}
+		MasterDatabase.getOrderCustomer().getCart().clear();
+		MasterDatabase.getOrderCustomer().setShippingCost(0);
+		MasterDatabase.getOrderCustomer().setSubtotal(0);
+		MasterDatabase.getOrderCustomer().setTotal(0);
+		MasterDatabase.saveInventory();
+		MasterDatabase.saveCustomers();
+		MasterDatabase.saveInvoices();
 		Stage stage = new Stage();
 		Parent root = null;
 		try {
@@ -212,18 +214,6 @@ public class OrderSummaryController implements Initializable {
 			switchToCustomerServiceRepTab(event);
 		}
 		stage.show();
-		for (InvItem item : MasterDatabase.getOrderCustomer().getCart()) {
-			if (MasterDatabase.getInventory().containsValue(item)) {
-				item.setStatus("Out of Stock");
-			}
-		}
-		MasterDatabase.getOrderCustomer().getCart().clear();
-		MasterDatabase.getOrderCustomer().setShippingCost(0);
-		MasterDatabase.getOrderCustomer().setSubtotal(0);
-		MasterDatabase.getOrderCustomer().setTotal(0);
-		MasterDatabase.saveInventory();
-		MasterDatabase.saveCustomers();
-		MasterDatabase.saveInvoices();
 	}
 
 	public void switchToAdminTab(ActionEvent event) {

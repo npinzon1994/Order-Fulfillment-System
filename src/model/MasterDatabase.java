@@ -44,6 +44,7 @@ public class MasterDatabase implements Serializable {
 		employeeDatabase = new HashMap<>();
 		customerDatabase = new HashMap<>();
 		invoiceDatabase = new HashMap<>();
+		shippingLabelDatabase = new HashMap<>();
 	}
 
 	public static MasterDatabase getMasterDatabase() {
@@ -311,6 +312,7 @@ public class MasterDatabase implements Serializable {
 			fileOutput = new FileOutputStream("shippingLabels.dat");
 			objectOutput = new ObjectOutputStream(fileOutput);
 			objectOutput.writeObject(getShippingLabelDatabase());
+			objectOutput.writeInt(ShippingLabel.getTrackingNumberInt());
 			objectOutput.close();
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
@@ -327,6 +329,7 @@ public class MasterDatabase implements Serializable {
 			fileInput = new FileInputStream("shippingLabels.dat");
 			objectInput = new ObjectInputStream(fileInput);
 			setShippingLabelDatabase((HashMap<String, ShippingLabel>) objectInput.readObject());
+			ShippingLabel.setTrackingNumberInt(objectInput.readInt());
 			objectInput.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

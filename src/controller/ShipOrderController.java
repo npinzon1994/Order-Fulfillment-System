@@ -185,6 +185,7 @@ public class ShipOrderController implements Initializable {
 
 		}
 		MasterDatabase.setCurrentShippingLabel(shippingLabel);
+		MasterDatabase.getShippingLabelDatabase().put(shippingLabel.getTrackingNumber(), shippingLabel);
 		clearFields();
 		MasterDatabase.saveCustomers();
 		MasterDatabase.saveInventory();

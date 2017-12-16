@@ -1,16 +1,13 @@
 package view;
 
-import java.time.LocalDate;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.Administrator;
-import model.CustomerServiceRep;
 import model.Invoice;
 import model.MasterDatabase;
+import model.ShippingLabel;
 
 public class Main extends Application {
 	
@@ -22,6 +19,10 @@ public class Main extends Application {
 			MasterDatabase.loadEmployees();
 			MasterDatabase.loadCustomers();
 			MasterDatabase.loadInvoices();
+			MasterDatabase.loadShippingLabels();
+			for(ShippingLabel label : MasterDatabase.getShippingLabelDatabase().values()){
+				System.out.println(label.getTrackingNumber());
+			}
 			
 			for(Invoice invoice : MasterDatabase.getInvoiceDatabase().values()){
 				System.out.println(invoice.getInvoiceNumber());

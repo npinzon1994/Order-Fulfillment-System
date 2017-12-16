@@ -127,6 +127,7 @@ public class CreateOrderController implements Initializable {
 			public void changed(ObservableValue<? extends Customer> observable, Customer oldValue, Customer newValue) {
 				MasterDatabase.setOrderCustomer(table.getSelectionModel().getSelectedItem());
 				MasterDatabase.setOrderBeingViewed(new Invoice());
+				MasterDatabase.getOrderBeingViewed().setCustomer(table.getSelectionModel().getSelectedItem());
 				nextBtn.setDisable(false);
 			}
 		});

@@ -90,9 +90,6 @@ public class CreateOrderController4 implements Initializable {
 	@FXML
 	private Label cvvLbl;
 
-	private double subtotal;
-	private double total;
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
@@ -106,12 +103,17 @@ public class CreateOrderController4 implements Initializable {
 		creditBox.getSelectionModel().selectFirst();
 		NumberFormat format = NumberFormat.getCurrencyInstance();
 
-		setTotals();
-		subtotalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getSubtotal()));
-		shippingLabel.setText(format.format(MasterDatabase.getOrderBeingViewed().getshippingCost()));
-		totalLabel.setText(format.format(MasterDatabase.getOrderCustomer().getTotal()));
+		
+		subtotalLabel.setText(format.format(MasterDatabase.getOrderBeingViewed().getSubtotal()));
+		shippingLabel.setText(format.format(MasterDatabase.getOrderBeingViewed().getShippingCost()));
+		System.out.println("Shipping Cost" + MasterDatabase.getOrderBeingViewed().getShippingCost());
+		totalLabel.setText(format.format(MasterDatabase.getOrderBeingViewed().getTotal()));
 		limitTextFieldInputs();
+		for(InvItem item : MasterDatabase.getOrderBeingViewed().getItems()){
+			System.out.println(item.getDescription());
+		}
 	}
+	
 
 	public void limitTextFieldInputs() {
 		Validation.limitInputToCreditCardField(numField1);
@@ -127,38 +129,6 @@ public class CreateOrderController4 implements Initializable {
 		} else {
 			cvvLbl.setText("CVV");
 		}
-	}
-
-	public void setTotals() {
-		subtotal = 0;
-		total = 0;
-		for (InvItem item : MasterDatabase.getOrderCustomer().getCart()) {
-			subtotal += item.getPrice();
-		}
-		total = subtotal + determineShippingCost();
-		MasterDatabase.getOrderCustomer().setSubtotal(subtotal);
-		MasterDatabase.getOrderCustomer().setShippingCost(determineShippingCost());
-		MasterDatabase.getOrderCustomer().setTotal(total);
-	}
-
-	public double determineShippingCost() {
-		double shippingCost = 0;
-		if (MasterDatabase.getOrderCustomer().getShippingMethod().equals("Pickup In-Store")) {
-			shippingCost = 0;
-			return shippingCost;
-		} else {
-			shippingCost = ShippingCost.calculate(MasterDatabase.getOrderCustomer().getShippingAddress().getState(),
-					MasterDatabase.getOrderCustomer().getShippingMethod(), getWeightOfOrder());
-		}
-		return shippingCost;
-	}
-	
-	public double getWeightOfOrder(){
-		double weight = 0;
-		for(InvItem item : MasterDatabase.getOrderCustomer().getCart()){
-			weight += item.getWeight();
-		}
-		return weight;
 	}
 
 	public void logout(ActionEvent event) {
@@ -211,6 +181,7 @@ public class CreateOrderController4 implements Initializable {
 	}
 
 	public void goToNextPage(ActionEvent event) {
+		
 		if (Validation.isValidCreditCard(creditX, numField1.getText(), numField2.getText(), numField3.getText(),
 				numField4.getText()) && Validation.isValidCvv(cvvX, creditBox, cvvField.getText())) {
 			switchToOrderSummaryTab(event);

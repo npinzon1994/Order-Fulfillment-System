@@ -77,6 +77,7 @@ public class ViewOrderDetailsController implements Initializable {
 			items.add(item);
 
 		}
+		table.setItems(items);
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
@@ -91,7 +92,6 @@ public class ViewOrderDetailsController implements Initializable {
 		itemColumn.setCellValueFactory(
 				cellData -> Bindings.createStringBinding(() -> cellData.getValue().getDescription()));
 		priceColumn.setCellValueFactory(new PropertyValueFactory<InvItem, String>("price"));
-		table.setItems(items);
 
 	}
 

@@ -45,7 +45,7 @@
                         </ImageView>
                         <Label fx:id="nameLabel" alignment="TOP_LEFT" layoutX="281.0" layoutY="43.0" prefHeight="38.0" prefWidth="232.0" text="nameLabel" visible="false" wrapText="true" />
                         <TextField id="newCustField" fx:id="searchByNameField" layoutX="28.0" layoutY="23.0" prefHeight="27.0" prefWidth="161.0" promptText="Search By Name" />
-                        <Button fx:id="searchByNameBtn" layoutX="197.0" layoutY="23.0" mnemonicParsing="false" onAction="#searchUserByName" style="-fx-background-color: #09357A;" text="Search" />
+                        <Button fx:id="searchByNameBtn" layoutX="197.0" layoutY="23.0" mnemonicParsing="false" onAction="#searchUserByName" style="-fx-background-color: #005F99;" text="Search" />
                         <Label layoutX="28.0" layoutY="62.0" text="Search Results" />
                      </children>
                   </AnchorPane>
@@ -68,7 +68,7 @@
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #005F99;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
             <Button id="bottomButton" fx:id="cancelBtn" layoutX="13.0" layoutY="9.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="88.0" text="Cancel" />
             <Button id="bottomButton" fx:id="removeBtn" layoutX="113.0" layoutY="10.0" mnemonicParsing="false" onAction="#removeUser" prefHeight="27.0" prefWidth="133.0" text="Remove User" />

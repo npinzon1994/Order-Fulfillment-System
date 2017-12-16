@@ -212,33 +212,16 @@ public class InvItemController implements Initializable {
 		item.setDescription(description.getText());
 		item.setCondition(condition.getSelectionModel().getSelectedItem());
 		item.setSpecs(specs.getText());
-		if(imagePathField != null){
-			item.setImagePath(imagePathField.getText());
-			System.out.println(imagePathField.getText());
-			MasterDatabase.saveImage(imagePathField.getText());
-		}
+//		if(imagePathField != null){
+//			item.setImagePath(imagePathField.getText());
+//			System.out.println(imagePathField.getText());
+//			MasterDatabase.saveImage(imagePathField.getText());
+//		}
 		
 		
 		item.setWeight(Double.parseDouble(weightField.getText()));
 		item.setStatus("In Stock");
 
-	}
-
-	public void chooseImage() {
-		FileChooser chooser = new FileChooser();
-		ExtensionFilter png = new ExtensionFilter("PNG Files", "*.png");
-		ExtensionFilter jpeg = new ExtensionFilter("JPEG Files", "*.jpeg");
-		ExtensionFilter bitmap = new ExtensionFilter("Bitmap Files", "*.bmp");
-		ExtensionFilter tif = new ExtensionFilter("TIF Files", "*.tif");
-
-		chooser.getExtensionFilters().addAll(png, jpeg, bitmap, tif);
-		File file = chooser.showOpenDialog(specs.getScene().getWindow());
-		if (file != null) {
-			imagePathField.setText(file.getPath());
-			image = new Image("file:///" + file.getPath());
-			System.out.println("file:///" + file.getPath());
-			imageView.setImage(image);
-		}
 	}
 
 	public void newCreatedAlert() {

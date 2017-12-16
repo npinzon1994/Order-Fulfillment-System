@@ -29,7 +29,7 @@
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: #09357A;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: #005F99;" BorderPane.alignment="CENTER">
          <children>
             <Button id="bottomButton" fx:id="backBtn" layoutX="95.0" layoutY="8.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="81.0" stylesheets="@application.css" text="Back" />
             <Button id="bottomButton" fx:id="submitBtn" layoutX="10.0" layoutY="8.0" mnemonicParsing="false" onAction="#returnItem" prefHeight="27.0" prefWidth="76.0" stylesheets="@application.css" text="Submit" />
@@ -45,7 +45,7 @@
                      <content>
                         <AnchorPane prefHeight="379.0" prefWidth="576.0">
                            <children>
-                              <Label id="topLabel" fx:id="customer" layoutX="53.0" layoutY="30.0" text="customer" />
+                              <Label id="topLabel" fx:id="customer" layoutX="53.0" layoutY="30.0" style="-fx-text-fill: #005F99;" text="customer" />
                               <Label id="topLabel" layoutX="12.0" layoutY="63.0" text="Order" />
                               <Label id="topLabel" fx:id="orderNumber" layoutX="76.0" layoutY="63.0" style="-fx-text-fill: #800000;" text="orderNumber" />
                               <AnchorPane layoutX="13.0" layoutY="118.0" prefHeight="77.0" prefWidth="254.0">

@@ -20,12 +20,14 @@
             <TextField fx:id="userIdField" layoutX="90.0" layoutY="250.0" prefHeight="0.0" prefWidth="382.0" promptText="Employee ID" />
             <PasswordField fx:id="passwordField" layoutX="89.0" layoutY="308.0" prefHeight="28.0" prefWidth="382.0" promptText="Password" />
             <Button id="loginBtn" fx:id="loginBtn" layoutX="90.0" layoutY="363.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#login" prefHeight="27.0" prefWidth="382.0" stylesheets="@application.css" text="Login" />
-            <ImageView fitHeight="113.0" fitWidth="106.0" layoutX="215.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="113.0" fitWidth="106.0" layoutX="217.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Desktop/restore_Logo.png" />
+                  <Image url="@../images/restore_Logo.png" />
                </image>
             </ImageView>
             <Label fx:id="invalidId" layoutX="95.0" layoutY="403.0" prefHeight="26.0" prefWidth="220.0" style="-fx-font-size: 14; -fx-text-fill: #dc143c;" text="Label" visible="false" />
+            <Label layoutX="9.0" layoutY="538.0" style="-fx-text-fill: #4FAC25; -fx-font-size: 11;" text="Habitat For Humanity Restore POS/Fulfillment System" />
+            <Label layoutX="449.0" layoutY="538.0" style="-fx-text-fill: #4FAC25; -fx-font-size: 11;" text="© 2017 Nick Pinzon" />
          </children>
          <padding>
             <Insets top="10.0" />

@@ -1,6 +1,10 @@
 package model;
 
-public class ShippingLabel {
+import java.io.Serializable;
+
+public class ShippingLabel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private static int trackingNumberInt = 10000000;
 

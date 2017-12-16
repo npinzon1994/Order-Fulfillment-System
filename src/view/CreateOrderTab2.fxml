@@ -38,7 +38,7 @@
                            <children>
                               <Label layoutX="14.0" layoutY="7.0" text="Item Search" />
                               <TextField id="newCustField" fx:id="searchField" layoutX="16.0" layoutY="30.0" prefHeight="27.0" prefWidth="202.0" promptText="Enter Product Name" />
-                              <Button fx:id="searchBtn" layoutX="227.0" layoutY="30.0" mnemonicParsing="false" onAction="#searchItem" style="-fx-background-color: #09357A;" text="Search" />
+                              <Button id="tealBtn" fx:id="searchBtn" layoutX="227.0" layoutY="30.0" mnemonicParsing="false" onAction="#searchItem" text="Search" />
                               <ListView fx:id="list" layoutX="15.0" layoutY="65.0" prefHeight="289.0" prefWidth="273.0" stylesheets="@application.css" />
                            </children>
                         </AnchorPane>
@@ -89,7 +89,7 @@
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="38.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="38.0" prefWidth="600.0" style="-fx-background-color: #005F99;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
             <Button id="bottomButton" fx:id="nextBtn" layoutX="105.0" layoutY="5.0" mnemonicParsing="false" onAction="#goToNextPage" prefHeight="27.0" prefWidth="83.0" text="Next" />
             <Button id="bottomButton" fx:id="cancelBtn" layoutX="805.0" layoutY="5.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="71.0" text="Cancel" />

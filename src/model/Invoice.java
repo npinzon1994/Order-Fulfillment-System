@@ -70,11 +70,11 @@ public class Invoice implements Serializable {
 		this.subtotal = subtotal;
 	}
 
-	public double getshippingCost() {
+	public double getShippingCost() {
 		return shippingCost;
 	}
 
-	public void setshippingCost(double shippingCost) {
+	public void setShippingCost(double shippingCost) {
 		this.shippingCost = shippingCost;
 	}
 

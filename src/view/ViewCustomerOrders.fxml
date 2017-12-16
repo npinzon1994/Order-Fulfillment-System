@@ -28,7 +28,7 @@
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="48.0" prefWidth="600.0" style="-fx-background-color: #09357A;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="48.0" prefWidth="600.0" style="-fx-background-color: #005F99;" BorderPane.alignment="CENTER">
          <children>
             <Button id="bottomButton" fx:id="viewBtn" layoutX="11.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewOrderDetails" stylesheets="@application.css" text="View Order Details" />
             <Button id="bottomButton" fx:id="backBtn" layoutX="154.0" layoutY="11.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="67.0" stylesheets="@application.css" text="Back" />
@@ -42,7 +42,7 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #c0c0c0;" stylesheets="@application.css">
                      <children>
-                        <Label fx:id="customer" layoutX="71.0" layoutY="15.0" style="-fx-font-size: 20; -fx-text-fill: #09357A;" text="customer" />
+                        <Label fx:id="customer" layoutX="71.0" layoutY="15.0" style="-fx-font-size: 20; -fx-text-fill: #005F99;" text="customer" />
                         <TableView fx:id="table" layoutX="28.0" layoutY="56.0" prefHeight="203.0" prefWidth="382.0" stylesheets="@application.css">
                            <columns>
                               <TableColumn fx:id="numberColumn" prefWidth="212.0" text="Order Number" />

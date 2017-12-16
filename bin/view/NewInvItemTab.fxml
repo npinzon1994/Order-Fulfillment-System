@@ -39,17 +39,14 @@
                         <ComboBox fx:id="condition" layoutX="32.0" layoutY="233.0" prefHeight="27.0" prefWidth="123.0" />
                         <Label layoutX="33.0" layoutY="277.0" text="Specifications" />
                         <TextArea id="newCustArea" fx:id="specs" layoutX="32.0" layoutY="298.0" prefHeight="79.0" prefWidth="261.0" wrapText="true" />
-                        <Label layoutX="360.0" layoutY="8.0" text="Picture" />
-                        <ImageView fx:id="imageView" fitHeight="139.0" fitWidth="181.0" layoutX="359.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/emptyImage.png" />
-                           </image>
-                        </ImageView>
-                        <Button fx:id="browseBtn" layoutX="468.0" layoutY="179.0" mnemonicParsing="false" onAction="#chooseImage" style="-fx-background-color: #09357A;" text="..." />
                         <Label layoutX="181.0" layoutY="213.0" text="Weight" />
                         <TextField id="newCustField" fx:id="weightField" layoutX="181.0" layoutY="233.0" prefHeight="27.0" prefWidth="68.0" />
                         <Label layoutX="257.0" layoutY="238.0" text="lbs" />
-                        <TextField id="newCustField" fx:id="imagePathField" layoutX="359.0" layoutY="178.0" prefHeight="28.0" prefWidth="102.0" />
+                        <ImageView fitHeight="222.0" fitWidth="238.0" layoutX="319.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/habitat_people_logo.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </content>
@@ -71,7 +68,7 @@
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: #09357A;" stylesheets="@application.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: #005F99;" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
             <Button id="bottomButton" fx:id="cancelBtn" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#switchBackToHomeTab" prefHeight="27.0" prefWidth="85.0" text="Cancel" />
             <Button id="bottomButton" fx:id="submitBtn" layoutX="110.0" layoutY="8.0" mnemonicParsing="false" onAction="#addItemToInventory" prefHeight="27.0" prefWidth="91.0" text="Submit" />

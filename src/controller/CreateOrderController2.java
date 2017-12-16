@@ -106,7 +106,7 @@ public class CreateOrderController2 implements Initializable {
 	@FXML
 	private ListView<InvItem> list;
 
-	private ObservableList<InvItem> allItems, selectedItems;
+	private ObservableList<InvItem> selectedItems;
 
 	@FXML
 	private Label employee;
@@ -135,10 +135,11 @@ public class CreateOrderController2 implements Initializable {
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
 		customer.setText(MasterDatabase.getOrderCustomer().getFirstName() + " "
 				+ MasterDatabase.getOrderCustomer().getLastName());
-		numItems.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
+		numItems.setText(String.valueOf(MasterDatabase.getOrderBeingViewed().getItems().size()));
 		if(numItems.getText().equals("0")){
 			nextBtn.setDisable(true);
 		}
+		
 
 	}
 
@@ -149,12 +150,6 @@ public class CreateOrderController2 implements Initializable {
 				setFields();
 				setLabelsVisible();
 				item = list.getSelectionModel().getSelectedItem();
-				if(list.getSelectionModel().getSelectedItem().getImagePath() != null){
-					MasterDatabase.load(list.getSelectionModel().getSelectedItem().getImagePath(), imageView);
-					imageView.setVisible(true);
-				} else {
-					imageView.setVisible(false);
-				}
 			}
 		});
 	}
@@ -192,7 +187,7 @@ public class CreateOrderController2 implements Initializable {
 		for (InvItem item : MasterDatabase.getInventory().values()) {
 			item.getDescription().replace(" ", "");
 			if ((!item.equals(null)) && item.getDescription().contains(searchField.getText())
-					&& item.getStatus().equals("In Stock") && !items.contains(item) && !MasterDatabase.getOrderCustomer().getCart().contains(item)) {
+					&& item.getStatus().equals("In Stock") && !items.contains(item) && !MasterDatabase.getOrderBeingViewed().getItems().contains(item)) {
 				items.add(item);
 			}
 		}
@@ -260,10 +255,13 @@ public class CreateOrderController2 implements Initializable {
 
 	public void addItemToCart() {
 		if(!MasterDatabase.getOrderCustomer().getCart().contains(item) && !list.getSelectionModel().isEmpty()){
-			MasterDatabase.getOrderCustomer().getCart().add(item);
+			//MasterDatabase.getOrderCustomer().getCart().add(item);
 			MasterDatabase.getOrderBeingViewed().getItems().add(item);
+			for(InvItem item : MasterDatabase.getOrderBeingViewed().getItems()){
+				System.out.println(item.getDescription());
+			}
 			list.getItems().remove(item);
-			numItems.setText(String.valueOf(MasterDatabase.getOrderCustomer().getCart().size()));
+			numItems.setText(String.valueOf(MasterDatabase.getOrderBeingViewed().getItems().size()));
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("Item added to cart!");
 			alert.showAndWait();
