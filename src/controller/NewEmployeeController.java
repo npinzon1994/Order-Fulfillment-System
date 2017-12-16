@@ -1,17 +1,10 @@
 package controller;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import javax.imageio.ImageIO;
-
 import javafx.beans.binding.Bindings;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,10 +20,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import model.Administrator;
 import model.CustomerServiceRep;
@@ -74,12 +64,6 @@ public class NewEmployeeController implements Initializable {
 	private ImageView imageView;
 
 	private CustomerServiceRep user;
-
-	private LocalDate date = LocalDate.now();
-
-	private Image tempImage;
-	private BufferedImage bufferedImage;
-	private Image image;
 	
 	@FXML
 	private ImageView phoneX;
@@ -218,28 +202,6 @@ public class NewEmployeeController implements Initializable {
 		emailField.clear();
 		phoneField.clear();
 		levelBox.getSelectionModel().selectFirst();
-	}
-
-	public void chooseImage() {
-		FileChooser chooser = new FileChooser();
-		ExtensionFilter png = new ExtensionFilter("PNG Files", "*.png");
-		ExtensionFilter jpeg = new ExtensionFilter("JPEG Files", "*.jpeg");
-		ExtensionFilter bitmap = new ExtensionFilter("Bitmap Files", "*.bmp");
-		ExtensionFilter tif = new ExtensionFilter("TIF Files", "*.tif");
-
-		chooser.getExtensionFilters().addAll(png, jpeg, bitmap, tif);
-		File file = chooser.showOpenDialog(emailField.getScene().getWindow());
-		if (file != null) {
-			bufferedImage = null;
-			try {
-				bufferedImage = ImageIO.read(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			image = SwingFXUtils.toFXImage(bufferedImage, null);
-			imageView.setImage(image);
-			tempImage = image;
-		}
 	}
 
 	public void logout(ActionEvent event) {

@@ -26,9 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Address;
-import model.Customer;
 import model.InvItem;
-import model.Invoice;
 import model.MasterDatabase;
 
 public class ViewOrderDetailsController2 implements Initializable {

@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * This class contains a method which will determine the shipping charge of an order.
+ * 
+ * @author Nick Pinzon
+ *
+ */
+
 public class ShippingCost {
 
 	private static double costPerPound;
@@ -7,6 +14,17 @@ public class ShippingCost {
 	private static double totalDistance;
 
 	/*Shipping charge = (cost per pounds * total weight) * (cost per miles * total distance)*/
+	
+	/**
+	 * Assigns an arbitrary value of 1 for NY State because that is where the store is located.
+	 * This value slowly increases the further you travel from NY. In a nutshell, these values represent
+	 * the distance away from the restore.
+	 * 
+	 * @param state The State to where the order is being shipped.
+	 * @param shippingMethod The order's shipping method
+	 * @param weight The weight of the item.
+	 * @return
+	 */
 	
 	public static double calculate(String state, String shippingMethod, double weight) {
 		double shippingCharge = 0;

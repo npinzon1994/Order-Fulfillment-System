@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -108,7 +107,7 @@ public class SearchInvItemController implements Initializable {
 	@FXML
 	private ImageView imageView;
 
-	private ObservableList<InvItem> allItems, selectedItems;
+	private ObservableList<InvItem> selectedItems;
 	private ObservableList<InvItem> items;
 
 	@FXML
@@ -117,8 +116,6 @@ public class SearchInvItemController implements Initializable {
 	@FXML
 	private Hyperlink logoutLink;
 	
-	private InvItem currentItem = MasterDatabase.getCurrentItem();
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
@@ -174,7 +171,7 @@ public class SearchInvItemController implements Initializable {
 
 	public void removeItem() {
 		InvItem item = MasterDatabase.getCurrentItem();
-		allItems = list.getItems();
+		list.getItems();
 		Alert confirmAlert = new Alert(AlertType.CONFIRMATION);
 		confirmAlert.setHeaderText("Remove item?");
 		confirmAlert.setContentText("If you are sure you want to remove this item, please select OK");
@@ -199,7 +196,7 @@ public class SearchInvItemController implements Initializable {
 
 	public void addItem() {
 		InvItem selectedItem = MasterDatabase.getCurrentItem();
-		allItems = list.getItems();
+		list.getItems();
 		Alert confirmAlert = new Alert(AlertType.CONFIRMATION);
 		confirmAlert.setHeaderText("Add item?");
 		confirmAlert.setContentText("If you are sure you want to add this item back into inventory, please select OK");

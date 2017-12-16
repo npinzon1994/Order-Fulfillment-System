@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;

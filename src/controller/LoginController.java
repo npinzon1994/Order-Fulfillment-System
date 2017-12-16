@@ -16,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import model.MasterDatabase;
 

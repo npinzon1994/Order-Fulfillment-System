@@ -25,7 +25,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.InvItem;
 import model.MasterDatabase;
-import model.ShippingCost;
 import model.Validation;
 
 public class CreateOrderController4 implements Initializable {

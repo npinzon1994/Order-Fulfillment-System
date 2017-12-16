@@ -28,7 +28,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Address;
 import model.Customer;
-import model.Invoice;
 import model.MasterDatabase;
 import model.Validation;
 

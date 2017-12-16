@@ -2,6 +2,13 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * This class is to be used for generating a shipping label after an item has shipped from the restore.
+ * 
+ * @author Nick Pinzon
+ *
+ */
+
 public class ShippingLabel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -16,6 +23,18 @@ public class ShippingLabel implements Serializable {
 	private String referenceField2;
 	private String shippingMethod;
 
+	/**
+	 * Constructor used to generate a new shipping label.
+	 * 
+	 * @param trackingNumber Shipping Label's tracking number
+	 * @param storeAddress Address of the Restore
+	 * @param customerAddress Customer's Address
+	 * @param weight Weight of the package
+	 * @param referenceField1 Reference #1
+	 * @param referenceField2 Reference #2
+	 * @param shippingMethod Shipping Method
+	 */
+	
 	public ShippingLabel(String trackingNumber, Address storeAddress, Address customerAddress, String weight,
 			String referenceField1, String referenceField2, String shippingMethod) {
 		this.trackingNumber = String.valueOf("1Z589Y4Y03" + trackingNumberInt++);
@@ -27,6 +46,10 @@ public class ShippingLabel implements Serializable {
 		this.shippingMethod = shippingMethod;
 	}
 
+	/**
+	 * No-arg constructor for generating a shipping label.
+	 */
+	
 	public ShippingLabel() {
 		this.trackingNumber = String.valueOf("1Z589Y4Y03" + trackingNumberInt++);
 	}

@@ -26,7 +26,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import model.Customer;
 import model.Invoice;
 import model.MasterDatabase;
 

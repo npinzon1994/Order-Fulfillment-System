@@ -16,7 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import model.CustomerServiceRep;
 import model.MasterDatabase;
 
 public class ForgotPassword2Controller implements Initializable {
@@ -42,7 +41,6 @@ public class ForgotPassword2Controller implements Initializable {
 	private Tooltip toolTip2;
 	private Tooltip toolTip3;
 
-	private Stage stage;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
