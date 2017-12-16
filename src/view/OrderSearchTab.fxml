@@ -46,20 +46,14 @@
                            <children>
                               <Label layoutX="14.0" layoutY="14.0" text="Order Number" />
                               <TextField id="newCustField" fx:id="orderNumber" layoutX="14.0" layoutY="33.0" />
-                              <Label layoutX="225.0" layoutY="14.0" text="Customer ID" />
-                              <TextField id="newCustField" fx:id="customerId" layoutX="225.0" layoutY="33.0" />
-                              <Label layoutX="14.0" layoutY="77.0" text="Last Name" />
-                              <Label layoutX="225.0" layoutY="77.0" text="Zip Code" />
-                              <TextField id="newCustField" fx:id="lastName" layoutX="14.0" layoutY="95.0" />
-                              <TextField id="newCustField" fx:id="zipCode" layoutX="225.0" layoutY="95.0" />
-                              <TableView fx:id="table" layoutX="14.0" layoutY="143.0" prefHeight="192.0" prefWidth="552.0">
+                              <TableView fx:id="table" layoutX="13.0" layoutY="74.0" prefHeight="192.0" prefWidth="552.0">
                                 <columns>
                                   <TableColumn fx:id="orderColumn" prefWidth="145.0" text="Order Number" />
                                   <TableColumn fx:id="customerColumn" prefWidth="253.0" text="Customer" />
                                     <TableColumn fx:id="customerIdColumn" prefWidth="151.0" text="Customer ID" />
                                 </columns>
                               </TableView>
-                              <Button id="tealBtn" fx:id="searchBtn" layoutX="408.0" layoutY="33.0" mnemonicParsing="false" onAction="#orderSearch" prefHeight="27.0" prefWidth="94.0" text="Search" />
+                              <Button id="tealBtn" fx:id="searchBtn" layoutX="189.0" layoutY="34.0" mnemonicParsing="false" onAction="#orderSearch" prefHeight="27.0" prefWidth="94.0" text="Search" />
                            </children>
                         </AnchorPane>
                      </content>
