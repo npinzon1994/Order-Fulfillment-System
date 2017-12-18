@@ -53,9 +53,7 @@
                         <Label layoutX="381.0" layoutY="172.0" text="Package Weight" />
                         <TextField id="newCustField" fx:id="weightField" disable="true" layoutX="381.0" layoutY="193.0" prefHeight="27.0" prefWidth="64.0" />
                         <Label layoutX="452.0" layoutY="197.0" text="lbs" />
-                        <Label layoutX="382.0" layoutY="245.0" text="Calculated Cost" />
-                        <Label fx:id="costLbl" layoutX="514.0" layoutY="246.0" text="costLbl" />
-                        <Button fx:id="shipBtn" layoutX="379.0" layoutY="274.0" mnemonicParsing="false" onAction="#ship" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: #005F99;" text="Ship" />
+                        <Button fx:id="shipBtn" layoutX="381.0" layoutY="236.0" mnemonicParsing="false" onAction="#ship" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: #005F99;" text="Ship" />
                      </children>
                   </AnchorPane>
             </content>

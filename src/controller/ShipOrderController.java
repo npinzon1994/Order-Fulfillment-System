@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -26,7 +25,6 @@ import model.Address;
 import model.InvItem;
 import model.Invoice;
 import model.MasterDatabase;
-import model.ShippingCost;
 import model.ShippingLabel;
 
 public class ShipOrderController implements Initializable {
@@ -35,8 +33,6 @@ public class ShipOrderController implements Initializable {
 	private Label employee;
 	@FXML
 	private Label empId;
-	@FXML
-	private Label costLbl;
 	@FXML
 	private TextField fNameField;
 	@FXML
@@ -74,15 +70,12 @@ public class ShipOrderController implements Initializable {
 	@FXML
 	private Button backBtn;
 
-	private double cost;
-
 	private Invoice invoice;
 	private ShippingLabel shippingLabel;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		invoice = MasterDatabase.getOrderBeingViewed();
-		DecimalFormat format = new DecimalFormat("0.00");
 		employee.setText(MasterDatabase.getLoggedEmployee().getFirstName() + " "
 				+ MasterDatabase.getLoggedEmployee().getLastName());
 		empId.setText(MasterDatabase.getLoggedEmployee().getId());
@@ -102,13 +95,11 @@ public class ShipOrderController implements Initializable {
 		zipField.setText(invoice.getShippingAddress().getZip());
 		shippingMethodBox.getSelectionModel().select(invoice.getCustomer().getShippingMethod());
 		emailField.setText(invoice.getCustomer().getEmail());
-		costLbl.setText(format.format(cost));
 		double weight = 0;
 		for (InvItem item : invoice.getItems()) {
 			weight += item.getWeight();
 		}
 		weightField.setText(String.valueOf(weight));
-		calculateShipping();
 		bindFieldsToButton();
 	}
 
@@ -156,13 +147,6 @@ public class ShipOrderController implements Initializable {
 		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
-	}
-
-	public void calculateShipping() {
-		DecimalFormat format = new DecimalFormat("0.00");
-		double weight = Double.parseDouble(weightField.getText());
-		double shippingCost = ShippingCost.calculate(stateBox.getValue(), shippingMethodBox.getValue(), weight);
-		costLbl.setText(format.format(shippingCost));
 	}
 
 	public void setShippingLabelInfo(ShippingLabel label) {
@@ -236,7 +220,6 @@ public class ShipOrderController implements Initializable {
 		remarkField1.clear();
 		remarkField2.clear();
 		weightField.clear();
-		costLbl.setText("0.00");
 	}
 
 }
